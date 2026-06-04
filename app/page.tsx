@@ -250,9 +250,8 @@ export default function PortfolioPage() {
                   <User size={16} className="text-[#1A56DB]" /> Renrawin Nuanin
                 </h3>
                 <div className="space-y-2.5 mt-2.5">
-                  <ContactRow icon={<MessageCircle size={15} className="text-[#1A56DB]" />} text="Line: @renrawin" />
-                  <ContactRow icon={<Mail size={15} className="text-[#1A56DB]" />} text="renrawin@email.com" />
-                  <ContactRow icon={<ExternalLink size={15} className="text-[#1A56DB]" />} text="github.com/renrawin" />
+                  <ContactRow icon={<Mail size={15} className="text-[#1A56DB]" />} text="renrawin.work@gmail.com" />
+                  <ContactRow icon={<MessageCircle size={15} className="text-[#1A56DB]" />} text="09-8992-6022" />
                   <ContactRow icon={<Clock size={15} className="text-[#1A56DB]" />} text="ตอบกลับภายใน 24 ชั่วโมง" />
                 </div>
                 <button className="w-full mt-3 bg-[#1A56DB] text-white text-[13px] py-[9px] rounded-md hover:bg-[#1446c0] transition-colors cursor-pointer">
