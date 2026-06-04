@@ -222,23 +222,67 @@ export default function PortfolioPage() {
 
           {/* About */}
           {active === "about" && (
-            <div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="rounded-[10px] p-4" style={{ background: "#f8faff", border: "0.5px solid #e2e8f0" }}>
-                  <h3 className="text-[13px] font-medium text-[#0f172a] mb-3 flex items-center gap-1.5">
-                    <Code2 size={16} className="text-[#1A56DB]" /> Frontend
-                  </h3>
-                  <SkillRow name="React / Next.js" pct={85} />
-                  <SkillRow name="Tailwind CSS" pct={80} />
-                  <SkillRow name="HTML / CSS / JS" pct={90} />
+            <div className="space-y-5">
+              {/* Skills */}
+              <div>
+                <p className="text-[12px] text-[#94a3b8] mb-3">ทักษะและเทคโนโลยี</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="rounded-[10px] p-4" style={{ background: "#f8faff", border: "0.5px solid #e2e8f0" }}>
+                    <h3 className="text-[13px] font-medium text-[#0f172a] mb-3 flex items-center gap-1.5">
+                      <Code2 size={15} className="text-[#1A56DB]" /> Frontend
+                    </h3>
+                    <SkillRow name="React" pct={85} />
+                    <SkillRow name="Next.js" pct={85} />
+                    <SkillRow name="TypeScript" pct={72} />
+                  </div>
+                  <div className="rounded-[10px] p-4" style={{ background: "#f8faff", border: "0.5px solid #e2e8f0" }}>
+                    <h3 className="text-[13px] font-medium text-[#0f172a] mb-3 flex items-center gap-1.5">
+                      <Server size={15} className="text-[#1A56DB]" /> Backend
+                    </h3>
+                    <SkillRow name="Node.js" pct={78} />
+                    <SkillRow name="MySQL" pct={74} />
+                    <SkillRow name="PostgreSQL" pct={68} />
+                  </div>
+                  <div className="rounded-[10px] p-4" style={{ background: "#f8faff", border: "0.5px solid #e2e8f0" }}>
+                    <h3 className="text-[13px] font-medium text-[#0f172a] mb-3 flex items-center gap-1.5">
+                      <Globe size={15} className="text-[#1A56DB]" /> Infrastructure
+                    </h3>
+                    <SkillRow name="Docker" pct={80} />
+                    <SkillRow name="Linux" pct={78} />
+                    <SkillRow name="Cloudflare" pct={72} />
+                  </div>
                 </div>
-                <div className="rounded-[10px] p-4" style={{ background: "#f8faff", border: "0.5px solid #e2e8f0" }}>
-                  <h3 className="text-[13px] font-medium text-[#0f172a] mb-3 flex items-center gap-1.5">
-                    <Server size={16} className="text-[#1A56DB]" /> Backend &amp; Infra
-                  </h3>
-                  <SkillRow name="Node.js / Express" pct={75} />
-                  <SkillRow name="MySQL / PostgreSQL" pct={70} />
-                  <SkillRow name="Docker / Linux" pct={75} />
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
+                  <div className="rounded-[10px] p-4" style={{ background: "#f8faff", border: "0.5px solid #e2e8f0" }}>
+                    <h3 className="text-[13px] font-medium text-[#0f172a] mb-3 flex items-center gap-1.5">
+                      <Database size={15} className="text-[#1A56DB]" /> Cloud &amp; Tools
+                    </h3>
+                    <SkillRow name="Azure" pct={65} />
+                    <SkillRow name="VMware" pct={62} />
+                    <SkillRow name="Git" pct={85} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Highlight */}
+              <div>
+                <p className="text-[12px] text-[#94a3b8] mb-3">จุดเด่นพิเศษ</p>
+                <div className="rounded-[10px] p-4" style={{ background: "#EFF6FF", border: "0.5px solid #BFDBFE" }}>
+                  <p className="text-[13px] text-[#1e40af] leading-[1.75]">
+                    มีประสบการณ์ด้าน Infrastructure &amp; Deployment จริงจากโครงการระดับองค์กร ครอบคลุมทั้ง Azure Virtual Desktop, VMware vSphere และ Windows Server จึงสามารถส่งมอบเว็บไซต์ที่พร้อมใช้งานได้จริงใน Production Environment ครบวงจรตั้งแต่พัฒนาไปจนถึงนำระบบขึ้นใช้งาน
+                  </p>
+                </div>
+              </div>
+
+              {/* Service types */}
+              <div>
+                <p className="text-[12px] text-[#94a3b8] mb-3">รับงานประเภท</p>
+                <div className="flex flex-wrap gap-2">
+                  {["Landing Page", "Company Profile", "QR Order System", "Game Top-Up", "Data Management", "Portfolio Website", "REST API", "Deploy & Server Setup"].map((t) => (
+                    <span key={t} className="text-[12px] text-[#475569] px-3 py-1.5 rounded-lg" style={{ background: "#f8faff", border: "0.5px solid #e2e8f0" }}>
+                      {t}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
