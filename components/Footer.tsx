@@ -60,7 +60,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-gray-100 py-4 text-center text-xs text-gray-400">
-        © 2025 WebPro — รับทำเว็บไซต์ครบวงจร | ส่งมอบงานพร้อมใช้งานจริง
+        © 2026 WebPro — รับทำเว็บไซต์ครบวงจร | ส่งมอบงานพร้อมใช้งานจริง
       </div>
     </footer>
   );

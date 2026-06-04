@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 import ProductGallery from "@/components/ProductGallery";
 import AddToCartButton from "@/components/AddToCartButton";
-import { Star, Clock, Shield, Code2, Rocket, CheckCircle, ChevronRight } from "lucide-react";
+import { Star, Clock, Shield, Code2, Rocket, CheckCircle, ChevronRight, MessageSquare } from "lucide-react";
 import Link from "next/link";
 
 export async function generateStaticParams() {
@@ -72,14 +72,13 @@ export default async function ProductDetailPage({
             </div>
           </div>
 
-          {/* Price */}
-          <div className="bg-[#EFF6FF] rounded px-4 py-4 flex items-end gap-3">
+          {/* Pricing CTA */}
+          <div className="bg-[#EFF6FF] border border-blue-100 rounded px-4 py-4 flex items-center gap-3">
+            <MessageSquare size={20} className="text-[#2563EB] shrink-0" />
             <div>
-              <p className="text-xs text-gray-500 mb-0.5">ราคาเริ่มต้น</p>
-              <span className="text-[#2563EB] text-3xl font-light">฿{formatPrice(product.price)}</span>
+              <p className="text-sm font-semibold text-gray-800">ราคาขึ้นอยู่กับความต้องการ</p>
+              <p className="text-xs text-gray-500 mt-0.5">ทักมาบอกรายละเอียด จะแจ้งราคาและแนวทางให้ฟรีก่อนตกลงงาน</p>
             </div>
-            <span className="text-gray-400 text-lg line-through mb-0.5">฿{formatPrice(product.originalPrice)}</span>
-            <span className="bg-[#2563EB] text-white text-xs px-2 py-0.5 rounded mb-1">-{product.discount}%</span>
           </div>
 
           {/* Features included */}

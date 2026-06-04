@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { MessageSquare, Heart, CheckCircle } from "lucide-react";
-import { formatPrice } from "@/lib/data";
 import { Product } from "@/lib/types";
 
 interface Props {
@@ -24,12 +23,6 @@ export default function AddToCartButton({ product }: Props) {
       <div className="flex items-center gap-4 text-sm text-gray-500">
         <span className="w-24 shrink-0">ระยะเวลา</span>
         <span className="text-gray-700">{product.location}</span>
-      </div>
-
-      {/* Price summary */}
-      <div className="flex items-center gap-4 text-sm text-gray-500">
-        <span className="w-24 shrink-0">ราคาเริ่มต้น</span>
-        <span className="text-[#2563EB] text-lg font-medium">฿{formatPrice(product.price)}</span>
       </div>
 
       {/* Buttons */}

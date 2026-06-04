@@ -1,5 +1,4 @@
 import CategoryGrid from "@/components/CategoryGrid";
-import FlashDeals from "@/components/FlashDeals";
 import ProductCard from "@/components/ProductCard";
 import { products } from "@/lib/data";
 import { ChevronRight, Code2, Rocket, Shield, Star, MessageSquare } from "lucide-react";
@@ -79,9 +78,6 @@ export default function HomePage() {
       <div className="max-w-7xl mx-auto px-4 space-y-4">
         {/* Categories */}
         <CategoryGrid />
-
-        {/* Featured packages */}
-        <FlashDeals />
 
         {/* Tech stack banner */}
         <div className="bg-[#1E3A8A] rounded-lg px-6 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
