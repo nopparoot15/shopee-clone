@@ -55,25 +55,24 @@ export default function QROrderDemo() {
         <Link href="/" className="flex items-center gap-1.5 text-[12px] text-[#a8a29e] hover:text-[#78716c] transition-colors">
           <ArrowLeft size={13} /> กลับ
         </Link>
-        {/* Restaurant name centered */}
-        <div className="flex items-center gap-2">
-          <span className="text-[14px] font-semibold text-[#1c1917]">ครัวบ้านไทย</span>
-          <span className="text-[11px] text-[#a8a29e]">· โต๊ะ 12</span>
-        </div>
-        {/* Order button */}
+        {/* Restaurant name + order button together */}
         <button
           onClick={() => setShowOrder(true)}
-          className="flex items-center gap-1.5 text-[12px] px-3 py-1.5 rounded-lg relative transition-colors"
-          style={{ background: BRAND_LIGHT, color: BRAND, border: `0.5px solid #fed7aa` }}
+          className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl relative transition-colors"
+          style={{ background: "#fafaf8", border: "0.5px solid #e7e5e4" }}
         >
-          <ShoppingBag size={13} />
-          รายการที่สั่ง
-          {totalItems > 0 && (
-            <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center text-white" style={{ background: BRAND }}>
-              {totalItems}
-            </span>
-          )}
+          <div className="text-left">
+            <p className="text-[13px] font-semibold text-[#1c1917] leading-tight">ครัวบ้านไทย</p>
+            <p className="text-[10px] text-[#a8a29e]">โต๊ะ 12</p>
+          </div>
+          <div className="flex items-center gap-1" style={{ color: BRAND }}>
+            <ShoppingBag size={15} />
+            {totalItems > 0 && (
+              <span className="text-[12px] font-bold">{totalItems}</span>
+            )}
+          </div>
         </button>
+        <div className="w-10" />
       </div>
 
       {/* Hero band */}
