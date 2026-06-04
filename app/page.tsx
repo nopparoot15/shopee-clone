@@ -303,9 +303,6 @@ export default function PortfolioPage() {
                   <ContactRow icon={<MessageCircle size={15} className="text-[#1A56DB]" />} text="09-8992-6022" />
                   <ContactRow icon={<Clock size={15} className="text-[#1A56DB]" />} text="ตอบกลับภายใน 24 ชั่วโมง" />
                 </div>
-                <button className="w-full mt-3 bg-[#1A56DB] text-white text-[13px] py-[9px] rounded-md hover:bg-[#1446c0] transition-colors cursor-pointer">
-                  ทักหาเลย
-                </button>
               </div>
             </div>
           )}
