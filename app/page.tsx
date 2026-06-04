@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   QrCode,
   Gem,
@@ -12,6 +13,7 @@ import {
   MessageCircle,
   Mail,
   Clock,
+  ArrowUpRight,
 } from "lucide-react";
 
 type Tab = "projects" | "restaurant" | "topup" | "database" | "about" | "contact";
@@ -129,6 +131,7 @@ export default function PortfolioPage() {
                   name="QR Order System"
                   desc="ระบบสั่งอาหารผ่าน QR Code จำกัดเวลา 2 ชม. เพิ่ม/ลดออเดอร์ได้แบบ Realtime"
                   techs={["Next.js", "Node.js", "MySQL"]}
+                  demoHref="/demo/qr-order"
                   onClick={() => setActive("restaurant")}
                 />
                 <ProjectCard
@@ -138,6 +141,7 @@ export default function PortfolioPage() {
                   name="Game Top-Up Platform"
                   desc="เว็บเติมเงินเกม รองรับหลาย Gateway ตรวจสอบสถานะ Transaction แบบ Realtime"
                   techs={["React", "Express", "PostgreSQL"]}
+                  demoHref="/demo/topup"
                   onClick={() => setActive("topup")}
                 />
                 <ProjectCard
@@ -147,6 +151,7 @@ export default function PortfolioPage() {
                   name="Data Management System"
                   desc="ระบบจัดเก็บและจัดการฐานข้อมูลองค์กร Dashboard สรุปข้อมูล Export Excel/PDF"
                   techs={["Next.js", "MySQL", "Docker"]}
+                  demoHref="/demo/data-management"
                   onClick={() => setActive("database")}
                 />
                 <ProjectCard
@@ -156,6 +161,7 @@ export default function PortfolioPage() {
                   name="Company Profile Website"
                   desc="เว็บไซต์แนะนำบริษัท Responsive ทุกอุปกรณ์ SEO พื้นฐาน พร้อม Deploy"
                   techs={["Next.js", "Tailwind", "Vercel"]}
+                  demoHref="/demo/company-profile"
                 />
               </div>
             </div>
@@ -278,7 +284,7 @@ export default function PortfolioPage() {
 /* ── Sub-components ── */
 
 function ProjectCard({
-  bg, icon, tag, name, desc, techs, onClick,
+  bg, icon, tag, name, desc, techs, demoHref, onClick,
 }: {
   bg: string;
   icon: React.ReactNode;
@@ -286,31 +292,43 @@ function ProjectCard({
   name: string;
   desc: string;
   techs: string[];
+  demoHref?: string;
   onClick?: () => void;
 }) {
   return (
     <div
-      onClick={onClick}
-      className={`bg-white rounded-[10px] overflow-hidden ${onClick ? "cursor-pointer" : ""}`}
+      className="bg-white rounded-[10px] overflow-hidden flex flex-col"
       style={{ border: "0.5px solid #e2e8f0" }}
       onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#93c5fd"; }}
       onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#e2e8f0"; }}
     >
-      <div className="h-[100px] flex items-center justify-center relative" style={{ background: bg }}>
-        {icon}
-        <span className="absolute top-2 right-2 text-[10px] px-2 py-0.5 rounded-full" style={{ background: tag.bg, color: tag.color }}>
-          {tag.label}
-        </span>
-      </div>
-      <div className="px-3 py-2.5">
-        <p className="text-[13px] font-medium text-[#0f172a] mb-1">{name}</p>
-        <p className="text-[11px] text-[#64748b] leading-[1.5] mb-2">{desc}</p>
-        <div className="flex flex-wrap gap-1">
-          {techs.map((t) => (
-            <span key={t} className="text-[10px] bg-[#f1f5f9] text-[#475569] px-1.5 py-0.5 rounded">{t}</span>
-          ))}
+      <button onClick={onClick} className="text-left w-full">
+        <div className="h-[100px] flex items-center justify-center relative" style={{ background: bg }}>
+          {icon}
+          <span className="absolute top-2 right-2 text-[10px] px-2 py-0.5 rounded-full" style={{ background: tag.bg, color: tag.color }}>
+            {tag.label}
+          </span>
         </div>
-      </div>
+        <div className="px-3 pt-2.5 pb-2">
+          <p className="text-[13px] font-medium text-[#0f172a] mb-1">{name}</p>
+          <p className="text-[11px] text-[#64748b] leading-[1.5] mb-2">{desc}</p>
+          <div className="flex flex-wrap gap-1">
+            {techs.map((t) => (
+              <span key={t} className="text-[10px] bg-[#f1f5f9] text-[#475569] px-1.5 py-0.5 rounded">{t}</span>
+            ))}
+          </div>
+        </div>
+      </button>
+      {demoHref && (
+        <div className="px-3 pb-2.5 mt-auto">
+          <Link
+            href={demoHref}
+            className="flex items-center gap-1 text-[11px] text-[#1A56DB] hover:underline"
+          >
+            ดู Demo <ArrowUpRight size={12} />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
