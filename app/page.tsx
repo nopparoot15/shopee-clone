@@ -181,6 +181,7 @@ export default function PortfolioPage() {
                 { label: "✓ จำกัดเวลา 2 ชม.", bg: "#EFF6FF", color: "#1e40af" },
                 { label: "✓ Realtime Kitchen", bg: "#EFF6FF", color: "#1e40af" },
               ]}
+              demoHref="/demo/qr-order"
             />
           )}
 
@@ -197,8 +198,9 @@ export default function PortfolioPage() {
               badges={[
                 { label: "✓ หลาย Payment Gateway", bg: "#F0FDF4", color: "#166534" },
                 { label: "✓ ประวัติ Transaction", bg: "#F0FDF4", color: "#166534" },
-                { label: "✓ แจ้งเตือน Realtime", bg: "#F0FDF4", color: "#166534" },
+                { label: "✓ แจ้งเตือน Realtime", bg: "#F0FDF4", color: "#166634" },
               ]}
+              demoHref="/demo/topup"
             />
           )}
 
@@ -217,6 +219,7 @@ export default function PortfolioPage() {
                 { label: "✓ Export Excel/PDF", bg: "#FFF7ED", color: "#9a3412" },
                 { label: "✓ Role-based Access", bg: "#FFF7ED", color: "#9a3412" },
               ]}
+              demoHref="/demo/data-management"
             />
           )}
 
@@ -312,9 +315,8 @@ export default function PortfolioPage() {
 
       {/* Footer */}
       <div style={{ background: "#f8faff", borderTop: "0.5px solid #e2e8f0" }}>
-        <div className={`${W} flex justify-between items-center py-3`}>
-          <span className="text-[12px] text-[#94a3b8]">© 2026 Renrawin Nuanin</span>
-          <span className="text-[12px] text-[#94a3b8]">Built with Next.js · Deployed on Vercel</span>
+        <div className={`${W} flex justify-center items-center py-3`}>
+          <span className="text-[12px] text-[#94a3b8]">© 2026 RenStack Solutions</span>
         </div>
       </div>
 
@@ -373,7 +375,7 @@ function ProjectCard({
 }
 
 function DetailPanel({
-  sectionTitle, bg, icon, tag, name, desc, techs, badges,
+  sectionTitle, bg, icon, tag, name, desc, techs, badges, demoHref,
 }: {
   sectionTitle: string;
   bg: string;
@@ -383,6 +385,7 @@ function DetailPanel({
   desc: string;
   techs: string[];
   badges: { label: string; bg: string; color: string }[];
+  demoHref?: string;
 }) {
   return (
     <div>
@@ -402,11 +405,20 @@ function DetailPanel({
               <span key={t} className="text-[10px] bg-[#f1f5f9] text-[#475569] px-1.5 py-0.5 rounded">{t}</span>
             ))}
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mb-3">
             {badges.map((b) => (
               <span key={b.label} className="text-[11px] px-2 py-1 rounded" style={{ background: b.bg, color: b.color }}>{b.label}</span>
             ))}
           </div>
+          {demoHref && (
+            <Link
+              href={demoHref}
+              className="inline-flex items-center gap-1 text-[12px] font-medium text-white px-4 py-2 rounded-md transition-colors"
+              style={{ background: "#1A56DB" }}
+            >
+              ดู Demo <ArrowUpRight size={13} />
+            </Link>
+          )}
         </div>
       </div>
     </div>
