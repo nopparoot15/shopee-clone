@@ -1,91 +1,105 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle, Phone, Mail, MapPin } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle, Star } from "lucide-react";
 
 const SERVICES = [
-  { emoji: "🎨", title: "ออกแบบ UI/UX", desc: "ออกแบบหน้าตาเว็บให้สวยงาม ใช้งานง่าย รองรับทุกอุปกรณ์" },
-  { emoji: "⚡", title: "พัฒนาเว็บไซต์", desc: "สร้างเว็บด้วย Next.js + Tailwind CSS โหลดเร็ว SEO ดี" },
-  { emoji: "🚀", title: "Deploy & Hosting", desc: "ติดตั้งบน Server จริง พร้อม SSL, CDN และ Backup อัตโนมัติ" },
-  { emoji: "🔧", title: "ดูแลหลังการขาย", desc: "แก้ไข อัปเดต และดูแลระบบหลังส่งมอบงาน" },
+  { emoji: "🌐", title: "เว็บไซต์บริษัท", desc: "สร้าง First Impression ที่ดีกับลูกค้า Responsive ทุกอุปกรณ์" },
+  { emoji: "🛒", title: "ร้านค้าออนไลน์", desc: "ขายสินค้าได้ทันที ระบบตะกร้า ชำระเงิน จัดการออเดอร์" },
+  { emoji: "⚙️", title: "ระบบ Backend", desc: "API, Database, Dashboard บริหารจัดการข้อมูลองค์กร" },
+  { emoji: "📈", title: "SEO & Performance", desc: "ติดอันดับ Google เร็วขึ้น โหลดเร็ว ประหยัดค่า Ads" },
 ];
 
-const WHY = [
-  "ส่งมอบงานตรงเวลา",
-  "Source Code เป็นของลูกค้า 100%",
-  "รองรับทุก Device และ Browser",
-  "SEO พื้นฐานพร้อมใช้งาน",
-  "Deploy บน Server จริง ไม่ใช่ Demo",
-  "ปรึกษาฟรีก่อนตกลงงาน",
+const REVIEWS = [
+  { name: "คุณมนต์ชัย", role: "เจ้าของร้านอาหาร", text: "ระบบ QR Order ช่วยลดพนักงานได้มาก ลูกค้าสั่งเองได้ง่ายมาก", stars: 5 },
+  { name: "คุณปิยะ", role: "CEO บริษัท XYZ", text: "เว็บ Company Profile ดูดีมาก ลูกค้าต่างชาติชมว่า Professional มาก", stars: 5 },
+  { name: "คุณนิสา", role: "Admin บริษัท ABC", text: "ระบบจัดการข้อมูลใช้งานง่าย ทีมงานเรียนรู้ได้เร็วมาก", stars: 5 },
 ];
 
 export default function CompanyProfileDemo() {
+  const [activeReview, setActiveReview] = useState(0);
+  const [formSent, setFormSent] = useState(false);
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Demo top bar */}
-      <div className="bg-white flex items-center justify-between px-4 h-[44px]" style={{ borderBottom: "0.5px solid #e2e8f0" }}>
-        <Link href="/" className="flex items-center gap-1.5 text-[13px] text-[#64748b] hover:text-[#1A56DB] transition-colors">
-          <ArrowLeft size={15} /> กลับหน้าหลัก
+    <div className="min-h-screen bg-white" style={{ fontFamily: "sans-serif" }}>
+
+      {/* Demo bar */}
+      <div className="flex items-center justify-between px-5 h-[40px] bg-[#f8fafc]" style={{ borderBottom: "0.5px solid #e2e8f0" }}>
+        <Link href="/" className="flex items-center gap-1.5 text-[11px] text-[#94a3b8] hover:text-[#64748b] transition-colors">
+          <ArrowLeft size={12} /> กลับหน้าหลัก
         </Link>
-        <span className="text-[11px] bg-[#EFF6FF] text-[#1A56DB] px-2 py-0.5 rounded-full" style={{ border: "0.5px solid #BFDBFE" }}>
-          Demo — Company Profile Website
-        </span>
+        <span className="text-[11px] text-[#94a3b8]">Demo — Company Profile Website</span>
         <div className="w-24" />
       </div>
 
-      {/* === DEMO SITE STARTS HERE === */}
-
-      {/* Site Nav */}
+      {/* Site nav */}
       <nav className="bg-white sticky top-0 z-10" style={{ borderBottom: "0.5px solid #e2e8f0" }}>
         <div className="max-w-[860px] mx-auto px-6 flex items-center justify-between h-[52px]">
-          <span className="text-[15px] font-semibold text-[#0f172a]">
-            <span className="text-[#1A56DB]">●</span> TechCorp
-          </span>
-          <div className="hidden sm:flex gap-6 text-[13px] text-[#64748b]">
-            <a href="#services" className="hover:text-[#1A56DB] transition-colors">บริการ</a>
-            <a href="#about" className="hover:text-[#1A56DB] transition-colors">เกี่ยวกับ</a>
-            <a href="#contact" className="hover:text-[#1A56DB] transition-colors">ติดต่อ</a>
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-lg bg-emerald-500 flex items-center justify-center">
+              <span className="text-white text-[13px] font-bold">G</span>
+            </div>
+            <span className="text-[14px] font-semibold text-[#0f172a]">GreenTech</span>
           </div>
-          <button className="bg-[#1A56DB] text-white text-[13px] px-4 py-2 rounded-lg hover:bg-[#1446c0] transition-colors">
-            ติดต่อเรา
+          <div className="hidden sm:flex gap-5 text-[13px] text-[#64748b]">
+            <a href="#services" className="hover:text-emerald-600 transition-colors cursor-pointer">บริการ</a>
+            <a href="#reviews" className="hover:text-emerald-600 transition-colors cursor-pointer">รีวิว</a>
+            <a href="#contact" className="hover:text-emerald-600 transition-colors cursor-pointer">ติดต่อ</a>
+          </div>
+          <button className="bg-emerald-500 text-white text-[13px] px-4 py-2 rounded-lg hover:bg-emerald-600 transition-colors cursor-pointer">
+            คุยกับเรา
           </button>
         </div>
       </nav>
 
       {/* Hero */}
-      <div style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #1A56DB 60%, #3b82f6 100%)" }}>
-        <div className="max-w-[860px] mx-auto px-6 py-16">
-          <div className="inline-flex items-center gap-2 bg-white/10 text-white/90 text-[11px] px-3 py-1.5 rounded-full mb-5" style={{ border: "0.5px solid rgba(255,255,255,0.2)" }}>
-            <span className="w-1.5 h-1.5 bg-green-400 rounded-full" />
-            ให้บริการมากกว่า 5 ปี
+      <div className="max-w-[860px] mx-auto px-6 py-14">
+        <div className="max-w-[560px]">
+          <div className="inline-flex items-center gap-2 text-[11px] text-emerald-700 px-3 py-1.5 rounded-full mb-5" style={{ background: "#f0fdf4", border: "0.5px solid #bbf7d0" }}>
+            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+            พร้อมดูแลโปรเจคของคุณ
           </div>
-          <h1 className="text-[32px] md:text-[40px] font-bold text-white leading-tight mb-4">
-            บริษัทที่คุณวางใจได้<br />
-            <span className="text-blue-200">ด้านเทคโนโลยี</span>
+          <h1 className="text-[34px] font-bold text-[#0f172a] leading-[1.2] mb-4">
+            เทคโนโลยีที่ช่วยให้<br />
+            <span className="text-emerald-500">ธุรกิจเติบโต</span>
           </h1>
-          <p className="text-white/75 text-[14px] leading-relaxed mb-7 max-w-[460px]">
-            เราให้บริการพัฒนาซอฟต์แวร์และเว็บแอปพลิเคชันครบวงจร พร้อมทีมงานมืออาชีพที่มีประสบการณ์
+          <p className="text-[14px] text-[#64748b] leading-relaxed mb-7">
+            เราพัฒนาเว็บไซต์และระบบสำหรับธุรกิจ ตั้งแต่ Start-Up ถึงองค์กรขนาดใหญ่ ส่งมอบงานพร้อมใช้จริงทุกครั้ง
           </p>
-          <div className="flex flex-wrap gap-3">
-            <button className="bg-white text-[#1A56DB] text-[13px] font-semibold px-6 py-2.5 rounded-lg hover:bg-blue-50 transition-colors">
-              ดูบริการของเรา
+          <div className="flex flex-wrap gap-3 mb-8">
+            <button className="flex items-center gap-2 bg-emerald-500 text-white text-[13px] px-5 py-2.5 rounded-lg hover:bg-emerald-600 transition-colors cursor-pointer">
+              เริ่มต้นโปรเจค <ArrowRight size={15} />
             </button>
-            <button className="text-white text-[13px] px-6 py-2.5 rounded-lg hover:bg-white/10 transition-colors" style={{ border: "0.5px solid rgba(255,255,255,0.35)" }}>
-              ติดต่อฟรี
+            <button className="text-[#0f172a] text-[13px] px-5 py-2.5 rounded-lg hover:bg-[#f8fafc] transition-colors cursor-pointer" style={{ border: "0.5px solid #e2e8f0" }}>
+              ดูผลงาน
             </button>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="flex -space-x-2">
+              {["🧑", "👩", "👨", "🧑"].map((e, i) => (
+                <div key={i} className="w-8 h-8 rounded-full bg-[#f1f5f9] flex items-center justify-center text-sm" style={{ border: "2px solid white" }}>
+                  {e}
+                </div>
+              ))}
+            </div>
+            <div>
+              <div className="flex gap-0.5">
+                {[1,2,3,4,5].map((s) => <Star key={s} size={12} className="text-amber-400 fill-amber-400" />)}
+              </div>
+              <p className="text-[11px] text-[#94a3b8] mt-0.5">150+ ลูกค้าพึงพอใจ</p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Stats bar */}
-      <div className="bg-white" style={{ borderBottom: "0.5px solid #e2e8f0" }}>
-        <div className="max-w-[860px] mx-auto px-6 grid grid-cols-3 divide-x divide-[#f1f5f9]">
-          {[
-            { val: "180+", label: "โปรเจคที่ส่งมอบ" },
-            { val: "150+", label: "ลูกค้าพึงพอใจ" },
-            { val: "5+ ปี", label: "ประสบการณ์" },
-          ].map((s) => (
-            <div key={s.label} className="py-4 px-4 text-center">
-              <p className="text-[20px] font-bold text-[#0f172a]">{s.val}</p>
-              <p className="text-[11px] text-[#94a3b8]">{s.label}</p>
+      {/* Stats */}
+      <div style={{ background: "#f8fafc", borderTop: "0.5px solid #e2e8f0", borderBottom: "0.5px solid #e2e8f0" }}>
+        <div className="max-w-[860px] mx-auto px-6 grid grid-cols-3 divide-x divide-[#e2e8f0]">
+          {[{ val: "180+", label: "โปรเจคที่ส่งมอบ" }, { val: "3+ ปี", label: "ประสบการณ์" }, { val: "100%", label: "Source Code เป็นของลูกค้า" }].map((s) => (
+            <div key={s.label} className="py-5 px-4 text-center">
+              <p className="text-[22px] font-bold text-emerald-600">{s.val}</p>
+              <p className="text-[11px] text-[#94a3b8] mt-0.5">{s.label}</p>
             </div>
           ))}
         </div>
@@ -93,69 +107,96 @@ export default function CompanyProfileDemo() {
 
       {/* Services */}
       <div id="services" className="max-w-[860px] mx-auto px-6 py-12">
-        <p className="text-[11px] font-medium text-[#94a3b8] uppercase tracking-widest text-center mb-2">บริการของเรา</p>
-        <h2 className="text-[22px] font-bold text-[#0f172a] text-center mb-8">ทุกอย่างที่คุณต้องการ</h2>
+        <p className="text-[11px] font-medium text-emerald-500 uppercase tracking-widest mb-2">สิ่งที่เราทำ</p>
+        <h2 className="text-[22px] font-bold text-[#0f172a] mb-7">บริการของเรา</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {SERVICES.map((s) => (
-            <div key={s.title} className="rounded-xl p-4 text-center hover:shadow-sm transition-shadow" style={{ border: "0.5px solid #e2e8f0" }}>
+            <div key={s.title} className="rounded-xl p-4 hover:shadow-sm transition-all cursor-pointer group" style={{ border: "0.5px solid #e2e8f0" }}>
               <span className="text-3xl block mb-3">{s.emoji}</span>
-              <p className="text-[13px] font-semibold text-[#0f172a] mb-1.5">{s.title}</p>
+              <p className="text-[13px] font-semibold text-[#0f172a] mb-1.5 group-hover:text-emerald-600 transition-colors">{s.title}</p>
               <p className="text-[11px] text-[#64748b] leading-relaxed">{s.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Why us */}
-      <div id="about" style={{ background: "#f8faff", borderTop: "0.5px solid #e2e8f0", borderBottom: "0.5px solid #e2e8f0" }}>
-        <div className="max-w-[860px] mx-auto px-6 py-12">
-          <h2 className="text-[20px] font-bold text-[#0f172a] mb-6">ทำไมต้องเลือกเรา</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {WHY.map((w) => (
-              <div key={w} className="flex items-center gap-2.5">
-                <CheckCircle size={16} className="text-[#1A56DB] shrink-0" />
-                <span className="text-[13px] text-[#475569]">{w}</span>
+      {/* Reviews */}
+      <div id="reviews" style={{ background: "#f8fafc", borderTop: "0.5px solid #e2e8f0", borderBottom: "0.5px solid #e2e8f0" }}>
+        <div className="max-w-[860px] mx-auto px-6 py-10">
+          <p className="text-[11px] font-medium text-emerald-500 uppercase tracking-widest mb-2">ลูกค้าพูดถึงเรา</p>
+          <h2 className="text-[20px] font-bold text-[#0f172a] mb-6">รีวิวจากลูกค้าจริง</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {REVIEWS.map((r, i) => (
+              <div
+                key={i}
+                onClick={() => setActiveReview(i)}
+                className="rounded-xl p-4 cursor-pointer transition-all"
+                style={{
+                  background: activeReview === i ? "#fff" : "#f8fafc",
+                  border: activeReview === i ? "1px solid #6ee7b7" : "0.5px solid #e2e8f0",
+                  boxShadow: activeReview === i ? "0 2px 12px #10b98120" : "none",
+                }}
+              >
+                <div className="flex gap-0.5 mb-2">
+                  {[1,2,3,4,5].map((s) => <Star key={s} size={11} className="text-amber-400 fill-amber-400" />)}
+                </div>
+                <p className="text-[12px] text-[#475569] leading-relaxed mb-3">&ldquo;{r.text}&rdquo;</p>
+                <div>
+                  <p className="text-[12px] font-medium text-[#0f172a]">{r.name}</p>
+                  <p className="text-[10px] text-[#94a3b8]">{r.role}</p>
+                </div>
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Why */}
+      <div className="max-w-[860px] mx-auto px-6 py-10">
+        <h2 className="text-[18px] font-bold text-[#0f172a] mb-5">ทุกโปรเจครวมถึง</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {["ส่งมอบตรงเวลา", "Source Code 100% ของคุณ", "Responsive ทุก Device", "SEO พื้นฐาน", "Deploy พร้อมใช้งาน", "ปรึกษาฟรีก่อนตกลง"].map((w) => (
+            <div key={w} className="flex items-center gap-2">
+              <CheckCircle size={14} className="text-emerald-500 shrink-0" />
+              <span className="text-[12px] text-[#475569]">{w}</span>
+            </div>
+          ))}
         </div>
       </div>
 
       {/* Contact */}
-      <div id="contact" className="max-w-[860px] mx-auto px-6 py-12">
-        <h2 className="text-[20px] font-bold text-[#0f172a] mb-6">ติดต่อเรา</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="space-y-3">
-            {[
-              { icon: <Phone size={15} />, text: "02-xxx-xxxx" },
-              { icon: <Mail size={15} />, text: "hello@techcorp.co.th" },
-              { icon: <MapPin size={15} />, text: "กรุงเทพมหานคร, ประเทศไทย" },
-            ].map((c) => (
-              <div key={c.text} className="flex items-center gap-2.5 text-[13px] text-[#475569]">
-                <span className="text-[#1A56DB]">{c.icon}</span>
-                {c.text}
+      <div id="contact" style={{ background: "#f8fafc", borderTop: "0.5px solid #e2e8f0" }}>
+        <div className="max-w-[860px] mx-auto px-6 py-10">
+          <h2 className="text-[18px] font-bold text-[#0f172a] mb-6">เริ่มต้นโปรเจคของคุณ</h2>
+          {formSent ? (
+            <div className="rounded-xl p-6 text-center max-w-[360px]" style={{ background: "#f0fdf4", border: "0.5px solid #bbf7d0" }}>
+              <div className="text-3xl mb-2">✅</div>
+              <p className="text-[14px] font-semibold text-emerald-700">ส่งข้อมูลแล้ว!</p>
+              <p className="text-[12px] text-emerald-600 mt-1">เราจะติดต่อกลับภายใน 24 ชั่วโมง</p>
+            </div>
+          ) : (
+            <div className="rounded-xl p-5 max-w-[440px] bg-white" style={{ border: "0.5px solid #e2e8f0" }}>
+              <div className="space-y-3 mb-4">
+                <input className="w-full text-[13px] px-3 py-2.5 rounded-lg outline-none transition-colors" style={{ border: "0.5px solid #e2e8f0" }} placeholder="ชื่อของคุณ" onFocus={(e) => e.currentTarget.style.borderColor = "#6ee7b7"} onBlur={(e) => e.currentTarget.style.borderColor = "#e2e8f0"} />
+                <input className="w-full text-[13px] px-3 py-2.5 rounded-lg outline-none transition-colors" style={{ border: "0.5px solid #e2e8f0" }} placeholder="Line ID / เบอร์โทร" onFocus={(e) => e.currentTarget.style.borderColor = "#6ee7b7"} onBlur={(e) => e.currentTarget.style.borderColor = "#e2e8f0"} />
+                <textarea className="w-full text-[13px] px-3 py-2.5 rounded-lg outline-none resize-none transition-colors" rows={3} style={{ border: "0.5px solid #e2e8f0" }} placeholder="บอกเล่าโปรเจคของคุณ..." onFocus={(e) => e.currentTarget.style.borderColor = "#6ee7b7"} onBlur={(e) => e.currentTarget.style.borderColor = "#e2e8f0"} />
               </div>
-            ))}
-          </div>
-          <div className="rounded-xl p-4" style={{ background: "#f8faff", border: "0.5px solid #e2e8f0" }}>
-            <p className="text-[13px] font-medium text-[#0f172a] mb-3">ส่งข้อความหาเรา</p>
-            <input className="w-full text-[12px] px-3 py-2 rounded-lg mb-2 outline-none" style={{ border: "0.5px solid #e2e8f0" }} placeholder="ชื่อของคุณ" />
-            <input className="w-full text-[12px] px-3 py-2 rounded-lg mb-2 outline-none" style={{ border: "0.5px solid #e2e8f0" }} placeholder="อีเมล" />
-            <textarea className="w-full text-[12px] px-3 py-2 rounded-lg mb-3 outline-none resize-none" rows={3} style={{ border: "0.5px solid #e2e8f0" }} placeholder="ข้อความ..." />
-            <button className="w-full bg-[#1A56DB] text-white text-[13px] py-2 rounded-lg hover:bg-[#1446c0] transition-colors">
-              ส่งข้อความ
-            </button>
-          </div>
+              <button onClick={() => setFormSent(true)} className="w-full bg-emerald-500 text-white text-[13px] py-2.5 rounded-lg hover:bg-emerald-600 transition-colors cursor-pointer font-medium">
+                ส่งข้อมูล
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
       {/* Footer */}
-      <div style={{ background: "#f8faff", borderTop: "0.5px solid #e2e8f0" }}>
+      <div style={{ borderTop: "0.5px solid #e2e8f0" }}>
         <div className="max-w-[860px] mx-auto px-6 py-4 flex justify-between items-center">
-          <span className="text-[12px] text-[#94a3b8]">© 2026 TechCorp. All rights reserved.</span>
+          <span className="text-[12px] text-[#94a3b8]">© 2026 GreenTech</span>
           <span className="text-[12px] text-[#94a3b8]">Built with Next.js</span>
         </div>
       </div>
+
     </div>
   );
 }

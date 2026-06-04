@@ -295,42 +295,40 @@ function ProjectCard({
   demoHref?: string;
   onClick?: () => void;
 }) {
-  return (
+  const inner = (
     <div
-      className="bg-white rounded-[10px] overflow-hidden flex flex-col"
+      className="bg-white rounded-[10px] overflow-hidden flex flex-col h-full"
       style={{ border: "0.5px solid #e2e8f0" }}
       onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#93c5fd"; }}
       onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#e2e8f0"; }}
     >
-      <button onClick={onClick} className="text-left w-full">
-        <div className="h-[100px] flex items-center justify-center relative" style={{ background: bg }}>
-          {icon}
-          <span className="absolute top-2 right-2 text-[10px] px-2 py-0.5 rounded-full" style={{ background: tag.bg, color: tag.color }}>
-            {tag.label}
+      <div className="h-[100px] flex items-center justify-center relative" style={{ background: bg }}>
+        {icon}
+        <span className="absolute top-2 right-2 text-[10px] px-2 py-0.5 rounded-full" style={{ background: tag.bg, color: tag.color }}>
+          {tag.label}
+        </span>
+        {demoHref && (
+          <span className="absolute bottom-2 right-2 flex items-center gap-0.5 text-[10px] text-[#94a3b8]">
+            ดู Demo <ArrowUpRight size={10} />
           </span>
+        )}
+      </div>
+      <div className="px-3 py-2.5">
+        <p className="text-[13px] font-medium text-[#0f172a] mb-1">{name}</p>
+        <p className="text-[11px] text-[#64748b] leading-[1.5] mb-2">{desc}</p>
+        <div className="flex flex-wrap gap-1">
+          {techs.map((t) => (
+            <span key={t} className="text-[10px] bg-[#f1f5f9] text-[#475569] px-1.5 py-0.5 rounded">{t}</span>
+          ))}
         </div>
-        <div className="px-3 pt-2.5 pb-2">
-          <p className="text-[13px] font-medium text-[#0f172a] mb-1">{name}</p>
-          <p className="text-[11px] text-[#64748b] leading-[1.5] mb-2">{desc}</p>
-          <div className="flex flex-wrap gap-1">
-            {techs.map((t) => (
-              <span key={t} className="text-[10px] bg-[#f1f5f9] text-[#475569] px-1.5 py-0.5 rounded">{t}</span>
-            ))}
-          </div>
-        </div>
-      </button>
-      {demoHref && (
-        <div className="px-3 pb-2.5 mt-auto">
-          <Link
-            href={demoHref}
-            className="flex items-center gap-1 text-[11px] text-[#1A56DB] hover:underline"
-          >
-            ดู Demo <ArrowUpRight size={12} />
-          </Link>
-        </div>
-      )}
+      </div>
     </div>
   );
+
+  if (demoHref) {
+    return <Link href={demoHref} className="block">{inner}</Link>;
+  }
+  return <button onClick={onClick} className="text-left w-full">{inner}</button>;
 }
 
 function DetailPanel({
