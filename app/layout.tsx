@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "WebPro — รับทำเว็บไซต์ครบวงจร Landing Page / Company Profile",
-  description: "รับทำเว็บไซต์ครบวงจร Next.js React ออกแบบ UI สวยงาม Responsive SEO Deploy พร้อมใช้งาน ปรึกษาฟรีก่อนตกลงงาน",
+  title: "Renrawin Nuanin — Full Stack Web Developer",
+  description: "รับพัฒนาเว็บไซต์ครบวงจร ตั้งแต่ออกแบบ UI ไปจนถึง Deploy จริงบน Server พร้อมใช้งานได้ทันที",
 };
 
 export default function RootLayout({
@@ -15,11 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="th">
-      <body className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </body>
+      <body className="min-h-screen">{children}</body>
     </html>
   );
 }

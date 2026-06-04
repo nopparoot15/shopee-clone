@@ -1,17 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --market-blue: #2563EB;
-  --market-blue-hover: #1D4ED8;
-  --market-blue-light: #EFF6FF;
-  --market-blue-dark: #1E3A8A;
-  --background: #F5F5F5;
+  --blue: #1A56DB;
+  --blue-hover: #1446c0;
+  --background: #fff;
 }
 
 body {
-  background: var(--background);
+  background: #fff;
   font-family: "Helvetica Neue", Arial, sans-serif;
-  color: #222;
+  color: #0f172a;
 }
 
 * {

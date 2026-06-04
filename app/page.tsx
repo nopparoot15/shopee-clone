@@ -1,156 +1,390 @@
-import CategoryGrid from "@/components/CategoryGrid";
-import ProductCard from "@/components/ProductCard";
-import { products } from "@/lib/data";
-import { ChevronRight, Code2, Rocket, Shield, Star, MessageSquare } from "lucide-react";
-import Link from "next/link";
+"use client";
 
-export default function HomePage() {
+import { useState } from "react";
+import {
+  QrCode,
+  Gem,
+  Database,
+  Globe,
+  Code2,
+  Server,
+  User,
+  MessageCircle,
+  Mail,
+  ExternalLink,
+  Clock,
+} from "lucide-react";
+
+type Tab = "projects" | "restaurant" | "topup" | "database" | "about" | "contact";
+
+const TABS: { id: Tab; label: string }[] = [
+  { id: "projects", label: "ผลงานทั้งหมด" },
+  { id: "restaurant", label: "ระบบร้านอาหาร" },
+  { id: "topup", label: "เว็บเติมเงิน" },
+  { id: "database", label: "ระบบจัดการข้อมูล" },
+  { id: "about", label: "เกี่ยวกับฉัน" },
+  { id: "contact", label: "ติดต่อ" },
+];
+
+export default function PortfolioPage() {
+  const [active, setActive] = useState<Tab>("projects");
+
   return (
-    <div className="space-y-4">
+    <div className="min-h-screen flex flex-col">
+      {/* Nav */}
+      <nav style={{ borderBottom: "0.5px solid #e2e8f0" }} className="bg-white px-6 flex items-center justify-between h-[52px]">
+        <span className="text-[15px] font-medium text-[#0f172a] tracking-tight">
+          Renrawin<span className="text-[#1A56DB]">.dev</span>
+        </span>
+        <div className="hidden sm:flex items-center gap-5">
+          <button onClick={() => setActive("projects")} className="text-[13px] text-[#64748b] hover:text-[#1A56DB] cursor-pointer transition-colors">ผลงาน</button>
+          <button onClick={() => setActive("about")} className="text-[13px] text-[#64748b] hover:text-[#1A56DB] cursor-pointer transition-colors">เกี่ยวกับฉัน</button>
+          <button onClick={() => setActive("contact")} className="text-[13px] text-[#64748b] hover:text-[#1A56DB] cursor-pointer transition-colors">ติดต่อ</button>
+        </div>
+        <button
+          onClick={() => setActive("contact")}
+          className="bg-[#1A56DB] text-white text-[13px] px-4 py-[7px] rounded-md hover:bg-[#1446c0] transition-colors cursor-pointer"
+        >
+          จ้างงาน
+        </button>
+      </nav>
+
       {/* Hero */}
-      <div style={{ background: "linear-gradient(135deg, #1E3A8A 0%, #2563EB 50%, #3B82F6 100%)" }} className="relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          {/* Grid pattern */}
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 py-12 md:py-16">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 bg-white/10 text-white/90 text-xs px-3 py-1.5 rounded-full mb-4 border border-white/20">
-              <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-              พร้อมรับงาน — ปรึกษาฟรีก่อนตกลงทุกครั้ง
-            </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
-              รับทำเว็บไซต์<br />
-              <span className="text-blue-200">ครบวงจร</span> พร้อมใช้งาน
-            </h1>
-            <p className="text-white/80 text-base md:text-lg leading-relaxed mb-6">
-              ตั้งแต่ออกแบบ UI ไปจนถึง Deploy บน Production จริง<br className="hidden md:block" />
-              ประสบการณ์ Infrastructure จากโครงการระดับองค์กร
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/cart"
-                className="flex items-center gap-2 px-6 py-3 bg-white text-[#2563EB] font-semibold rounded-lg hover:bg-blue-50 transition-colors text-sm"
-              >
-                <MessageSquare size={16} />
-                ทักมาปรึกษาฟรี
-              </Link>
-              <Link
-                href="/products"
-                className="flex items-center gap-2 px-6 py-3 bg-white/10 text-white font-medium rounded-lg hover:bg-white/20 transition-colors border border-white/30 text-sm"
-              >
-                ดูบริการทั้งหมด <ChevronRight size={16} />
-              </Link>
-            </div>
+      <div style={{ background: "#f8faff", borderBottom: "0.5px solid #e2e8f0" }} className="px-6 pt-10 pb-9">
+        <div className="max-w-[640px]">
+          <div className="inline-flex items-center gap-1.5 bg-[#EFF6FF] border border-[#BFDBFE] rounded-full px-3 py-1 text-[11px] text-[#1e40af] mb-4" style={{ borderWidth: "0.5px" }}>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#1A56DB]" />
+            พร้อมรับงาน Freelance
           </div>
-        </div>
-      </div>
-
-      {/* Stats */}
-      <div className="bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
-            {[
-              { label: "โปรเจคที่ส่งมอบ", value: "180+", icon: <Rocket size={18} className="text-[#2563EB]" /> },
-              { label: "ลูกค้าพึงพอใจ", value: "150+", icon: <Star size={18} className="text-[#FFCA11] fill-[#FFCA11]" /> },
-              { label: "คะแนนเฉลี่ย", value: "4.9/5", icon: <Star size={18} className="text-[#FFCA11] fill-[#FFCA11]" /> },
-              { label: "ประสบการณ์", value: "3+ ปี", icon: <Code2 size={18} className="text-[#2563EB]" /> },
-            ].map((stat) => (
-              <div key={stat.label} className="flex items-center gap-3 px-6 py-4">
-                {stat.icon}
-                <div>
-                  <p className="text-xl font-bold text-gray-800">{stat.value}</p>
-                  <p className="text-xs text-gray-500">{stat.label}</p>
-                </div>
-              </div>
-            ))}
+          <h1 className="text-[26px] font-medium text-[#0f172a] leading-[1.3] mb-2">
+            Renrawin Nuanin<br />
+            <span className="text-[#1A56DB]">Full Stack Web Developer</span>
+          </h1>
+          <p className="text-[13px] text-[#64748b] leading-[1.7] mb-5 max-w-[480px]">
+            รับพัฒนาเว็บไซต์ครบวงจร ตั้งแต่ออกแบบ UI ไปจนถึง Deploy จริงบน Server พร้อมใช้งานได้ทันที
+          </p>
+          <div className="flex gap-2.5 flex-wrap">
+            <button
+              onClick={() => setActive("projects")}
+              className="bg-[#1A56DB] text-white text-[13px] px-5 py-[9px] rounded-md hover:bg-[#1446c0] transition-colors cursor-pointer"
+            >
+              ดูผลงาน
+            </button>
+            <button
+              onClick={() => setActive("contact")}
+              className="bg-white text-[#1A56DB] text-[13px] px-5 py-[9px] rounded-md hover:bg-[#EFF6FF] transition-colors cursor-pointer"
+              style={{ border: "0.5px solid #1A56DB" }}
+            >
+              ติดต่อจ้างงาน
+            </button>
           </div>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 space-y-4">
-        {/* Categories */}
-        <CategoryGrid />
-
-        {/* Tech stack banner */}
-        <div className="bg-[#1E3A8A] rounded-lg px-6 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <div>
-            <p className="text-white font-semibold text-base mb-1">Tech Stack ที่ใช้งานได้จริง</p>
-            <p className="text-blue-300 text-sm">ทุกโปรเจคสร้างด้วยเทคโนโลยีที่ใช้ใน Production จริง ไม่ใช่แค่ Demo</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {["Next.js", "React", "Tailwind CSS", "Node.js", "Express", "MySQL", "PostgreSQL", "Docker", "Cloudflare", "Linux VPS"].map((tech) => (
-              <span key={tech} className="px-2.5 py-1 bg-white/10 text-white text-xs rounded border border-white/20 hover:bg-white/20 transition-colors">
-                {tech}
+          <div className="flex flex-wrap gap-1.5 mt-5">
+            {["React", "Next.js", "Tailwind CSS", "Node.js", "MySQL", "Docker", "Cloudflare"].map((t) => (
+              <span key={t} className="bg-white text-[#475569] text-[11px] px-2.5 py-1 rounded-full" style={{ border: "0.5px solid #e2e8f0" }}>
+                {t}
               </span>
             ))}
           </div>
         </div>
+      </div>
 
-        {/* What you get */}
-        <div className="bg-white rounded-lg p-6">
-          <h2 className="font-bold text-gray-800 text-base mb-4 flex items-center gap-2">
-            <div className="w-1 h-5 bg-[#2563EB] rounded-full" />
-            สิ่งที่ได้รับในทุกโปรเจค
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-            {[
-              { icon: "🎨", title: "UI สวยงาม", desc: "ออกแบบตามสไตล์ที่ต้องการ" },
-              { icon: "📱", title: "Responsive", desc: "รองรับทุกหน้าจอ" },
-              { icon: "⚡", title: "โหลดเร็ว", desc: "Next.js Performance" },
-              { icon: "🔍", title: "SEO พื้นฐาน", desc: "Meta, OG, Sitemap" },
-              { icon: "🚀", title: "Deploy ให้", desc: "พร้อมใช้งานจริง" },
-              { icon: "📦", title: "Source Code", desc: "เป็นเจ้าของทั้งหมด" },
-            ].map((item) => (
-              <div key={item.title} className="flex flex-col items-center text-center p-3 rounded-lg bg-blue-50/50 hover:bg-blue-50 transition-colors">
-                <span className="text-2xl mb-2">{item.icon}</span>
-                <p className="text-sm font-semibold text-gray-800">{item.title}</p>
-                <p className="text-xs text-gray-500 mt-0.5 leading-tight">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* Tabs */}
+      <div className="bg-white flex gap-0 overflow-x-auto" style={{ borderBottom: "0.5px solid #e2e8f0" }}>
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActive(tab.id)}
+            className={`px-[18px] py-[13px] text-[13px] whitespace-nowrap cursor-pointer transition-colors border-b-2 ${
+              active === tab.id
+                ? "text-[#1A56DB] border-[#1A56DB] font-medium"
+                : "text-[#64748b] border-transparent hover:text-[#1A56DB]"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
 
-        {/* All services */}
-        <section className="bg-white rounded-lg p-4">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-1 h-5 bg-[#2563EB] rounded-full" />
-              <h2 className="font-bold text-gray-800 text-base">บริการทั้งหมด</h2>
+      {/* Content */}
+      <div className="flex-1 px-6 py-5">
+
+        {/* All projects */}
+        {active === "projects" && (
+          <div>
+            <p className="text-[13px] font-medium text-[#94a3b8] uppercase tracking-[0.5px] mb-4">ผลงานล่าสุด</p>
+            <div className="grid gap-3" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+              <ProjectCard
+                bg="#EFF6FF"
+                icon={<QrCode size={32} style={{ color: "#1A56DB" }} />}
+                tag={{ label: "ร้านอาหาร", bg: "#DBEAFE", color: "#1e40af" }}
+                name="QR Order System"
+                desc="ระบบสั่งอาหารผ่าน QR Code จำกัดเวลา 2 ชม. เพิ่ม/ลดออเดอร์ได้แบบ Realtime"
+                techs={["Next.js", "Node.js", "MySQL"]}
+                onClick={() => setActive("restaurant")}
+              />
+              <ProjectCard
+                bg="#F0FDF4"
+                icon={<Gem size={32} style={{ color: "#059669" }} />}
+                tag={{ label: "เติมเงินเกม", bg: "#DCFCE7", color: "#166534" }}
+                name="Game Top-Up Platform"
+                desc="เว็บเติมเงินเกม รองรับหลาย Gateway ตรวจสอบสถานะ Transaction แบบ Realtime"
+                techs={["React", "Express", "PostgreSQL"]}
+                onClick={() => setActive("topup")}
+              />
+              <ProjectCard
+                bg="#FFF7ED"
+                icon={<Database size={32} style={{ color: "#ea580c" }} />}
+                tag={{ label: "ฐานข้อมูล", bg: "#FFEDD5", color: "#9a3412" }}
+                name="Data Management System"
+                desc="ระบบจัดเก็บและจัดการฐานข้อมูลองค์กร Dashboard สรุปข้อมูล Export Excel/PDF"
+                techs={["Next.js", "MySQL", "Docker"]}
+                onClick={() => setActive("database")}
+              />
+              <ProjectCard
+                bg="#FDF4FF"
+                icon={<Globe size={32} style={{ color: "#9333ea" }} />}
+                tag={{ label: "Landing Page", bg: "#FAE8FF", color: "#6b21a8" }}
+                name="Company Profile Website"
+                desc="เว็บไซต์แนะนำบริษัท Responsive ทุกอุปกรณ์ SEO พื้นฐาน พร้อม Deploy"
+                techs={["Next.js", "Tailwind", "Vercel"]}
+              />
             </div>
-            <Link href="/products" className="flex items-center gap-1 text-sm text-[#2563EB] hover:opacity-80 font-medium">
-              ดูทั้งหมด <ChevronRight size={16} />
-            </Link>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+        )}
+
+        {/* Restaurant */}
+        {active === "restaurant" && (
+          <DetailPanel
+            sectionTitle="ระบบร้านอาหาร — QR Order System"
+            bg="#EFF6FF"
+            icon={<QrCode size={48} style={{ color: "#1A56DB" }} />}
+            tag={{ label: "Demo พร้อม", bg: "#DBEAFE", color: "#1e40af" }}
+            name="ระบบสั่งอาหารผ่าน QR Code"
+            desc="ลูกค้าสแกน QR Code บนโต๊ะ → เปิดเมนูบนมือถือ → สั่ง เพิ่ม/ลด ได้ทันที ระบบจำกัดเวลา 2 ชั่วโมงต่อการนั่ง ครัวได้รับออเดอร์แบบ Realtime ไม่ต้องรอพนักงาน"
+            techs={["Next.js", "Node.js", "MySQL", "Socket.io", "Docker"]}
+            badges={[
+              { label: "✓ QR Code ต่อโต๊ะ", bg: "#EFF6FF", color: "#1e40af" },
+              { label: "✓ จำกัดเวลา 2 ชม.", bg: "#EFF6FF", color: "#1e40af" },
+              { label: "✓ Realtime Kitchen", bg: "#EFF6FF", color: "#1e40af" },
+            ]}
+          />
+        )}
+
+        {/* Top-up */}
+        {active === "topup" && (
+          <DetailPanel
+            sectionTitle="เว็บเติมเงินเกม — Game Top-Up Platform"
+            bg="#F0FDF4"
+            icon={<Gem size={48} style={{ color: "#059669" }} />}
+            tag={{ label: "Demo พร้อม", bg: "#DCFCE7", color: "#166534" }}
+            name="ระบบเติมเงินเกมออนไลน์"
+            desc="แพลตฟอร์มเติมเงินเกม รองรับหลายเกมในระบบเดียว ตรวจสอบสถานะการชำระเงินแบบ Realtime มีระบบประวัติ Transaction และแจ้งเตือนอัตโนมัติ"
+            techs={["React", "Express", "PostgreSQL", "REST API"]}
+            badges={[
+              { label: "✓ หลาย Payment Gateway", bg: "#F0FDF4", color: "#166534" },
+              { label: "✓ ประวัติ Transaction", bg: "#F0FDF4", color: "#166534" },
+              { label: "✓ แจ้งเตือน Realtime", bg: "#F0FDF4", color: "#166534" },
+            ]}
+          />
+        )}
+
+        {/* Database */}
+        {active === "database" && (
+          <DetailPanel
+            sectionTitle="ระบบจัดการฐานข้อมูล — Data Management"
+            bg="#FFF7ED"
+            icon={<Database size={48} style={{ color: "#ea580c" }} />}
+            tag={{ label: "Demo พร้อม", bg: "#FFEDD5", color: "#9a3412" }}
+            name="ระบบจัดเก็บและจัดการข้อมูลองค์กร"
+            desc="ระบบ Backend สำหรับจัดการข้อมูลองค์กร มี Dashboard สรุปภาพรวม ค้นหา กรอง Export ข้อมูลเป็น Excel/PDF จัดการสิทธิ์ผู้ใช้แยกตาม Role"
+            techs={["Next.js", "MySQL", "Docker", "REST API"]}
+            badges={[
+              { label: "✓ Dashboard สรุปข้อมูล", bg: "#FFF7ED", color: "#9a3412" },
+              { label: "✓ Export Excel/PDF", bg: "#FFF7ED", color: "#9a3412" },
+              { label: "✓ Role-based Access", bg: "#FFF7ED", color: "#9a3412" },
+            ]}
+          />
+        )}
+
+        {/* About */}
+        {active === "about" && (
+          <div>
+            <p className="text-[13px] font-medium text-[#94a3b8] uppercase tracking-[0.5px] mb-4">เกี่ยวกับฉัน</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-[640px]">
+              <div className="rounded-[10px] p-4" style={{ background: "#f8faff", border: "0.5px solid #e2e8f0" }}>
+                <h3 className="text-[13px] font-medium text-[#0f172a] mb-3 flex items-center gap-1.5">
+                  <Code2 size={16} className="text-[#1A56DB]" /> Frontend
+                </h3>
+                <SkillRow name="React / Next.js" pct={85} />
+                <SkillRow name="Tailwind CSS" pct={80} />
+                <SkillRow name="HTML / CSS / JS" pct={90} />
+              </div>
+              <div className="rounded-[10px] p-4" style={{ background: "#f8faff", border: "0.5px solid #e2e8f0" }}>
+                <h3 className="text-[13px] font-medium text-[#0f172a] mb-3 flex items-center gap-1.5">
+                  <Server size={16} className="text-[#1A56DB]" /> Backend &amp; Infra
+                </h3>
+                <SkillRow name="Node.js / Express" pct={75} />
+                <SkillRow name="MySQL / PostgreSQL" pct={70} />
+                <SkillRow name="Docker / Linux" pct={75} />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Contact */}
+        {active === "contact" && (
+          <div>
+            <p className="text-[13px] font-medium text-[#94a3b8] uppercase tracking-[0.5px] mb-4">ติดต่อจ้างงาน</p>
+            <div className="rounded-[10px] p-4 max-w-[360px]" style={{ background: "#f8faff", border: "0.5px solid #e2e8f0" }}>
+              <h3 className="text-[13px] font-medium text-[#0f172a] mb-3 flex items-center gap-1.5">
+                <User size={16} className="text-[#1A56DB]" /> Renrawin Nuanin
+              </h3>
+              <div className="space-y-2.5 mt-2.5">
+                <ContactRow icon={<MessageCircle size={15} className="text-[#1A56DB]" />} text="Line: @renrawin" />
+                <ContactRow icon={<Mail size={15} className="text-[#1A56DB]" />} text="renrawin@email.com" />
+                <ContactRow icon={<ExternalLink size={15} className="text-[#1A56DB]" />} text="github.com/renrawin" />
+                <ContactRow icon={<Clock size={15} className="text-[#1A56DB]" />} text="ตอบกลับภายใน 24 ชั่วโมง" />
+              </div>
+              <button className="w-full mt-3 bg-[#1A56DB] text-white text-[13px] py-[9px] rounded-md hover:bg-[#1446c0] transition-colors cursor-pointer">
+                ทักหาเลย
+              </button>
+            </div>
+          </div>
+        )}
+
+      </div>
+
+      {/* Footer */}
+      <div className="flex justify-between items-center px-6 py-3" style={{ background: "#f8faff", borderTop: "0.5px solid #e2e8f0" }}>
+        <span className="text-[12px] text-[#94a3b8]">© 2026 Renrawin Nuanin</span>
+        <span className="text-[12px] text-[#94a3b8]">Built with Next.js · Deployed on Vercel</span>
+      </div>
+    </div>
+  );
+}
+
+/* ── Sub-components ── */
+
+function ProjectCard({
+  bg,
+  icon,
+  tag,
+  name,
+  desc,
+  techs,
+  onClick,
+}: {
+  bg: string;
+  icon: React.ReactNode;
+  tag: { label: string; bg: string; color: string };
+  name: string;
+  desc: string;
+  techs: string[];
+  onClick?: () => void;
+}) {
+  return (
+    <div
+      onClick={onClick}
+      className={`bg-white rounded-[10px] overflow-hidden ${onClick ? "cursor-pointer" : ""}`}
+      style={{ border: "0.5px solid #e2e8f0" }}
+      onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#93c5fd"; }}
+      onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#e2e8f0"; }}
+    >
+      <div className="h-[100px] flex items-center justify-center relative" style={{ background: bg }}>
+        {icon}
+        <span
+          className="absolute top-2 right-2 text-[10px] px-2 py-0.5 rounded-full"
+          style={{ background: tag.bg, color: tag.color }}
+        >
+          {tag.label}
+        </span>
+      </div>
+      <div className="px-3 py-2.5">
+        <p className="text-[13px] font-medium text-[#0f172a] mb-1">{name}</p>
+        <p className="text-[11px] text-[#64748b] leading-[1.5] mb-2">{desc}</p>
+        <div className="flex flex-wrap gap-1">
+          {techs.map((t) => (
+            <span key={t} className="text-[10px] bg-[#f1f5f9] text-[#475569] px-1.5 py-0.5 rounded">
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DetailPanel({
+  sectionTitle,
+  bg,
+  icon,
+  tag,
+  name,
+  desc,
+  techs,
+  badges,
+}: {
+  sectionTitle: string;
+  bg: string;
+  icon: React.ReactNode;
+  tag: { label: string; bg: string; color: string };
+  name: string;
+  desc: string;
+  techs: string[];
+  badges: { label: string; bg: string; color: string }[];
+}) {
+  return (
+    <div>
+      <p className="text-[13px] font-medium text-[#94a3b8] uppercase tracking-[0.5px] mb-4">{sectionTitle}</p>
+      <div className="bg-white rounded-[10px] overflow-hidden max-w-[560px]" style={{ border: "0.5px solid #e2e8f0" }}>
+        <div className="h-[120px] flex items-center justify-center relative" style={{ background: bg }}>
+          {icon}
+          <span
+            className="absolute top-2 right-2 text-[10px] px-2 py-0.5 rounded-full"
+            style={{ background: tag.bg, color: tag.color }}
+          >
+            {tag.label}
+          </span>
+        </div>
+        <div className="px-3 py-3">
+          <p className="text-[13px] font-medium text-[#0f172a] mb-1.5">{name}</p>
+          <p className="text-[11px] text-[#64748b] leading-[1.6] mb-3">{desc}</p>
+          <div className="flex flex-wrap gap-1 mb-3">
+            {techs.map((t) => (
+              <span key={t} className="text-[10px] bg-[#f1f5f9] text-[#475569] px-1.5 py-0.5 rounded">
+                {t}
+              </span>
             ))}
           </div>
-        </section>
-
-        {/* CTA bottom */}
-        <div className="rounded-lg overflow-hidden" style={{ background: "linear-gradient(135deg, #2563EB, #7C3AED)" }}>
-          <div className="px-8 py-10 text-center">
-            <h2 className="text-2xl font-bold text-white mb-2">พร้อมเริ่มโปรเจคแล้วใช่ไหม?</h2>
-            <p className="text-white/80 mb-6 text-sm">บอกความต้องการมาได้เลย จะแนะนำแนวทางและราคาทั้งหมดก่อนตกลงงาน</p>
-            <Link
-              href="/cart"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-white text-[#2563EB] font-bold rounded-lg hover:bg-blue-50 transition-colors"
-            >
-              <MessageSquare size={18} />
-              ทักมาปรึกษาฟรี — ไม่มีค่าใช้จ่าย
-            </Link>
+          <div className="flex flex-wrap gap-2">
+            {badges.map((b) => (
+              <span key={b.label} className="text-[11px] px-2 py-1 rounded" style={{ background: b.bg, color: b.color }}>
+                {b.label}
+              </span>
+            ))}
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function SkillRow({ name, pct }: { name: string; pct: number }) {
+  return (
+    <div className="flex justify-between items-center mb-2">
+      <span className="text-[12px] text-[#475569]">{name}</span>
+      <div className="w-[100px] h-[5px] bg-[#e2e8f0] rounded-full overflow-hidden">
+        <div className="h-full bg-[#1A56DB] rounded-full" style={{ width: `${pct}%` }} />
+      </div>
+    </div>
+  );
+}
+
+function ContactRow({ icon, text }: { icon: React.ReactNode; text: string }) {
+  return (
+    <div className="flex items-center gap-2 text-[12px] text-[#475569]">
+      {icon}
+      {text}
     </div>
   );
 }
