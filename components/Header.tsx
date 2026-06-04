@@ -26,7 +26,7 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-8">
           <div className="hidden md:flex items-center gap-4">
             <Link href="#" className="hover:opacity-80 flex items-center gap-1">
-              <span>ขายของบน Shoppe</span>
+              <span>ขายของบน Market</span>
             </Link>
             <span className="opacity-40">|</span>
             <Link href="#" className="hover:opacity-80">ดาวน์โหลด App</Link>
@@ -59,7 +59,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="shrink-0 flex items-center">
             <div className="text-white font-bold text-2xl tracking-tight" style={{ fontFamily: "Arial Black, sans-serif" }}>
-              Shoppe
+              Market
             </div>
           </Link>
 

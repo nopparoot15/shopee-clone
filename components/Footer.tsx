@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 py-10">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 text-sm text-gray-600">
           <div>
-            <h3 className="font-semibold text-gray-800 mb-3">เกี่ยวกับ Shoppe</h3>
+            <h3 className="font-semibold text-gray-800 mb-3">เกี่ยวกับ Market</h3>
             <ul className="space-y-2">
               <li><Link href="#" className="hover:text-[#EE4D2D]">เกี่ยวกับเรา</Link></li>
               <li><Link href="#" className="hover:text-[#EE4D2D]">ร่วมงานกับเรา</Link></li>
@@ -66,7 +66,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-gray-100 py-4 text-center text-xs text-gray-400">
-        © 2025 Shoppe. All rights reserved. | ผู้ประกอบการที่ได้รับการรับรอง ETDA
+        © 2025 Market. All rights reserved. | ผู้ประกอบการที่ได้รับการรับรอง ETDA
       </div>
     </footer>
   );

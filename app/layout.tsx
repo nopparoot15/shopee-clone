@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Shoppe — ช้อปสนุก ส่งฟรีทั่วไทย",
+  title: "Market — ช้อปสนุก ส่งฟรีทั่วไทย",
   description: "แพลตฟอร์มซื้อขายออนไลน์ สินค้าลดราคาทุกวัน Flash Sale ส่งฟรี ไม่มีขั้นต่ำ",
 };
 
