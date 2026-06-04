@@ -11,7 +11,6 @@ import {
   User,
   MessageCircle,
   Mail,
-  ExternalLink,
   Clock,
 } from "lucide-react";
 
