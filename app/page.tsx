@@ -59,16 +59,16 @@ export default function PortfolioPage() {
       <div style={{ background: "#f8faff", borderBottom: "0.5px solid #e2e8f0" }}>
         <div className={`${W} pt-10 pb-9`}>
           <div className="max-w-[560px]">
-            <div className="inline-flex items-center gap-1.5 bg-[#EFF6FF] rounded-full px-3 py-1 text-[11px] text-[#1e40af] mb-4" style={{ border: "0.5px solid #BFDBFE" }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1A56DB]" />
+            <p className="text-[12px] text-[#94a3b8] mb-4 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1A56DB] inline-block" />
               พร้อมรับงาน Freelance
-            </div>
-            <h1 className="text-[26px] font-medium text-[#0f172a] leading-[1.3] mb-2">
+            </p>
+            <h1 className="text-[28px] font-semibold text-[#0f172a] leading-[1.25] mb-3">
               Renrawin Nuanin<br />
               <span className="text-[#1A56DB]">Full Stack Web Developer</span>
             </h1>
-            <p className="text-[13px] text-[#64748b] leading-[1.7] mb-5">
-              รับพัฒนาเว็บไซต์ครบวงจร ตั้งแต่ออกแบบ UI ไปจนถึง Deploy จริงบน Server พร้อมใช้งานได้ทันที
+            <p className="text-[14px] text-[#64748b] leading-[1.75] mb-5">
+              รับพัฒนาเว็บไซต์ตั้งแต่ออกแบบ UI ไปจนถึง Deploy บน Server — ส่งมอบพร้อมใช้งานทุกครั้ง
             </p>
             <div className="flex gap-2.5 flex-wrap">
               <button
@@ -122,7 +122,6 @@ export default function PortfolioPage() {
           {/* All projects */}
           {active === "projects" && (
             <div>
-              <p className="text-[13px] font-medium text-[#94a3b8] uppercase tracking-[0.5px] mb-4">ผลงานล่าสุด</p>
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 <ProjectCard
                   bg="#EFF6FF"
@@ -224,7 +223,6 @@ export default function PortfolioPage() {
           {/* About */}
           {active === "about" && (
             <div>
-              <p className="text-[13px] font-medium text-[#94a3b8] uppercase tracking-[0.5px] mb-4">เกี่ยวกับฉัน</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="rounded-[10px] p-4" style={{ background: "#f8faff", border: "0.5px solid #e2e8f0" }}>
                   <h3 className="text-[13px] font-medium text-[#0f172a] mb-3 flex items-center gap-1.5">
@@ -249,7 +247,6 @@ export default function PortfolioPage() {
           {/* Contact */}
           {active === "contact" && (
             <div>
-              <p className="text-[13px] font-medium text-[#94a3b8] uppercase tracking-[0.5px] mb-4">ติดต่อจ้างงาน</p>
               <div className="rounded-[10px] p-4 max-w-[360px]" style={{ background: "#f8faff", border: "0.5px solid #e2e8f0" }}>
                 <h3 className="text-[13px] font-medium text-[#0f172a] mb-3 flex items-center gap-1.5">
                   <User size={16} className="text-[#1A56DB]" /> Renrawin Nuanin
@@ -345,7 +342,7 @@ function DetailPanel({
 }) {
   return (
     <div>
-      <p className="text-[13px] font-medium text-[#94a3b8] uppercase tracking-[0.5px] mb-4">{sectionTitle}</p>
+      <p className="text-[13px] text-[#94a3b8] mb-4">{sectionTitle}</p>
       <div className="bg-white rounded-[10px] overflow-hidden max-w-[480px]" style={{ border: "0.5px solid #e2e8f0" }}>
         <div className="h-[120px] flex items-center justify-center relative" style={{ background: bg }}>
           {icon}

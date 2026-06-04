@@ -56,10 +56,10 @@ export default function CompanyProfileDemo() {
       {/* Hero */}
       <div className="max-w-[860px] mx-auto px-6 py-14">
         <div className="max-w-[560px]">
-          <div className="inline-flex items-center gap-2 text-[11px] text-emerald-700 px-3 py-1.5 rounded-full mb-5" style={{ background: "#f0fdf4", border: "0.5px solid #bbf7d0" }}>
-            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+          <p className="text-[12px] text-[#94a3b8] mb-4 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full inline-block" />
             พร้อมดูแลโปรเจคของคุณ
-          </div>
+          </p>
           <h1 className="text-[34px] font-bold text-[#0f172a] leading-[1.2] mb-4">
             เทคโนโลยีที่ช่วยให้<br />
             <span className="text-emerald-500">ธุรกิจเติบโต</span>
@@ -75,7 +75,7 @@ export default function CompanyProfileDemo() {
               ดูผลงาน
             </button>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <div className="flex -space-x-2">
               {["🧑", "👩", "👨", "🧑"].map((e, i) => (
                 <div key={i} className="w-8 h-8 rounded-full bg-[#f1f5f9] flex items-center justify-center text-sm" style={{ border: "2px solid white" }}>
@@ -87,27 +87,14 @@ export default function CompanyProfileDemo() {
               <div className="flex gap-0.5">
                 {[1,2,3,4,5].map((s) => <Star key={s} size={12} className="text-amber-400 fill-amber-400" />)}
               </div>
-              <p className="text-[11px] text-[#94a3b8] mt-0.5">150+ ลูกค้าพึงพอใจ</p>
+              <p className="text-[12px] text-[#94a3b8] mt-0.5">150+ ลูกค้าพึงพอใจ · ประสบการณ์ 3+ ปี · โปรเจค 180+</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Stats */}
-      <div style={{ background: "#f8fafc", borderTop: "0.5px solid #e2e8f0", borderBottom: "0.5px solid #e2e8f0" }}>
-        <div className="max-w-[860px] mx-auto px-6 grid grid-cols-3 divide-x divide-[#e2e8f0]">
-          {[{ val: "180+", label: "โปรเจคที่ส่งมอบ" }, { val: "3+ ปี", label: "ประสบการณ์" }, { val: "100%", label: "Source Code เป็นของลูกค้า" }].map((s) => (
-            <div key={s.label} className="py-5 px-4 text-center">
-              <p className="text-[22px] font-bold text-emerald-600">{s.val}</p>
-              <p className="text-[11px] text-[#94a3b8] mt-0.5">{s.label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Services */}
       <div id="services" className="max-w-[860px] mx-auto px-6 py-12">
-        <p className="text-[11px] font-medium text-emerald-500 uppercase tracking-widest mb-2">สิ่งที่เราทำ</p>
         <h2 className="text-[22px] font-bold text-[#0f172a] mb-7">บริการของเรา</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {SERVICES.map((s) => (
@@ -123,8 +110,7 @@ export default function CompanyProfileDemo() {
       {/* Reviews */}
       <div id="reviews" style={{ background: "#f8fafc", borderTop: "0.5px solid #e2e8f0", borderBottom: "0.5px solid #e2e8f0" }}>
         <div className="max-w-[860px] mx-auto px-6 py-10">
-          <p className="text-[11px] font-medium text-emerald-500 uppercase tracking-widest mb-2">ลูกค้าพูดถึงเรา</p>
-          <h2 className="text-[20px] font-bold text-[#0f172a] mb-6">รีวิวจากลูกค้าจริง</h2>
+          <h2 className="text-[20px] font-bold text-[#0f172a] mb-6">รีวิวจากลูกค้า</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {REVIEWS.map((r, i) => (
               <div

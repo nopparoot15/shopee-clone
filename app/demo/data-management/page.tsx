@@ -129,7 +129,7 @@ export default function DataManagementDemo() {
                 <thead>
                   <tr style={{ borderBottom: "0.5px solid #f1f5f9" }}>
                     {["ชื่อ", "แผนก", "Role", "Status", "แนวโน้ม", ""].map((h) => (
-                      <th key={h} className="px-4 py-2.5 text-left text-[10px] text-[#94a3b8] font-medium uppercase tracking-wider">{h}</th>
+                      <th key={h} className="px-4 py-2.5 text-left text-[11px] text-[#94a3b8] font-medium">{h}</th>
                     ))}
                   </tr>
                 </thead>

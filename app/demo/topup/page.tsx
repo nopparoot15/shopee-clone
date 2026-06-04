@@ -58,7 +58,7 @@ export default function TopupDemo() {
 
             {/* Game select */}
             <div className="rounded-xl p-4" style={{ background: "#0f0f1a", border: "0.5px solid #1a1a2e" }}>
-              <p className="text-[11px] text-[#475569] uppercase tracking-widest mb-3">เลือกเกม</p>
+              <p className="text-[12px] text-[#64748b] mb-3">เลือกเกม</p>
               <div className="grid grid-cols-4 gap-2">
                 {GAMES.map((g) => (
                   <button
@@ -66,9 +66,8 @@ export default function TopupDemo() {
                     onClick={() => setGame(g.id)}
                     className="rounded-xl p-3 flex flex-col items-center gap-1.5 transition-all cursor-pointer"
                     style={{
-                      background: game === g.id ? `${g.color}15` : "#0a0a0f",
-                      border: game === g.id ? `1px solid ${g.color}` : "0.5px solid #1a1a2e",
-                      boxShadow: game === g.id ? `0 0 16px ${g.glow}` : "none",
+                      background: game === g.id ? `${g.color}18` : "#0a0a0f",
+                      border: game === g.id ? `1.5px solid ${g.color}` : "0.5px solid #1a1a2e",
                     }}
                   >
                     <span className="text-2xl">{g.emoji}</span>
@@ -80,7 +79,7 @@ export default function TopupDemo() {
 
             {/* UID */}
             <div className="rounded-xl p-4" style={{ background: "#0f0f1a", border: "0.5px solid #1a1a2e" }}>
-              <p className="text-[11px] text-[#475569] uppercase tracking-widest mb-3">User ID</p>
+              <p className="text-[12px] text-[#64748b] mb-3">User ID</p>
               <input
                 value={uid}
                 onChange={(e) => setUid(e.target.value)}
@@ -101,7 +100,7 @@ export default function TopupDemo() {
 
             {/* Packs */}
             <div className="rounded-xl p-4" style={{ background: "#0f0f1a", border: "0.5px solid #1a1a2e" }}>
-              <p className="text-[11px] text-[#475569] uppercase tracking-widest mb-3">เลือกแพ็กเกจ</p>
+              <p className="text-[12px] text-[#64748b] mb-3">เลือกแพ็กเกจ</p>
               <div className="grid grid-cols-3 gap-2">
                 {PACKS.map((p) => (
                   <button
@@ -138,7 +137,6 @@ export default function TopupDemo() {
                 style={{
                   background: uid.length >= 4 ? selected.color : "#1a1a2e",
                   color: uid.length >= 4 ? "#fff" : "#475569",
-                  boxShadow: uid.length >= 4 ? `0 4px 20px ${selected.glow}` : "none",
                 }}
               >
                 {uid.length >= 4 ? `เติม ${selected.emoji} ${selected.name} ฿${selectedPack.amount}` : "กรอก User ID ก่อน"}
@@ -167,7 +165,7 @@ export default function TopupDemo() {
                   <button
                     onClick={() => setStep("done")}
                     className="flex-1 py-2 rounded-lg text-[12px] font-semibold text-white transition-all"
-                    style={{ background: selected.color, boxShadow: `0 2px 12px ${selected.glow}` }}
+                    style={{ background: selected.color }}
                   >
                     ยืนยัน
                   </button>
@@ -176,7 +174,7 @@ export default function TopupDemo() {
             )}
 
             {step === "done" && (
-              <div className="rounded-xl p-5 text-center" style={{ background: "#0f0f1a", border: "1px solid #22c55e", boxShadow: "0 0 20px #22c55e20" }}>
+              <div className="rounded-xl p-5 text-center" style={{ background: "#0f0f1a", border: "1px solid #22c55e" }}>
                 <div className="text-4xl mb-2">✅</div>
                 <p className="text-[14px] font-semibold text-emerald-400">เติมเงินสำเร็จ!</p>
                 <p className="text-[11px] text-[#475569] mt-1">{selected.emoji} {selected.name} · ฿{selectedPack.amount} · {selectedPack.label}</p>
@@ -189,7 +187,7 @@ export default function TopupDemo() {
 
           {/* Right: history */}
           <div className="rounded-xl p-4 self-start" style={{ background: "#0f0f1a", border: "0.5px solid #1a1a2e" }}>
-            <p className="text-[11px] text-[#475569] uppercase tracking-widest mb-3">ประวัติล่าสุด</p>
+            <p className="text-[12px] text-[#64748b] mb-3">ประวัติล่าสุด</p>
             <div className="space-y-3">
               {HISTORY.map((h, i) => (
                 <div key={i} className="flex items-center justify-between">

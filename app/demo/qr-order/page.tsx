@@ -46,7 +46,7 @@ export default function QROrderDemo() {
           <ArrowLeft size={13} /> กลับ
         </Link>
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" style={{ boxShadow: "0 0 6px #34d399" }} />
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
           <span className="text-[12px] text-[#94a3b8]">Live Demo</span>
         </div>
         <div className="flex items-center gap-1 text-[11px] text-emerald-400">
@@ -60,7 +60,7 @@ export default function QROrderDemo() {
         <div className="max-w-[440px] mx-auto">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-[11px] text-[#475569] mb-1 tracking-widest uppercase">โต๊ะ 12 · QR Order</p>
+              <p className="text-[12px] text-[#475569] mb-1">โต๊ะ 12 · QR Order</p>
               <h1 className="text-[22px] font-semibold text-white leading-tight">ครัวบ้านไทย</h1>
               <p className="text-[12px] text-[#64748b] mt-0.5">เวลานั่ง: <span className="text-amber-400 font-medium">1:42:07</span> เหลือ</p>
             </div>
