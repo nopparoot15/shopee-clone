@@ -51,32 +51,34 @@ export default function QROrderDemo() {
     <div className="min-h-screen" style={{ background: "#fafaf8", color: "#1c1917" }}>
 
       {/* Top bar */}
-      <div className="flex items-center justify-between px-4 h-[52px] bg-white" style={{ borderBottom: "0.5px solid #e7e5e4" }}>
-        <Link href="/" className="flex items-center gap-1.5 text-[12px] text-[#a8a29e] hover:text-[#78716c] transition-colors">
-          <ArrowLeft size={13} /> กลับ
-        </Link>
-        <div className="flex items-center gap-2">
-          <span className="text-[14px] font-semibold text-[#1c1917]">ครัวบ้านไทย</span>
-          <span className="text-[11px] text-[#a8a29e]">· โต๊ะ 12</span>
+      <div className="bg-white" style={{ borderBottom: "0.5px solid #e7e5e4" }}>
+        <div className="max-w-[440px] mx-auto px-4 h-[52px] flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-1.5 text-[12px] text-[#a8a29e] hover:text-[#78716c] transition-colors">
+            <ArrowLeft size={13} /> กลับ
+          </Link>
+          <div className="flex items-center gap-2">
+            <span className="text-[14px] font-semibold text-[#1c1917]">ครัวบ้านไทย</span>
+            <span className="text-[11px] text-[#a8a29e]">· โต๊ะ 12</span>
+          </div>
+          <button
+            onClick={() => setShowOrder(true)}
+            className="flex items-center gap-1.5 text-[12px] px-3 py-1.5 rounded-lg relative transition-colors"
+            style={{ background: BRAND_LIGHT, color: BRAND, border: `0.5px solid #fed7aa` }}
+          >
+            <ShoppingBag size={13} />
+            รายการที่สั่ง
+            {totalItems > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center text-white" style={{ background: BRAND }}>
+                {totalItems}
+              </span>
+            )}
+          </button>
         </div>
-        <button
-          onClick={() => setShowOrder(true)}
-          className="flex items-center gap-1.5 text-[12px] px-3 py-1.5 rounded-lg relative transition-colors"
-          style={{ background: BRAND_LIGHT, color: BRAND, border: `0.5px solid #fed7aa` }}
-        >
-          <ShoppingBag size={13} />
-          <span className="hidden sm:inline">รายการที่สั่ง</span>
-          {totalItems > 0 && (
-            <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center text-white" style={{ background: BRAND }}>
-              {totalItems}
-            </span>
-          )}
-        </button>
       </div>
 
       {/* Hero band */}
-      <div className="px-4 pt-5 pb-4" style={{ background: BRAND_LIGHT, borderBottom: "0.5px solid #fed7aa" }}>
-        <div className="max-w-[440px] mx-auto flex items-center justify-between">
+      <div style={{ background: BRAND_LIGHT, borderBottom: "0.5px solid #fed7aa" }}>
+        <div className="max-w-[440px] mx-auto px-4 pt-5 pb-4 flex items-center justify-between">
           <div>
             <p className="text-[22px] font-bold" style={{ color: BRAND }}>ครัวบ้านไทย 🍽️</p>
             <p className="text-[12px] text-[#a8a29e] mt-0.5">เวลานั่งเหลือ <span className="font-medium" style={{ color: BRAND }}>1:42:07</span></p>
