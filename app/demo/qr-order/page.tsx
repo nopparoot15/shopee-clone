@@ -160,6 +160,22 @@ export default function QROrderDemo() {
         </div>
       </div>
 
+      {/* Sticky bottom bar */}
+      {totalItems > 0 && !showOrder && (
+        <div className="fixed bottom-0 left-0 right-0 px-4 pb-5 pt-3 z-10" style={{ background: "linear-gradient(0deg, #fafaf8 70%, transparent)" }}>
+          <div className="max-w-[440px] mx-auto">
+            <button
+              onClick={() => setShowOrder(true)}
+              className="w-full rounded-xl px-5 py-3.5 flex items-center justify-between transition-colors"
+              style={{ background: BRAND, color: "#fff" }}
+            >
+              <span className="text-[13px] font-semibold">{totalItems} รายการ</span>
+              <span className="text-[13px] font-bold">{totalPrice} บาท · ยืนยันสั่ง →</span>
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Order sheet */}
       {showOrder && (
         <>
