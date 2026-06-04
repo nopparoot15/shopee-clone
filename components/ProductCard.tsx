@@ -24,12 +24,12 @@ export default function ProductCard({ product, variant = "grid" }: ProductCardPr
             className="object-cover group-hover:scale-105 transition-transform duration-300"
             sizes="144px"
           />
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#EE4D2D] to-transparent text-white text-center py-1">
+          <div className="absolute bottom-0 left-0 right-0 bg-[#2563EB] text-white text-center py-1">
             <span className="text-sm font-bold">-{product.discount}%</span>
           </div>
         </div>
         <div className="p-2">
-          <p className="text-[#EE4D2D] font-semibold text-sm">฿{formatPrice(product.price)}</p>
+          <p className="text-[#2563EB] font-semibold text-sm">฿{formatPrice(product.price)}</p>
           <p className="text-gray-400 text-xs line-through">฿{formatPrice(product.originalPrice)}</p>
         </div>
       </Link>
@@ -49,8 +49,8 @@ export default function ProductCard({ product, variant = "grid" }: ProductCardPr
           className="object-cover group-hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
         />
-        {product.discount >= 50 && (
-          <div className="absolute top-0 left-0 bg-[#EE4D2D] text-white text-xs px-1.5 py-0.5 font-medium">
+        {product.discount > 0 && (
+          <div className="absolute top-0 left-0 bg-[#2563EB] text-white text-xs px-1.5 py-0.5 font-medium">
             -{product.discount}%
           </div>
         )}
@@ -58,7 +58,7 @@ export default function ProductCard({ product, variant = "grid" }: ProductCardPr
       <div className="p-2.5 flex flex-col flex-1">
         <p className="text-sm text-gray-700 line-clamp-2 flex-1 mb-1.5 leading-5">{product.name}</p>
         <div className="flex items-center justify-between">
-          <span className="text-[#EE4D2D] font-semibold">฿{formatPrice(product.price)}</span>
+          <span className="text-[#2563EB] font-semibold">฿{formatPrice(product.price)}</span>
           {product.discount > 0 && (
             <span className="text-xs text-gray-400 line-through">฿{formatPrice(product.originalPrice)}</span>
           )}

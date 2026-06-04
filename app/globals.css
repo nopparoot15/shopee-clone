@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --shopee-orange: #EE4D2D;
-  --shopee-orange-hover: #D73211;
-  --shopee-orange-light: #FFEEE9;
-  --shopee-yellow: #FFCA11;
+  --market-blue: #2563EB;
+  --market-blue-hover: #1D4ED8;
+  --market-blue-light: #EFF6FF;
+  --market-blue-dark: #1E3A8A;
   --background: #F5F5F5;
 }
 

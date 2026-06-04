@@ -27,37 +27,40 @@ export default function FlashDeals() {
   }, []);
 
   return (
-    <section className="bg-white rounded-sm p-4">
-      <div className="flex items-center justify-between mb-4">
+    <section className="bg-white rounded-sm overflow-hidden">
+      {/* Header */}
+      <div className="bg-[#2563EB] px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5">
-            <Zap size={20} className="text-[#EE4D2D] fill-[#EE4D2D]" />
-            <h2 className="text-[#EE4D2D] font-bold text-lg uppercase tracking-wide">Flash Sale</h2>
+            <Zap size={18} className="text-white fill-white" />
+            <h2 className="text-white font-bold text-base uppercase tracking-wide">Flash Sale</h2>
           </div>
-          {/* Countdown */}
           <div className="flex items-center gap-1">
-            <div className="bg-[#222] text-white text-sm font-mono font-bold px-1.5 py-0.5 rounded">
+            <div className="bg-white/20 text-white text-sm font-mono font-bold px-1.5 py-0.5 rounded">
               {pad(timeLeft.h)}
             </div>
-            <span className="text-gray-600 font-bold text-sm">:</span>
-            <div className="bg-[#222] text-white text-sm font-mono font-bold px-1.5 py-0.5 rounded">
+            <span className="text-white font-bold text-sm">:</span>
+            <div className="bg-white/20 text-white text-sm font-mono font-bold px-1.5 py-0.5 rounded">
               {pad(timeLeft.m)}
             </div>
-            <span className="text-gray-600 font-bold text-sm">:</span>
-            <div className="bg-[#222] text-white text-sm font-mono font-bold px-1.5 py-0.5 rounded">
+            <span className="text-white font-bold text-sm">:</span>
+            <div className="bg-white/20 text-white text-sm font-mono font-bold px-1.5 py-0.5 rounded">
               {pad(timeLeft.s)}
             </div>
           </div>
         </div>
-        <Link href="/products" className="flex items-center gap-1 text-sm text-[#EE4D2D] hover:opacity-80">
+        <Link href="/products" className="flex items-center gap-1 text-sm text-white/90 hover:text-white">
           ดูทั้งหมด <ChevronRight size={16} />
         </Link>
       </div>
 
-      <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-1">
-        {flashDeals.map((product) => (
-          <ProductCard key={product.id} product={product} variant="flash" />
-        ))}
+      {/* Products */}
+      <div className="p-4">
+        <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-1">
+          {flashDeals.map((product) => (
+            <ProductCard key={product.id} product={product} variant="flash" />
+          ))}
+        </div>
       </div>
     </section>
   );

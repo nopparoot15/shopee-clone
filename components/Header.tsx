@@ -3,11 +3,10 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ShoppingCart, Search, Bell, MessageSquare, ChevronDown, Menu, X } from "lucide-react";
+import { ShoppingCart, Search, Bell, MessageSquare, ChevronDown } from "lucide-react";
 
 export default function Header() {
   const [query, setQuery] = useState("");
-  const [mobileOpen, setMobileOpen] = useState(false);
   const router = useRouter();
 
   const handleSearch = (e: React.FormEvent) => {
@@ -22,7 +21,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 shadow-sm">
       {/* Top bar */}
-      <div className="bg-[#BF360C] text-white text-xs">
+      <div className="bg-[#1E3A8A] text-white text-xs">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-8">
           <div className="hidden md:flex items-center gap-4">
             <Link href="#" className="hover:opacity-80 flex items-center gap-1">
@@ -54,7 +53,7 @@ export default function Header() {
       </div>
 
       {/* Main header */}
-      <div style={{ background: "linear-gradient(to bottom, #EE4D2D, #F75433)" }} className="py-3">
+      <div style={{ background: "linear-gradient(to bottom, #2563EB, #1D4ED8)" }} className="py-3">
         <div className="max-w-7xl mx-auto px-4 flex items-center gap-4">
           {/* Logo */}
           <Link href="/" className="shrink-0 flex items-center">
@@ -75,13 +74,12 @@ export default function Header() {
               />
               <button
                 type="submit"
-                className="px-5 py-2.5 bg-[#EE4D2D] text-white rounded-r-sm hover:bg-[#D73211] transition-colors"
-                style={{ background: "#f05d40" }}
+                className="px-5 py-2.5 text-white rounded-r-sm transition-colors"
+                style={{ background: "#1D4ED8" }}
               >
                 <Search size={18} />
               </button>
             </div>
-            {/* Trending under search */}
             <div className="flex gap-3 mt-1.5 overflow-hidden">
               {trendingSearches.map((term) => (
                 <button
@@ -100,7 +98,7 @@ export default function Header() {
           <Link href="/cart" className="shrink-0 text-white flex flex-col items-center group">
             <div className="relative">
               <ShoppingCart size={26} />
-              <span className="absolute -top-2 -right-2 bg-white text-[#EE4D2D] text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">
+              <span className="absolute -top-2 -right-2 bg-white text-[#2563EB] text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">
                 0
               </span>
             </div>
@@ -116,7 +114,7 @@ export default function Header() {
             {["แฟชั่น", "อิเล็กทรอนิกส์", "บ้าน & ชีวิต", "ความงาม", "กีฬา", "อาหาร", "หนังสือ", "ของเล่น", "ยานยนต์", "สัตว์เลี้ยง"].map(
               (cat) => (
                 <li key={cat}>
-                  <Link href={`/products?cat=${encodeURIComponent(cat)}`} className="whitespace-nowrap hover:text-[#EE4D2D] transition-colors">
+                  <Link href={`/products?cat=${encodeURIComponent(cat)}`} className="whitespace-nowrap hover:text-[#2563EB] transition-colors">
                     {cat}
                   </Link>
                 </li>

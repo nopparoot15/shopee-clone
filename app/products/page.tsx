@@ -45,7 +45,7 @@ export default async function ProductsPage({
     <div className="max-w-7xl mx-auto px-4 py-4">
       {/* Breadcrumb */}
       <div className="flex items-center gap-1.5 text-sm text-gray-500 mb-4">
-        <Link href="/" className="hover:text-[#EE4D2D]">หน้าหลัก</Link>
+        <Link href="/" className="hover:text-[#2563EB]">หน้าหลัก</Link>
         <ChevronRight size={14} />
         <span className="text-gray-700">{q ? `"${q}"` : activeCategory?.name ?? "สินค้าทั้งหมด"}</span>
       </div>
@@ -59,7 +59,7 @@ export default async function ProductsPage({
               <li>
                 <Link
                   href="/products"
-                  className={`block text-sm py-1 px-2 rounded hover:text-[#EE4D2D] ${!cat ? "text-[#EE4D2D] font-medium" : "text-gray-600"}`}
+                  className={`block text-sm py-1 px-2 rounded hover:text-[#2563EB] ${!cat ? "text-[#2563EB] font-medium" : "text-gray-600"}`}
                 >
                   ทั้งหมด
                 </Link>
@@ -68,7 +68,7 @@ export default async function ProductsPage({
                 <li key={c.id}>
                   <Link
                     href={`/products?cat=${c.id}`}
-                    className={`flex items-center gap-2 text-sm py-1 px-2 rounded hover:text-[#EE4D2D] ${cat === c.id ? "text-[#EE4D2D] font-medium" : "text-gray-600"}`}
+                    className={`flex items-center gap-2 text-sm py-1 px-2 rounded hover:text-[#2563EB] ${cat === c.id ? "text-[#2563EB] font-medium" : "text-gray-600"}`}
                   >
                     <span>{c.icon}</span>
                     {c.name}
@@ -87,7 +87,7 @@ export default async function ProductsPage({
                 { label: "฿1,000 – ฿3,000", href: "/products" },
                 { label: "มากกว่า ฿3,000", href: "/products" },
               ].map((r) => (
-                <Link key={r.label} href={r.href} className="block text-sm text-gray-600 py-1 px-2 rounded hover:text-[#EE4D2D]">
+                <Link key={r.label} href={r.href} className="block text-sm text-gray-600 py-1 px-2 rounded hover:text-[#2563EB]">
                   {r.label}
                 </Link>
               ))}
@@ -120,8 +120,8 @@ export default async function ProductsPage({
                     href={href}
                     className={`px-3 py-1.5 text-sm rounded transition-colors ${
                       isActive
-                        ? "bg-[#EE4D2D] text-white"
-                        : "bg-white text-gray-600 border border-gray-200 hover:border-[#EE4D2D] hover:text-[#EE4D2D]"
+                        ? "bg-[#2563EB] text-white"
+                        : "bg-white text-gray-600 border border-gray-200 hover:border-[#2563EB] hover:text-[#2563EB]"
                     }`}
                   >
                     {option.label}
@@ -136,7 +136,7 @@ export default async function ProductsPage({
             <div className="text-center py-16 text-gray-400">
               <p className="text-4xl mb-3">🔍</p>
               <p className="text-lg">ไม่พบสินค้าที่ค้นหา</p>
-              <Link href="/products" className="mt-4 inline-block text-[#EE4D2D] hover:underline text-sm">
+              <Link href="/products" className="mt-4 inline-block text-[#2563EB] hover:underline text-sm">
                 ดูสินค้าทั้งหมด
               </Link>
             </div>

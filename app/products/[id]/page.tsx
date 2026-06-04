@@ -27,9 +27,9 @@ export default async function ProductDetailPage({
     <div className="max-w-7xl mx-auto px-4 py-4 space-y-4">
       {/* Breadcrumb */}
       <div className="flex items-center gap-1.5 text-sm text-gray-500 flex-wrap">
-        <Link href="/" className="hover:text-[#EE4D2D]">หน้าหลัก</Link>
+        <Link href="/" className="hover:text-[#2563EB]">หน้าหลัก</Link>
         <ChevronRight size={14} />
-        <Link href="/products" className="hover:text-[#EE4D2D]">สินค้า</Link>
+        <Link href="/products" className="hover:text-[#2563EB]">สินค้า</Link>
         <ChevronRight size={14} />
         <span className="text-gray-700 truncate max-w-xs">{product.name}</span>
       </div>
@@ -46,7 +46,7 @@ export default async function ProductDetailPage({
           {/* Rating + sold */}
           <div className="flex items-center gap-4 text-sm">
             <div className="flex items-center gap-1">
-              <span className="text-[#EE4D2D] font-semibold border-b border-[#EE4D2D]">{product.rating}</span>
+              <span className="text-[#2563EB] font-semibold border-b border-[#2563EB]">{product.rating}</span>
               <div className="flex">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
@@ -70,9 +70,9 @@ export default async function ProductDetailPage({
 
           {/* Price */}
           <div className="bg-[#FAFAFA] rounded px-4 py-4 flex items-end gap-3">
-            <span className="text-[#EE4D2D] text-3xl font-light">฿{formatPrice(product.price)}</span>
+            <span className="text-[#2563EB] text-3xl font-light">฿{formatPrice(product.price)}</span>
             <span className="text-gray-400 text-lg line-through mb-0.5">฿{formatPrice(product.originalPrice)}</span>
-            <span className="bg-[#EE4D2D] text-white text-xs px-2 py-0.5 rounded mb-1">-{product.discount}%</span>
+            <span className="bg-[#2563EB] text-white text-xs px-2 py-0.5 rounded mb-1">-{product.discount}%</span>
           </div>
 
           {/* Location & stock */}
@@ -92,15 +92,15 @@ export default async function ProductDetailPage({
           {/* Guarantee */}
           <div className="grid grid-cols-3 gap-3 pt-3 border-t border-gray-100">
             <div className="flex flex-col items-center gap-1.5 text-center">
-              <Shield size={20} className="text-[#EE4D2D]" />
+              <Shield size={20} className="text-[#2563EB]" />
               <span className="text-xs text-gray-500">สินค้าของแท้ 100%</span>
             </div>
             <div className="flex flex-col items-center gap-1.5 text-center">
-              <Truck size={20} className="text-[#EE4D2D]" />
+              <Truck size={20} className="text-[#2563EB]" />
               <span className="text-xs text-gray-500">ส่งฟรีทั่วไทย</span>
             </div>
             <div className="flex flex-col items-center gap-1.5 text-center">
-              <RefreshCw size={20} className="text-[#EE4D2D]" />
+              <RefreshCw size={20} className="text-[#2563EB]" />
               <span className="text-xs text-gray-500">คืนสินค้าฟรี 15 วัน</span>
             </div>
           </div>

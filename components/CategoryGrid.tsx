@@ -10,7 +10,7 @@ export default function CategoryGrid() {
           <Link
             key={cat.id}
             href={`/products?cat=${cat.id}`}
-            className="flex flex-col items-center gap-1.5 p-2 rounded hover:bg-orange-50 transition-colors group"
+            className="flex flex-col items-center gap-1.5 p-2 rounded hover:bg-blue-50 transition-colors group"
           >
             <div
               className="w-12 h-12 rounded-full flex items-center justify-center text-2xl"
@@ -18,7 +18,7 @@ export default function CategoryGrid() {
             >
               {cat.icon}
             </div>
-            <span className="text-xs text-gray-600 group-hover:text-[#EE4D2D] text-center leading-tight">
+            <span className="text-xs text-gray-600 group-hover:text-[#2563EB] text-center leading-tight">
               {cat.name}
             </span>
           </Link>

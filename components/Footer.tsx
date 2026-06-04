@@ -8,20 +8,20 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-gray-800 mb-3">เกี่ยวกับ Market</h3>
             <ul className="space-y-2">
-              <li><Link href="#" className="hover:text-[#EE4D2D]">เกี่ยวกับเรา</Link></li>
-              <li><Link href="#" className="hover:text-[#EE4D2D]">ร่วมงานกับเรา</Link></li>
-              <li><Link href="#" className="hover:text-[#EE4D2D]">นโยบายความเป็นส่วนตัว</Link></li>
-              <li><Link href="#" className="hover:text-[#EE4D2D]">ข้อกำหนดการให้บริการ</Link></li>
+              <li><Link href="#" className="hover:text-[#2563EB]">เกี่ยวกับเรา</Link></li>
+              <li><Link href="#" className="hover:text-[#2563EB]">ร่วมงานกับเรา</Link></li>
+              <li><Link href="#" className="hover:text-[#2563EB]">นโยบายความเป็นส่วนตัว</Link></li>
+              <li><Link href="#" className="hover:text-[#2563EB]">ข้อกำหนดการให้บริการ</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="font-semibold text-gray-800 mb-3">ช่วยเหลือ</h3>
             <ul className="space-y-2">
-              <li><Link href="#" className="hover:text-[#EE4D2D]">ศูนย์ช่วยเหลือ</Link></li>
-              <li><Link href="#" className="hover:text-[#EE4D2D]">วิธีการซื้อ</Link></li>
-              <li><Link href="#" className="hover:text-[#EE4D2D]">การชำระเงิน</Link></li>
-              <li><Link href="#" className="hover:text-[#EE4D2D]">การจัดส่ง</Link></li>
-              <li><Link href="#" className="hover:text-[#EE4D2D]">การคืนสินค้า</Link></li>
+              <li><Link href="#" className="hover:text-[#2563EB]">ศูนย์ช่วยเหลือ</Link></li>
+              <li><Link href="#" className="hover:text-[#2563EB]">วิธีการซื้อ</Link></li>
+              <li><Link href="#" className="hover:text-[#2563EB]">การชำระเงิน</Link></li>
+              <li><Link href="#" className="hover:text-[#2563EB]">การจัดส่ง</Link></li>
+              <li><Link href="#" className="hover:text-[#2563EB]">การคืนสินค้า</Link></li>
             </ul>
           </div>
           <div>
@@ -47,14 +47,14 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-gray-800 mb-3">ดาวน์โหลด App</h3>
             <div className="space-y-2">
-              <div className="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded hover:border-[#EE4D2D] cursor-pointer transition-colors">
+              <div className="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded hover:border-[#2563EB] cursor-pointer transition-colors">
                 <span className="text-lg">📱</span>
                 <div>
                   <p className="text-xs text-gray-400">ดาวน์โหลดจาก</p>
                   <p className="text-xs font-medium text-gray-700">App Store</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded hover:border-[#EE4D2D] cursor-pointer transition-colors">
+              <div className="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded hover:border-[#2563EB] cursor-pointer transition-colors">
                 <span className="text-lg">🤖</span>
                 <div>
                   <p className="text-xs text-gray-400">ดาวน์โหลดจาก</p>

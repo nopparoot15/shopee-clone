@@ -21,7 +21,6 @@ export default function AddToCartButton({ product }: Props) {
 
   return (
     <div className="space-y-4">
-      {/* Quantity */}
       <div className="flex items-center gap-4">
         <span className="text-sm text-gray-500 w-20">จำนวน</span>
         <div className="flex items-center border border-gray-300 rounded">
@@ -46,26 +45,24 @@ export default function AddToCartButton({ product }: Props) {
         <span className="text-sm text-gray-400">{product.stock} ชิ้นที่มีอยู่</span>
       </div>
 
-      {/* Total */}
       <div className="flex items-center gap-4 text-sm text-gray-500">
         <span className="w-20">รวม</span>
-        <span className="text-[#EE4D2D] text-lg font-medium">฿{formatPrice(product.price * qty)}</span>
+        <span className="text-[#2563EB] text-lg font-medium">฿{formatPrice(product.price * qty)}</span>
       </div>
 
-      {/* Buttons */}
       <div className="flex gap-3 flex-wrap">
         <button
           onClick={handleAddToCart}
           className={`flex items-center gap-2 px-6 py-3 rounded border text-sm font-medium transition-all ${
             added
               ? "border-green-500 text-green-600 bg-green-50"
-              : "border-[#EE4D2D] text-[#EE4D2D] bg-[#FFF5F5] hover:bg-[#FFEEE9]"
+              : "border-[#2563EB] text-[#2563EB] bg-[#EFF6FF] hover:bg-[#DBEAFE]"
           }`}
         >
           <ShoppingCart size={16} />
           {added ? "เพิ่มแล้ว ✓" : "เพิ่มลงตะกร้า"}
         </button>
-        <button className="flex-1 md:flex-none px-8 py-3 bg-[#EE4D2D] text-white rounded text-sm font-medium hover:bg-[#D73211] transition-colors">
+        <button className="flex-1 md:flex-none px-8 py-3 bg-[#2563EB] text-white rounded text-sm font-medium hover:bg-[#1D4ED8] transition-colors">
           ซื้อเลย
         </button>
         <button
