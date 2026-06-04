@@ -59,7 +59,19 @@ export default function QROrderDemo() {
           <span className="text-[14px] font-semibold text-[#1c1917]">ครัวบ้านไทย</span>
           <span className="text-[11px] text-[#a8a29e]">· โต๊ะ 12</span>
         </div>
-        <div className="w-10" />
+        <button
+          onClick={() => setShowOrder(true)}
+          className="flex items-center gap-1.5 text-[12px] px-3 py-1.5 rounded-lg relative transition-colors"
+          style={{ background: BRAND_LIGHT, color: BRAND, border: `0.5px solid #fed7aa` }}
+        >
+          <ShoppingBag size={13} />
+          <span className="hidden sm:inline">รายการที่สั่ง</span>
+          {totalItems > 0 && (
+            <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center text-white" style={{ background: BRAND }}>
+              {totalItems}
+            </span>
+          )}
+        </button>
       </div>
 
       {/* Hero band */}
@@ -77,37 +89,22 @@ export default function QROrderDemo() {
       </div>
 
       <div className="max-w-[440px] mx-auto px-4 pb-8 pt-4">
-        {/* Category tabs + order button */}
-        <div className="flex items-center gap-2 mb-4">
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide flex-1">
-            {CATS.map((c) => (
-              <button
-                key={c}
-                onClick={() => setActiveCat(c)}
-                className="px-3.5 py-1.5 rounded-full text-[12px] whitespace-nowrap transition-all shrink-0"
-                style={
-                  activeCat === c
-                    ? { background: BRAND, color: "#fff", fontWeight: 600 }
-                    : { background: "#fff", color: "#78716c", border: "0.5px solid #e7e5e4" }
-                }
-              >
-                {c}
-              </button>
-            ))}
-          </div>
-          <button
-            onClick={() => setShowOrder(true)}
-            className="flex items-center gap-1.5 text-[12px] px-3 py-1.5 rounded-full shrink-0 relative transition-colors"
-            style={{ background: BRAND_LIGHT, color: BRAND, border: `0.5px solid #fed7aa` }}
-          >
-            <ShoppingBag size={13} />
-            รายการที่สั่ง
-            {totalItems > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center text-white" style={{ background: BRAND }}>
-                {totalItems}
-              </span>
-            )}
-          </button>
+        {/* Category tabs */}
+        <div className="flex gap-2 overflow-x-auto scrollbar-hide mb-4">
+          {CATS.map((c) => (
+            <button
+              key={c}
+              onClick={() => setActiveCat(c)}
+              className="px-3.5 py-1.5 rounded-full text-[12px] whitespace-nowrap transition-all shrink-0"
+              style={
+                activeCat === c
+                  ? { background: BRAND, color: "#fff", fontWeight: 600 }
+                  : { background: "#fff", color: "#78716c", border: "0.5px solid #e7e5e4" }
+              }
+            >
+              {c}
+            </button>
+          ))}
         </div>
 
         {/* Menu list */}
