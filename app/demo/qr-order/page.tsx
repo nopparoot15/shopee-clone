@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Plus, Minus, ChevronRight, Wifi } from "lucide-react";
+import { ArrowLeft, Plus, Minus, ShoppingBag, X, Wifi, CheckCircle } from "lucide-react";
 
 const MENU = [
   { id: 1, cat: "อาหารหลัก", name: "ข้าวผัดกระเพราหมูสับ", sub: "ไข่ดาว / ไม่มีไข่", price: 60, emoji: "🍳", popular: true },
@@ -20,7 +20,8 @@ const CATS = ["ทั้งหมด", "อาหารหลัก", "เคร
 export default function QROrderDemo() {
   const [cart, setCart] = useState<Record<number, number>>({});
   const [activeCat, setActiveCat] = useState("ทั้งหมด");
-  const [showCart, setShowCart] = useState(false);
+  const [showOrder, setShowOrder] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
 
   const filtered = activeCat === "ทั้งหมด" ? MENU : MENU.filter((m) => m.cat === activeCat);
   const totalItems = Object.values(cart).reduce((a, b) => a + b, 0);
@@ -37,6 +38,15 @@ export default function QROrderDemo() {
     return next;
   });
 
+  const handleConfirm = () => {
+    setConfirmed(true);
+    setTimeout(() => {
+      setConfirmed(false);
+      setCart({});
+      setShowOrder(false);
+    }, 2500);
+  };
+
   return (
     <div className="min-h-screen" style={{ background: "#111418", color: "#f1f5f9" }}>
 
@@ -49,10 +59,20 @@ export default function QROrderDemo() {
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
           <span className="text-[12px] text-[#94a3b8]">Live Demo</span>
         </div>
-        <div className="flex items-center gap-1 text-[11px] text-emerald-400">
-          <Wifi size={11} />
-          <span>Realtime</span>
-        </div>
+        {/* รายการที่สั่ง button */}
+        <button
+          onClick={() => setShowOrder(true)}
+          className="flex items-center gap-1.5 text-[12px] px-3 py-1.5 rounded-lg transition-colors relative"
+          style={{ background: "#1e2530", color: "#94a3b8", border: "0.5px solid #2a3040" }}
+        >
+          <ShoppingBag size={13} />
+          รายการที่สั่ง
+          {totalItems > 0 && (
+            <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center" style={{ background: "#f59e0b", color: "#0d1117" }}>
+              {totalItems}
+            </span>
+          )}
+        </button>
       </div>
 
       {/* Restaurant header */}
@@ -64,14 +84,12 @@ export default function QROrderDemo() {
               <h1 className="text-[22px] font-semibold text-white leading-tight">ครัวบ้านไทย</h1>
               <p className="text-[12px] text-[#64748b] mt-0.5">เวลานั่ง: <span className="text-amber-400 font-medium">1:42:07</span> เหลือ</p>
             </div>
-            <div className="text-right">
-              <div className="text-[28px]">🍽️</div>
-            </div>
+            <div className="text-[28px]">🍽️</div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-[440px] mx-auto px-4 pb-28">
+      <div className="max-w-[440px] mx-auto px-4 pb-8">
         {/* Category scroll */}
         <div className="flex gap-2 overflow-x-auto pb-1 mb-4 scrollbar-hide">
           {CATS.map((c) => (
@@ -82,7 +100,7 @@ export default function QROrderDemo() {
               style={
                 activeCat === c
                   ? { background: "#f59e0b", color: "#0d1117", fontWeight: 600 }
-                  : { background: "#1e2530", color: "#94a3b8", border: "none" }
+                  : { background: "#1e2530", color: "#94a3b8" }
               }
             >
               {c}
@@ -105,7 +123,7 @@ export default function QROrderDemo() {
                 <div className="flex items-center gap-1.5">
                   <p className="text-[13px] font-medium text-white truncate">{item.name}</p>
                   {item.popular && (
-                    <span className="text-[9px] bg-amber-400/10 text-amber-400 px-1.5 py-0.5 rounded shrink-0" style={{ border: "0.5px solid #f59e0b40" }}>
+                    <span className="text-[9px] text-amber-400 px-1.5 py-0.5 rounded shrink-0" style={{ background: "#f59e0b18", border: "0.5px solid #f59e0b40" }}>
                       ยอดนิยม
                     </span>
                   )}
@@ -116,19 +134,11 @@ export default function QROrderDemo() {
               <div className="flex items-center gap-2 shrink-0">
                 {cart[item.id] ? (
                   <>
-                    <button
-                      onClick={() => sub(item.id)}
-                      className="w-7 h-7 rounded-full flex items-center justify-center transition-colors"
-                      style={{ background: "#1e2530", color: "#94a3b8" }}
-                    >
+                    <button onClick={() => sub(item.id)} className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: "#1e2530", color: "#94a3b8" }}>
                       <Minus size={12} />
                     </button>
                     <span className="text-[13px] font-semibold text-white w-4 text-center">{cart[item.id]}</span>
-                    <button
-                      onClick={() => add(item.id)}
-                      className="w-7 h-7 rounded-full flex items-center justify-center transition-colors"
-                      style={{ background: "#f59e0b", color: "#0d1117" }}
-                    >
+                    <button onClick={() => add(item.id)} className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: "#f59e0b", color: "#0d1117" }}>
                       <Plus size={12} />
                     </button>
                   </>
@@ -149,39 +159,99 @@ export default function QROrderDemo() {
         </div>
       </div>
 
-      {/* Cart bar */}
-      {totalItems > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 px-4 pb-5 pt-2" style={{ background: "linear-gradient(0deg, #0d1117 80%, transparent)" }}>
-          <div className="max-w-[440px] mx-auto">
-            <button
-              onClick={() => setShowCart(!showCart)}
-              className="w-full rounded-xl px-5 py-3.5 flex items-center justify-between transition-all"
-              style={{ background: "#f59e0b" }}
-            >
-              <span className="text-[13px] font-semibold text-[#0d1117]">{totalItems} รายการ</span>
-              <div className="flex items-center gap-2">
-                <span className="text-[13px] font-bold text-[#0d1117]">{totalPrice} บาท</span>
-                <ChevronRight size={16} style={{ color: "#0d1117", transform: showCart ? "rotate(90deg)" : "none", transition: "transform 0.2s" }} />
+      {/* Order sheet overlay */}
+      {showOrder && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 z-20"
+            style={{ background: "rgba(0,0,0,0.6)" }}
+            onClick={() => setShowOrder(false)}
+          />
+          {/* Sheet */}
+          <div
+            className="fixed bottom-0 left-0 right-0 z-30 rounded-t-2xl overflow-hidden"
+            style={{ background: "#1a1f2a", border: "0.5px solid #2a3040", maxHeight: "80vh" }}
+          >
+            {/* Sheet header */}
+            <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "0.5px solid #1e2530" }}>
+              <div>
+                <p className="text-[14px] font-semibold text-white">รายการที่สั่ง</p>
+                <p className="text-[11px] text-[#475569] mt-0.5">โต๊ะ 12 · ครัวบ้านไทย</p>
               </div>
-            </button>
+              <button onClick={() => setShowOrder(false)} className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: "#111418", color: "#64748b" }}>
+                <X size={14} />
+              </button>
+            </div>
 
-            {showCart && (
-              <div className="mt-2 rounded-xl overflow-hidden" style={{ background: "#1a1f2a", border: "0.5px solid #1e2530" }}>
-                {cartItems.map((item, i) => (
-                  <div key={item.id} className="flex items-center justify-between px-4 py-2.5" style={{ borderTop: i > 0 ? "0.5px solid #1e2530" : "none" }}>
-                    <span className="text-[12px] text-[#94a3b8]">{item.emoji} {item.name}</span>
-                    <span className="text-[12px] text-amber-400">×{cart[item.id]} · {item.price * cart[item.id]} ฿</span>
-                  </div>
-                ))}
-                <div className="px-4 py-3" style={{ borderTop: "0.5px solid #1e2530" }}>
-                  <button className="w-full py-2.5 rounded-lg text-[13px] font-semibold text-[#0d1117] transition-colors" style={{ background: "#f59e0b" }}>
-                    ยืนยันสั่งอาหาร
-                  </button>
+            {/* Items */}
+            <div className="overflow-y-auto" style={{ maxHeight: "calc(80vh - 160px)" }}>
+              {cartItems.length === 0 ? (
+                <div className="px-5 py-10 text-center">
+                  <p className="text-[32px] mb-3">🍽️</p>
+                  <p className="text-[13px] text-[#475569]">ยังไม่มีรายการที่สั่ง</p>
+                  <p className="text-[12px] text-[#2a3040] mt-1">เลือกเมนูแล้วกด + เพื่อเพิ่ม</p>
                 </div>
-              </div>
-            )}
+              ) : (
+                <div>
+                  {cartItems.map((item, i) => (
+                    <div
+                      key={item.id}
+                      className="flex items-center gap-3 px-5 py-3.5"
+                      style={{ borderBottom: i < cartItems.length - 1 ? "0.5px solid #1e2530" : "none" }}
+                    >
+                      <span className="text-xl w-8 text-center">{item.emoji}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[13px] text-white font-medium truncate">{item.name}</p>
+                        <p className="text-[11px] text-[#475569] mt-0.5">{item.price} ฿ × {cart[item.id]}</p>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <button onClick={() => sub(item.id)} className="w-6 h-6 rounded-full flex items-center justify-center" style={{ background: "#111418", color: "#64748b" }}>
+                          <Minus size={11} />
+                        </button>
+                        <span className="text-[13px] font-semibold text-white w-4 text-center">{cart[item.id]}</span>
+                        <button onClick={() => add(item.id)} className="w-6 h-6 rounded-full flex items-center justify-center" style={{ background: "#111418", color: "#64748b" }}>
+                          <Plus size={11} />
+                        </button>
+                      </div>
+                      <p className="text-[13px] text-amber-400 font-medium w-14 text-right shrink-0">
+                        {item.price * cart[item.id]} ฿
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="px-5 py-4" style={{ borderTop: "0.5px solid #1e2530" }}>
+              {cartItems.length > 0 && (
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-[13px] text-[#64748b]">รวมทั้งหมด</span>
+                  <span className="text-[16px] font-bold text-amber-400">{totalPrice} บาท</span>
+                </div>
+              )}
+              {confirmed ? (
+                <div className="flex items-center justify-center gap-2 py-3 rounded-xl" style={{ background: "#1e2a20", border: "0.5px solid #22c55e40" }}>
+                  <CheckCircle size={16} className="text-emerald-400" />
+                  <span className="text-[13px] text-emerald-400 font-medium">ส่งออเดอร์ไปครัวแล้ว!</span>
+                </div>
+              ) : (
+                <button
+                  onClick={cartItems.length > 0 ? handleConfirm : undefined}
+                  className="w-full py-3 rounded-xl text-[13px] font-semibold transition-colors"
+                  style={
+                    cartItems.length > 0
+                      ? { background: "#f59e0b", color: "#0d1117" }
+                      : { background: "#1e2530", color: "#2a3040" }
+                  }
+                >
+                  {cartItems.length > 0 ? `ยืนยันสั่ง ${totalItems} รายการ` : "เพิ่มรายการก่อน"}
+                </button>
+              )}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
