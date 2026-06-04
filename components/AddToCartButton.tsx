@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ShoppingCart, Minus, Plus, Heart } from "lucide-react";
+import { MessageSquare, Heart, CheckCircle } from "lucide-react";
 import { formatPrice } from "@/lib/data";
 import { Product } from "@/lib/types";
 
@@ -10,70 +10,58 @@ interface Props {
 }
 
 export default function AddToCartButton({ product }: Props) {
-  const [qty, setQty] = useState(1);
-  const [added, setAdded] = useState(false);
-  const [wished, setWished] = useState(false);
+  const [contacted, setContacted] = useState(false);
+  const [saved, setSaved] = useState(false);
 
-  const handleAddToCart = () => {
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+  const handleContact = () => {
+    setContacted(true);
+    setTimeout(() => setContacted(false), 2500);
   };
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-4">
-        <span className="text-sm text-gray-500 w-20">จำนวน</span>
-        <div className="flex items-center border border-gray-300 rounded">
-          <button
-            onClick={() => setQty((q) => Math.max(1, q - 1))}
-            className="w-9 h-9 flex items-center justify-center hover:bg-gray-50 text-gray-600 disabled:opacity-30"
-            disabled={qty <= 1}
-          >
-            <Minus size={14} />
-          </button>
-          <span className="w-12 text-center text-sm border-x border-gray-300 h-9 flex items-center justify-center">
-            {qty}
-          </span>
-          <button
-            onClick={() => setQty((q) => Math.min(product.stock, q + 1))}
-            className="w-9 h-9 flex items-center justify-center hover:bg-gray-50 text-gray-600 disabled:opacity-30"
-            disabled={qty >= product.stock}
-          >
-            <Plus size={14} />
-          </button>
-        </div>
-        <span className="text-sm text-gray-400">{product.stock} ชิ้นที่มีอยู่</span>
-      </div>
-
+      {/* Delivery info */}
       <div className="flex items-center gap-4 text-sm text-gray-500">
-        <span className="w-20">รวม</span>
-        <span className="text-[#2563EB] text-lg font-medium">฿{formatPrice(product.price * qty)}</span>
+        <span className="w-24 shrink-0">ระยะเวลา</span>
+        <span className="text-gray-700">{product.location}</span>
       </div>
 
+      {/* Price summary */}
+      <div className="flex items-center gap-4 text-sm text-gray-500">
+        <span className="w-24 shrink-0">ราคาเริ่มต้น</span>
+        <span className="text-[#2563EB] text-lg font-medium">฿{formatPrice(product.price)}</span>
+      </div>
+
+      {/* Buttons */}
       <div className="flex gap-3 flex-wrap">
         <button
-          onClick={handleAddToCart}
+          onClick={handleContact}
           className={`flex items-center gap-2 px-6 py-3 rounded border text-sm font-medium transition-all ${
-            added
+            contacted
               ? "border-green-500 text-green-600 bg-green-50"
               : "border-[#2563EB] text-[#2563EB] bg-[#EFF6FF] hover:bg-[#DBEAFE]"
           }`}
         >
-          <ShoppingCart size={16} />
-          {added ? "เพิ่มแล้ว ✓" : "เพิ่มลงตะกร้า"}
+          {contacted ? <CheckCircle size={16} /> : <MessageSquare size={16} />}
+          {contacted ? "ส่งแล้ว กรุณารอการติดต่อ" : "สอบถามรายละเอียด"}
         </button>
         <button className="flex-1 md:flex-none px-8 py-3 bg-[#2563EB] text-white rounded text-sm font-medium hover:bg-[#1D4ED8] transition-colors">
-          ซื้อเลย
+          จ้างงานเลย
         </button>
         <button
-          onClick={() => setWished((w) => !w)}
+          onClick={() => setSaved((s) => !s)}
           className={`p-3 rounded border transition-colors ${
-            wished ? "border-red-300 text-red-500 bg-red-50" : "border-gray-200 text-gray-400 hover:border-gray-300"
+            saved ? "border-red-300 text-red-500 bg-red-50" : "border-gray-200 text-gray-400 hover:border-gray-300"
           }`}
+          title="บันทึก"
         >
-          <Heart size={18} className={wished ? "fill-red-500" : ""} />
+          <Heart size={18} className={saved ? "fill-red-500" : ""} />
         </button>
       </div>
+
+      <p className="text-xs text-gray-400">
+        💬 ทักมาปรึกษาฟรีก่อนได้เลย — แนะนำแนวทางและราคาทั้งหมดก่อนตกลงงาน
+      </p>
     </div>
   );
 }

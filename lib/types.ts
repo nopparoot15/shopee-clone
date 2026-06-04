@@ -13,6 +13,8 @@ export interface Product {
   stock: number;
   description: string;
   images: string[];
+  features?: string[];
+  deliveryDays?: number;
 }
 
 export interface Category {

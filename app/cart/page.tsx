@@ -1,215 +1,199 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { products, formatPrice } from "@/lib/data";
-import { Trash2, Minus, Plus, ShoppingBag, ChevronRight } from "lucide-react";
+import { ChevronRight, MessageSquare, Send, CheckCircle } from "lucide-react";
 
-const mockCartItems = [
-  { product: products[0], quantity: 2, selected: true },
-  { product: products[1], quantity: 1, selected: true },
-  { product: products[6], quantity: 1, selected: false },
-];
+export default function ContactPage() {
+  const [form, setForm] = useState({
+    name: "",
+    contact: "",
+    type: "",
+    budget: "",
+    detail: "",
+  });
+  const [sent, setSent] = useState(false);
 
-export default function CartPage() {
-  const [items, setItems] = useState(mockCartItems);
-
-  const toggleSelect = (id: number) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item.product.id === id ? { ...item, selected: !item.selected } : item
-      )
-    );
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSent(true);
   };
 
-  const toggleAll = () => {
-    const allSelected = items.every((i) => i.selected);
-    setItems((prev) => prev.map((item) => ({ ...item, selected: !allSelected })));
-  };
+  const serviceTypes = [
+    "Landing Page",
+    "Company Profile Website",
+    "Portfolio Website",
+    "เว็บร้านอาหาร / คาเฟ่",
+    "เว็บร้านค้าออนไลน์",
+    "เว็บประชาสัมพันธ์",
+    "เว็บแนะนำสินค้า",
+    "Full-Stack Web Application",
+    "E-commerce ครบวงจร",
+    "อื่น ๆ",
+  ];
 
-  const updateQty = (id: number, delta: number) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item.product.id === id
-          ? { ...item, quantity: Math.max(1, Math.min(item.product.stock, item.quantity + delta)) }
-          : item
-      )
-    );
-  };
-
-  const removeItem = (id: number) => {
-    setItems((prev) => prev.filter((item) => item.product.id !== id));
-  };
-
-  const selectedItems = items.filter((i) => i.selected);
-  const total = selectedItems.reduce((sum, i) => sum + i.product.price * i.quantity, 0);
-  const savings = selectedItems.reduce(
-    (sum, i) => sum + (i.product.originalPrice - i.product.price) * i.quantity,
-    0
-  );
+  const budgets = [
+    "ต่ำกว่า ฿5,000",
+    "฿5,000 – ฿10,000",
+    "฿10,000 – ฿20,000",
+    "฿20,000 – ฿50,000",
+    "มากกว่า ฿50,000",
+    "ยังไม่แน่ใจ / ขอคำแนะนำ",
+  ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-4 space-y-4">
+    <div className="max-w-4xl mx-auto px-4 py-6 space-y-4">
       {/* Breadcrumb */}
       <div className="flex items-center gap-1.5 text-sm text-gray-500">
         <Link href="/" className="hover:text-[#2563EB]">หน้าหลัก</Link>
         <ChevronRight size={14} />
-        <span className="text-gray-700">ตะกร้าสินค้า</span>
+        <span className="text-gray-700">ปรึกษา / ติดต่อ</span>
       </div>
 
-      {items.length === 0 ? (
-        <div className="bg-white rounded-sm py-20 text-center text-gray-400">
-          <ShoppingBag size={56} className="mx-auto mb-4 text-gray-200" />
-          <p className="text-lg mb-2">ตะกร้าสินค้าว่างเปล่า</p>
-          <p className="text-sm mb-6">เพิ่มสินค้าที่ชอบลงในตะกร้า</p>
+      {sent ? (
+        <div className="bg-white rounded-sm py-20 text-center">
+          <CheckCircle size={56} className="mx-auto mb-4 text-[#2563EB]" />
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">ส่งข้อมูลเรียบร้อยแล้ว</h2>
+          <p className="text-gray-500 text-sm mb-6">จะติดต่อกลับภายใน 24 ชั่วโมง ขอบคุณที่ไว้วางใจครับ</p>
           <Link
             href="/products"
             className="px-8 py-3 bg-[#2563EB] text-white rounded text-sm hover:bg-[#1D4ED8] transition-colors"
           >
-            ช้อปเลย
+            ดูบริการทั้งหมด
           </Link>
         </div>
       ) : (
-        <div className="flex flex-col lg:flex-row gap-4 items-start">
-          {/* Items */}
-          <div className="flex-1 space-y-3 w-full">
-            {/* Header */}
-            <div className="bg-white rounded-sm px-4 py-3 hidden md:grid grid-cols-[auto_2fr_1fr_1fr_1fr_auto] gap-4 items-center text-sm text-gray-500">
-              <input
-                type="checkbox"
-                checked={items.every((i) => i.selected)}
-                onChange={toggleAll}
-                className="w-4 h-4 accent-[#2563EB]"
-              />
-              <span>สินค้า</span>
-              <span className="text-center">ราคา</span>
-              <span className="text-center">จำนวน</span>
-              <span className="text-center">รวม</span>
-              <span className="text-center">ลบ</span>
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_300px] gap-4">
+          {/* Form */}
+          <div className="bg-white rounded-sm p-6">
+            <div className="flex items-center gap-2 mb-6">
+              <MessageSquare size={20} className="text-[#2563EB]" />
+              <h1 className="font-semibold text-gray-800 text-lg">ปรึกษาฟรี — บอกความต้องการ</h1>
             </div>
 
-            {items.map((item) => (
-              <div
-                key={item.product.id}
-                className="bg-white rounded-sm px-4 py-4 grid grid-cols-[auto_1fr] md:grid-cols-[auto_2fr_1fr_1fr_1fr_auto] gap-4 items-center"
-              >
-                <input
-                  type="checkbox"
-                  checked={item.selected}
-                  onChange={() => toggleSelect(item.product.id)}
-                  className="w-4 h-4 accent-[#2563EB]"
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1.5">ชื่อ-นามสกุล / ชื่อธุรกิจ <span className="text-red-400">*</span></label>
+                  <input
+                    required
+                    type="text"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    className="w-full px-3 py-2.5 border border-gray-200 rounded text-sm outline-none focus:border-[#2563EB] transition-colors"
+                    placeholder="เช่น คุณสมชาย / ร้านกาแฟสีดา"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1.5">LINE ID / เบอร์โทร <span className="text-red-400">*</span></label>
+                  <input
+                    required
+                    type="text"
+                    value={form.contact}
+                    onChange={(e) => setForm({ ...form, contact: e.target.value })}
+                    className="w-full px-3 py-2.5 border border-gray-200 rounded text-sm outline-none focus:border-[#2563EB] transition-colors"
+                    placeholder="@lineid หรือ 08x-xxx-xxxx"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1.5">ประเภทเว็บไซต์ที่ต้องการ</label>
+                  <select
+                    value={form.type}
+                    onChange={(e) => setForm({ ...form, type: e.target.value })}
+                    className="w-full px-3 py-2.5 border border-gray-200 rounded text-sm outline-none focus:border-[#2563EB] transition-colors bg-white"
+                  >
+                    <option value="">-- เลือกประเภท --</option>
+                    {serviceTypes.map((t) => (
+                      <option key={t} value={t}>{t}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1.5">งบประมาณโดยประมาณ</label>
+                  <select
+                    value={form.budget}
+                    onChange={(e) => setForm({ ...form, budget: e.target.value })}
+                    className="w-full px-3 py-2.5 border border-gray-200 rounded text-sm outline-none focus:border-[#2563EB] transition-colors bg-white"
+                  >
+                    <option value="">-- เลือกงบ --</option>
+                    {budgets.map((b) => (
+                      <option key={b} value={b}>{b}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm text-gray-600 mb-1.5">รายละเอียดเพิ่มเติม</label>
+                <textarea
+                  value={form.detail}
+                  onChange={(e) => setForm({ ...form, detail: e.target.value })}
+                  rows={5}
+                  className="w-full px-3 py-2.5 border border-gray-200 rounded text-sm outline-none focus:border-[#2563EB] transition-colors resize-none"
+                  placeholder="บอกสิ่งที่ต้องการ เช่น ต้องการเว็บร้านกาแฟ มีเมนูสินค้า แผนที่ ปุ่มสั่งผ่าน LINE มีโทน Minimal สีขาว-น้ำตาล..."
                 />
-
-                {/* Product info */}
-                <div className="flex items-start gap-3">
-                  <div className="relative w-20 h-20 shrink-0 rounded overflow-hidden bg-gray-100">
-                    <Image
-                      src={item.product.image}
-                      alt={item.product.name}
-                      fill
-                      className="object-cover"
-                      sizes="80px"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <Link
-                      href={`/products/${item.product.id}`}
-                      className="text-sm text-gray-700 hover:text-[#2563EB] line-clamp-2"
-                    >
-                      {item.product.name}
-                    </Link>
-                    <p className="text-xs text-gray-400 mt-1">{item.product.shopName}</p>
-                    {/* Mobile price */}
-                    <p className="text-[#2563EB] font-medium mt-2 md:hidden">
-                      ฿{formatPrice(item.product.price)}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Price */}
-                <div className="hidden md:block text-center">
-                  <p className="text-[#2563EB] text-sm">฿{formatPrice(item.product.price)}</p>
-                  <p className="text-gray-300 text-xs line-through">฿{formatPrice(item.product.originalPrice)}</p>
-                </div>
-
-                {/* Qty */}
-                <div className="flex items-center justify-center border border-gray-200 rounded w-fit mx-auto">
-                  <button
-                    onClick={() => updateQty(item.product.id, -1)}
-                    className="w-8 h-8 flex items-center justify-center hover:bg-gray-50 text-gray-500 disabled:opacity-30"
-                    disabled={item.quantity <= 1}
-                  >
-                    <Minus size={12} />
-                  </button>
-                  <span className="w-10 text-center text-sm border-x border-gray-200 h-8 flex items-center justify-center">
-                    {item.quantity}
-                  </span>
-                  <button
-                    onClick={() => updateQty(item.product.id, 1)}
-                    className="w-8 h-8 flex items-center justify-center hover:bg-gray-50 text-gray-500 disabled:opacity-30"
-                    disabled={item.quantity >= item.product.stock}
-                  >
-                    <Plus size={12} />
-                  </button>
-                </div>
-
-                {/* Total */}
-                <div className="hidden md:block text-center text-[#2563EB] font-medium text-sm">
-                  ฿{formatPrice(item.product.price * item.quantity)}
-                </div>
-
-                {/* Delete */}
-                <button
-                  onClick={() => removeItem(item.product.id)}
-                  className="text-gray-400 hover:text-red-500 transition-colors mx-auto"
-                >
-                  <Trash2 size={16} />
-                </button>
               </div>
-            ))}
-          </div>
-
-          {/* Summary */}
-          <div className="w-full lg:w-80 shrink-0 sticky top-28">
-            <div className="bg-white rounded-sm p-5 space-y-4">
-              <h2 className="font-semibold text-gray-700">สรุปคำสั่งซื้อ</h2>
-
-              <div className="space-y-2.5 text-sm">
-                <div className="flex justify-between text-gray-600">
-                  <span>สินค้า ({selectedItems.reduce((s, i) => s + i.quantity, 0)} ชิ้น)</span>
-                  <span>฿{formatPrice(total + savings)}</span>
-                </div>
-                <div className="flex justify-between text-green-600">
-                  <span>ส่วนลดรวม</span>
-                  <span>-฿{formatPrice(savings)}</span>
-                </div>
-                <div className="flex justify-between text-green-600">
-                  <span>ค่าจัดส่ง</span>
-                  <span>ฟรี</span>
-                </div>
-                <div className="border-t border-gray-100 pt-2.5 flex justify-between font-semibold text-base">
-                  <span>ยอดรวม</span>
-                  <span className="text-[#2563EB]">฿{formatPrice(total)}</span>
-                </div>
-              </div>
-
-              {savings > 0 && (
-                <div className="bg-green-50 text-green-700 text-xs px-3 py-2 rounded">
-                  ประหยัดไปทั้งหมด ฿{formatPrice(savings)}
-                </div>
-              )}
 
               <button
-                className={`w-full py-3 rounded text-white font-medium text-sm transition-colors ${
-                  selectedItems.length === 0
-                    ? "bg-gray-300 cursor-not-allowed"
-                    : "bg-[#2563EB] hover:bg-[#1D4ED8]"
-                }`}
-                disabled={selectedItems.length === 0}
+                type="submit"
+                className="w-full flex items-center justify-center gap-2 py-3 bg-[#2563EB] text-white rounded font-medium hover:bg-[#1D4ED8] transition-colors"
               >
-                ชำระเงิน ({selectedItems.length} รายการ)
+                <Send size={16} />
+                ส่งข้อมูลปรึกษาฟรี
               </button>
+            </form>
+          </div>
+
+          {/* Sidebar info */}
+          <div className="space-y-3">
+            <div className="bg-white rounded-sm p-4 space-y-3">
+              <h3 className="font-semibold text-gray-700 text-sm">ทำไมต้องเรา?</h3>
+              <ul className="space-y-2.5 text-xs text-gray-600">
+                {[
+                  "ประสบการณ์ Infrastructure จากโครงการองค์กร",
+                  "ส่งมอบพร้อม Deploy ใช้งานจริงบน Production",
+                  "ไม่ใช่แค่ส่ง Source Code แล้วจบ",
+                  "ตั้งค่า Domain + DNS ให้ด้วย",
+                  "ปรึกษาก่อน ไม่มีค่าใช้จ่าย",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span className="text-[#2563EB] mt-0.5">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-[#EFF6FF] rounded-sm p-4">
+              <h3 className="font-semibold text-[#2563EB] text-sm mb-2">Tech Stack</h3>
+              <div className="flex flex-wrap gap-1.5">
+                {["React", "Next.js", "Tailwind", "Node.js", "Express", "MySQL", "PostgreSQL", "Docker", "Cloudflare", "Linux VPS"].map((t) => (
+                  <span key={t} className="px-2 py-0.5 bg-white text-[#2563EB] text-xs rounded border border-blue-100">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-white rounded-sm p-4">
+              <h3 className="font-semibold text-gray-700 text-sm mb-2">ค่าใช้จ่ายเพิ่มเติม</h3>
+              <div className="space-y-2 text-xs text-gray-500">
+                <div className="flex justify-between">
+                  <span>Domain (.com)</span>
+                  <span className="font-medium text-gray-700">~฿300-500/ปี</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Hosting (Vercel)</span>
+                  <span className="font-medium text-green-600">ฟรี ✓</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>VPS (ถ้าต้องการ)</span>
+                  <span className="font-medium text-gray-700">~฿150-250/เดือน</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ShoppingCart, Search, Bell, MessageSquare, ChevronDown } from "lucide-react";
+import { Search, Bell, MessageSquare, ChevronDown, Code2, Phone } from "lucide-react";
 
 export default function Header() {
   const [query, setQuery] = useState("");
@@ -16,7 +16,7 @@ export default function Header() {
     }
   };
 
-  const trendingSearches = ["เสื้อยืด", "หูฟัง bluetooth", "ครีมกันแดด", "กระเป๋าเป้"];
+  const quickSearch = ["Landing Page", "Company Profile", "ร้านอาหาร", "Full-Stack"];
 
   return (
     <header className="sticky top-0 z-50 shadow-sm">
@@ -24,30 +24,25 @@ export default function Header() {
       <div className="bg-[#1E3A8A] text-white text-xs">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-8">
           <div className="hidden md:flex items-center gap-4">
-            <Link href="#" className="hover:opacity-80 flex items-center gap-1">
-              <span>ขายของบน Market</span>
-            </Link>
+            <Link href="/products" className="hover:opacity-80">ผลงานทั้งหมด</Link>
             <span className="opacity-40">|</span>
-            <Link href="#" className="hover:opacity-80">ดาวน์โหลด App</Link>
+            <Link href="#techstack" className="hover:opacity-80">Tech Stack</Link>
             <span className="opacity-40">|</span>
-            <Link href="#" className="hover:opacity-80">ติดตามเราบน</Link>
+            <span className="opacity-80">Next.js · React · Node.js · Docker</span>
           </div>
           <div className="flex items-center gap-4 ml-auto">
             <Link href="#" className="hover:opacity-80 flex items-center gap-1">
               <Bell size={12} />
-              <span>การแจ้งเตือน</span>
+              <span>LINE: @webpro</span>
+            </Link>
+            <Link href="tel:" className="hover:opacity-80 flex items-center gap-1">
+              <Phone size={12} />
+              <span>ติดต่อ</span>
             </Link>
             <Link href="#" className="hover:opacity-80 flex items-center gap-1">
-              <MessageSquare size={12} />
-              <span>ช่วยเหลือ</span>
-            </Link>
-            <Link href="#" className="hover:opacity-80 flex items-center gap-1">
-              <span>ภาษา / ไทย</span>
+              <span>ปรึกษาฟรี</span>
               <ChevronDown size={10} />
             </Link>
-            <Link href="#" className="hover:opacity-80">สมัครสมาชิก</Link>
-            <span className="opacity-40">|</span>
-            <Link href="#" className="hover:opacity-80">เข้าสู่ระบบ</Link>
           </div>
         </div>
       </div>
@@ -56,9 +51,11 @@ export default function Header() {
       <div style={{ background: "linear-gradient(to bottom, #2563EB, #1D4ED8)" }} className="py-3">
         <div className="max-w-7xl mx-auto px-4 flex items-center gap-4">
           {/* Logo */}
-          <Link href="/" className="shrink-0 flex items-center">
-            <div className="text-white font-bold text-2xl tracking-tight" style={{ fontFamily: "Arial Black, sans-serif" }}>
-              Market
+          <Link href="/" className="shrink-0 flex items-center gap-2">
+            <Code2 size={28} className="text-white" />
+            <div>
+              <div className="text-white font-bold text-xl leading-none tracking-tight">WebPro</div>
+              <div className="text-white/70 text-[10px] leading-none">รับทำเว็บไซต์ครบวงจร</div>
             </div>
           </Link>
 
@@ -69,7 +66,7 @@ export default function Header() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="ค้นหาสินค้า..."
+                placeholder="ค้นหาบริการ เช่น Landing Page, ร้านอาหาร..."
                 className="w-full px-4 py-2.5 text-sm text-gray-800 bg-white rounded-l-sm outline-none placeholder:text-gray-400"
               />
               <button
@@ -81,7 +78,7 @@ export default function Header() {
               </button>
             </div>
             <div className="flex gap-3 mt-1.5 overflow-hidden">
-              {trendingSearches.map((term) => (
+              {quickSearch.map((term) => (
                 <button
                   key={term}
                   type="button"
@@ -94,15 +91,13 @@ export default function Header() {
             </div>
           </form>
 
-          {/* Cart */}
-          <Link href="/cart" className="shrink-0 text-white flex flex-col items-center group">
-            <div className="relative">
-              <ShoppingCart size={26} />
-              <span className="absolute -top-2 -right-2 bg-white text-[#2563EB] text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">
-                0
-              </span>
-            </div>
-            <span className="text-xs mt-0.5">ตะกร้า</span>
+          {/* CTA */}
+          <Link
+            href="/cart"
+            className="shrink-0 bg-white text-[#2563EB] font-semibold text-sm px-4 py-2.5 rounded hover:bg-blue-50 transition-colors flex items-center gap-2 whitespace-nowrap"
+          >
+            <MessageSquare size={16} />
+            ทักมาปรึกษา
           </Link>
         </div>
       </div>
@@ -111,15 +106,26 @@ export default function Header() {
       <nav className="bg-white border-b border-gray-100 hidden md:block">
         <div className="max-w-7xl mx-auto px-4">
           <ul className="flex items-center gap-6 text-sm text-gray-600 h-10 overflow-x-auto scrollbar-hide">
-            {["แฟชั่น", "อิเล็กทรอนิกส์", "บ้าน & ชีวิต", "ความงาม", "กีฬา", "อาหาร", "หนังสือ", "ของเล่น", "ยานยนต์", "สัตว์เลี้ยง"].map(
-              (cat) => (
-                <li key={cat}>
-                  <Link href={`/products?cat=${encodeURIComponent(cat)}`} className="whitespace-nowrap hover:text-[#2563EB] transition-colors">
-                    {cat}
-                  </Link>
-                </li>
-              )
-            )}
+            {[
+              { label: "Landing Page", id: "landing" },
+              { label: "Company Profile", id: "company" },
+              { label: "Portfolio", id: "portfolio" },
+              { label: "ร้านอาหาร", id: "restaurant" },
+              { label: "ร้านค้าออนไลน์", id: "ecommerce" },
+              { label: "ประชาสัมพันธ์", id: "promote" },
+              { label: "แนะนำสินค้า", id: "product" },
+              { label: "Full-Stack App", id: "fullstack" },
+              { label: "SEO Package", id: "seo" },
+            ].map((cat) => (
+              <li key={cat.id}>
+                <Link
+                  href={`/products?cat=${cat.id}`}
+                  className="whitespace-nowrap hover:text-[#2563EB] transition-colors"
+                >
+                  {cat.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </nav>

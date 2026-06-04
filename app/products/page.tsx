@@ -47,7 +47,7 @@ export default async function ProductsPage({
       <div className="flex items-center gap-1.5 text-sm text-gray-500 mb-4">
         <Link href="/" className="hover:text-[#2563EB]">หน้าหลัก</Link>
         <ChevronRight size={14} />
-        <span className="text-gray-700">{q ? `"${q}"` : activeCategory?.name ?? "สินค้าทั้งหมด"}</span>
+        <span className="text-gray-700">{q ? `"${q}"` : activeCategory?.name ?? "บริการทั้งหมด"}</span>
       </div>
 
       <div className="flex gap-4">
@@ -135,9 +135,9 @@ export default async function ProductsPage({
           {filtered.length === 0 ? (
             <div className="text-center py-16 text-gray-400">
               <p className="text-4xl mb-3">🔍</p>
-              <p className="text-lg">ไม่พบสินค้าที่ค้นหา</p>
+              <p className="text-lg">ไม่พบบริการที่ค้นหา</p>
               <Link href="/products" className="mt-4 inline-block text-[#2563EB] hover:underline text-sm">
-                ดูสินค้าทั้งหมด
+                ดูบริการทั้งหมด
               </Link>
             </div>
           ) : (

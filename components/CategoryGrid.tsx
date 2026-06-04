@@ -4,7 +4,7 @@ import { categories } from "@/lib/data";
 export default function CategoryGrid() {
   return (
     <section className="bg-white rounded-sm p-4">
-      <h2 className="text-gray-700 font-medium text-sm mb-3 uppercase tracking-wide">หมวดหมู่สินค้า</h2>
+      <h2 className="text-gray-700 font-medium text-sm mb-3 uppercase tracking-wide">ประเภทบริการ</h2>
       <div className="grid grid-cols-5 md:grid-cols-10 gap-2">
         {categories.map((cat) => (
           <Link

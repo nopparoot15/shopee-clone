@@ -1,64 +1,58 @@
 import Link from "next/link";
+import { Code2 } from "lucide-react";
 
 export default function Footer() {
   return (
     <footer className="bg-white border-t border-gray-100 mt-8">
       <div className="max-w-7xl mx-auto px-4 py-10">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 text-sm text-gray-600">
-          <div>
-            <h3 className="font-semibold text-gray-800 mb-3">เกี่ยวกับ Market</h3>
-            <ul className="space-y-2">
-              <li><Link href="#" className="hover:text-[#2563EB]">เกี่ยวกับเรา</Link></li>
-              <li><Link href="#" className="hover:text-[#2563EB]">ร่วมงานกับเรา</Link></li>
-              <li><Link href="#" className="hover:text-[#2563EB]">นโยบายความเป็นส่วนตัว</Link></li>
-              <li><Link href="#" className="hover:text-[#2563EB]">ข้อกำหนดการให้บริการ</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold text-gray-800 mb-3">ช่วยเหลือ</h3>
-            <ul className="space-y-2">
-              <li><Link href="#" className="hover:text-[#2563EB]">ศูนย์ช่วยเหลือ</Link></li>
-              <li><Link href="#" className="hover:text-[#2563EB]">วิธีการซื้อ</Link></li>
-              <li><Link href="#" className="hover:text-[#2563EB]">การชำระเงิน</Link></li>
-              <li><Link href="#" className="hover:text-[#2563EB]">การจัดส่ง</Link></li>
-              <li><Link href="#" className="hover:text-[#2563EB]">การคืนสินค้า</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold text-gray-800 mb-3">ชำระเงิน</h3>
-            <div className="flex flex-wrap gap-2">
-              {["Visa", "Mastercard", "SCB", "KBank", "PromptPay", "True Money"].map((p) => (
-                <span key={p} className="px-2 py-1 border border-gray-200 rounded text-xs text-gray-500">
-                  {p}
-                </span>
-              ))}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-sm text-gray-600">
+          <div className="col-span-2 md:col-span-1">
+            <div className="flex items-center gap-2 mb-3">
+              <Code2 size={20} className="text-[#2563EB]" />
+              <span className="font-bold text-gray-800 text-base">WebPro</span>
+            </div>
+            <p className="text-gray-500 text-xs leading-5 mb-3">
+              รับทำเว็บไซต์ครบวงจร ตั้งแต่ออกแบบ UI<br />
+              ไปจนถึง Deploy บน Production จริง<br />
+              มีประสบการณ์จากโครงการระดับองค์กร
+            </p>
+            <div className="flex gap-2 text-xs">
+              <span className="px-2 py-1 bg-blue-50 text-[#2563EB] rounded">Next.js</span>
+              <span className="px-2 py-1 bg-blue-50 text-[#2563EB] rounded">React</span>
+              <span className="px-2 py-1 bg-blue-50 text-[#2563EB] rounded">Node.js</span>
             </div>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-800 mb-3">จัดส่งโดย</h3>
-            <div className="flex flex-wrap gap-2">
-              {["Kerry", "Flash", "J&T", "Thailand Post", "DHL"].map((p) => (
-                <span key={p} className="px-2 py-1 border border-gray-200 rounded text-xs text-gray-500">
-                  {p}
-                </span>
-              ))}
-            </div>
+            <h3 className="font-semibold text-gray-800 mb-3">บริการ</h3>
+            <ul className="space-y-2">
+              <li><Link href="/products?cat=landing" className="hover:text-[#2563EB]">Landing Page</Link></li>
+              <li><Link href="/products?cat=company" className="hover:text-[#2563EB]">Company Profile</Link></li>
+              <li><Link href="/products?cat=ecommerce" className="hover:text-[#2563EB]">ร้านค้าออนไลน์</Link></li>
+              <li><Link href="/products?cat=fullstack" className="hover:text-[#2563EB]">Full-Stack App</Link></li>
+              <li><Link href="/products?cat=seo" className="hover:text-[#2563EB]">SEO Package</Link></li>
+            </ul>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-800 mb-3">ดาวน์โหลด App</h3>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded hover:border-[#2563EB] cursor-pointer transition-colors">
-                <span className="text-lg">📱</span>
-                <div>
-                  <p className="text-xs text-gray-400">ดาวน์โหลดจาก</p>
-                  <p className="text-xs font-medium text-gray-700">App Store</p>
+            <h3 className="font-semibold text-gray-800 mb-3">Tech Stack</h3>
+            <ul className="space-y-2">
+              {["React / Next.js", "Tailwind CSS", "Node.js / Express", "MySQL / PostgreSQL", "Docker / Linux VPS", "Cloudflare / Vercel"].map((t) => (
+                <li key={t} className="text-gray-500">{t}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-800 mb-3">ติดต่อ</h3>
+            <div className="space-y-2 text-xs text-gray-500">
+              <p>💬 ทักมาปรึกษาฟรีก่อนได้เลย</p>
+              <p>📌 บอกความต้องการ เราแนะนำแนวทางและราคาให้ก่อนตกลงงาน</p>
+              <div className="mt-3 space-y-2">
+                <div className="px-3 py-2 border border-gray-200 rounded hover:border-[#2563EB] cursor-pointer transition-colors">
+                  <p className="text-xs text-gray-400">ช่องทางหลัก</p>
+                  <p className="text-xs font-medium text-gray-700">LINE Official</p>
                 </div>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded hover:border-[#2563EB] cursor-pointer transition-colors">
-                <span className="text-lg">🤖</span>
-                <div>
-                  <p className="text-xs text-gray-400">ดาวน์โหลดจาก</p>
-                  <p className="text-xs font-medium text-gray-700">Google Play</p>
+                <div className="px-3 py-2 border border-gray-200 rounded hover:border-[#2563EB] cursor-pointer transition-colors">
+                  <p className="text-xs text-gray-400">ติดตามผลงาน</p>
+                  <p className="text-xs font-medium text-gray-700">GitHub</p>
                 </div>
               </div>
             </div>
@@ -66,7 +60,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-gray-100 py-4 text-center text-xs text-gray-400">
-        © 2025 Market. All rights reserved. | ผู้ประกอบการที่ได้รับการรับรอง ETDA
+        © 2025 WebPro — รับทำเว็บไซต์ครบวงจร | ส่งมอบงานพร้อมใช้งานจริง
       </div>
     </footer>
   );
