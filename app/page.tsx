@@ -38,9 +38,9 @@ export default function PortfolioPage() {
       {/* Nav */}
       <nav style={{ borderBottom: "0.5px solid #e2e8f0" }} className="bg-white">
         <div className={`${W} flex items-center justify-between h-[52px]`}>
-          <span className="text-[15px] font-medium text-[#0f172a] tracking-tight">
+          <Link href="/" className="text-[15px] font-medium text-[#0f172a] tracking-tight hover:opacity-70 transition-opacity">
             Renrawin<span className="text-[#1A56DB]">.dev</span>
-          </span>
+          </Link>
           <div className="hidden sm:flex items-center gap-5">
             <button onClick={() => setActive("projects")} className="text-[13px] text-[#64748b] hover:text-[#1A56DB] cursor-pointer transition-colors">ผลงาน</button>
             <button onClick={() => setActive("about")} className="text-[13px] text-[#64748b] hover:text-[#1A56DB] cursor-pointer transition-colors">เกี่ยวกับฉัน</button>
