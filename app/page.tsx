@@ -39,7 +39,7 @@ export default function PortfolioPage() {
       <nav style={{ borderBottom: "0.5px solid #e2e8f0" }} className="bg-white">
         <div className={`${W} flex items-center justify-between h-[52px]`}>
           <Link href="/" className="text-[15px] font-medium text-[#0f172a] tracking-tight hover:opacity-70 transition-opacity">
-            Renrawin<span className="text-[#1A56DB]">.dev</span>
+            RenStack<span className="text-[#1A56DB]"> Solutions</span>
           </Link>
           <div className="hidden sm:flex items-center gap-5">
             <button onClick={() => setActive("projects")} className="text-[13px] text-[#64748b] hover:text-[#1A56DB] cursor-pointer transition-colors">ผลงาน</button>
@@ -65,10 +65,10 @@ export default function PortfolioPage() {
             </p>
             <h1 className="text-[28px] font-semibold text-[#0f172a] leading-[1.25] mb-3">
               Renrawin Nuanin<br />
-              <span className="text-[#1A56DB]">Full Stack Web Developer</span>
+              <span className="text-[#1A56DB]">Full Stack Project Manager</span>
             </h1>
             <p className="text-[14px] text-[#64748b] leading-[1.75] mb-5">
-              รับพัฒนาเว็บไซต์ตั้งแต่ออกแบบ UI ไปจนถึง Deploy บน Server — ส่งมอบพร้อมใช้งานทุกครั้ง
+              รับพัฒนา Web Application สำหรับธุรกิจทุกประเภท ครบตั้งแต่ออกแบบไปจนถึง Deploy พร้อมใช้งานจริง
             </p>
             <div className="flex gap-2.5 flex-wrap">
               <button
