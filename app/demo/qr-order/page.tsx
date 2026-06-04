@@ -115,8 +115,8 @@ export default function QROrderDemo() {
           {filtered.map((item) => (
             <div
               key={item.id}
-              className="flex items-center gap-3 rounded-xl px-3.5 py-3 bg-white"
-              style={{ border: "0.5px solid #e7e5e4" }}
+              className="flex items-center gap-3 rounded-xl px-3.5 py-3 bg-white transition-all"
+              style={{ border: cart[item.id] ? `1px solid #fed7aa` : "0.5px solid #e7e5e4" }}
             >
               <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0" style={{ background: "#fafaf8" }}>
                 {item.emoji}
@@ -131,7 +131,14 @@ export default function QROrderDemo() {
                   )}
                 </div>
                 <p className="text-[11px] text-[#a8a29e] mt-0.5">{item.sub}</p>
-                <p className="text-[13px] font-semibold mt-0.5" style={{ color: BRAND }}>{item.price} ฿</p>
+                <div className="flex items-center gap-2 mt-0.5">
+                  <p className="text-[13px] font-semibold" style={{ color: BRAND }}>{item.price} ฿</p>
+                  {cart[item.id] > 0 && (
+                    <span className="text-[11px] font-medium px-1.5 py-0.5 rounded" style={{ background: BRAND_LIGHT, color: BRAND }}>
+                      สั่งไปแล้ว {cart[item.id]} ที่
+                    </span>
+                  )}
+                </div>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 {cart[item.id] ? (
