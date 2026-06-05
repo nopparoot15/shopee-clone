@@ -1,188 +1,541 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, FormEvent } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, CheckCircle, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronRight } from "lucide-react";
 
+/* ─── palette ────────────────────────────── */
+const DARK   = "#0a0a0a";
+const BODY   = "#f9f7f4";
+const AMBER  = "#d97706";
+const CHAR   = "#1a1a1a";
+const MUTED  = "#6b7280";
+const GRAY_BG = "#f0ede8";
+
+/* ─── nav links ──────────────────────────── */
+const NAV_LINKS = [
+  { label: "บริการ",    id: "services"  },
+  { label: "ผลงาน",    id: "portfolio" },
+  { label: "ราคา",     id: "pricing"   },
+  { label: "ติดต่อ",   id: "contact"   },
+];
+
+function scrollTo(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+}
+
+/* ─── services ───────────────────────────── */
 const SERVICES = [
-  { emoji: "🌐", title: "เว็บไซต์บริษัท", desc: "สร้าง First Impression ที่ดีกับลูกค้า Responsive ทุกอุปกรณ์" },
-  { emoji: "🛒", title: "ร้านค้าออนไลน์", desc: "ขายสินค้าได้ทันที ระบบตะกร้า ชำระเงิน จัดการออเดอร์" },
-  { emoji: "⚙️", title: "ระบบ Backend", desc: "API, Database, Dashboard บริหารจัดการข้อมูลองค์กร" },
-  { emoji: "📈", title: "SEO & Performance", desc: "ติดอันดับ Google เร็วขึ้น โหลดเร็ว ประหยัดค่า Ads" },
+  {
+    num: "01",
+    title: "Landing Page",
+    desc: "หน้าแรกที่ดึงดูด ขาย Concept ได้ในทันที Responsive ทุกอุปกรณ์ ส่งงานภายใน 7 วัน",
+  },
+  {
+    num: "02",
+    title: "Web Application",
+    desc: "ระบบที่ใช้งานได้จริง Dashboard, Auth, Real-time โครงสร้างยืดหยุ่นขยายง่าย",
+  },
+  {
+    num: "03",
+    title: "E-Commerce",
+    desc: "ร้านค้าออนไลน์ครบวงจร ตะกร้า ชำระเงิน จัดการสต็อก รายงานยอดขาย",
+  },
+  {
+    num: "04",
+    title: "API & Backend",
+    desc: "REST API, Database design, Third-party integration รองรับ scale ตั้งแต่วันแรก",
+  },
 ];
 
-const REVIEWS = [
-  { name: "คุณมนต์ชัย", role: "เจ้าของร้านอาหาร", text: "ระบบ QR Order ช่วยลดพนักงานได้มาก ลูกค้าสั่งเองได้ง่ายมาก", stars: 5 },
-  { name: "คุณปิยะ", role: "CEO บริษัท XYZ", text: "เว็บ Company Profile ดูดีมาก ลูกค้าต่างชาติชมว่า Professional มาก", stars: 5 },
-  { name: "คุณนิสา", role: "Admin บริษัท ABC", text: "ระบบจัดการข้อมูลใช้งานง่าย ทีมงานเรียนรู้ได้เร็วมาก", stars: 5 },
+/* ─── portfolio ──────────────────────────── */
+const PORTFOLIO = [
+  {
+    title: "QR Order System",
+    cat: "Restaurant Tech",
+    year: "2566",
+    gradient: "linear-gradient(135deg, #92400e 0%, #b45309 50%, #d97706 100%)",
+  },
+  {
+    title: "VOLT Top-Up",
+    cat: "Gaming Platform",
+    year: "2566",
+    gradient: "linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 55%, #3b82f6 100%)",
+  },
+  {
+    title: "Nexus Admin",
+    cat: "Enterprise Dashboard",
+    year: "2567",
+    gradient: "linear-gradient(135deg, #1e1b4b 0%, #4f46e5 55%, #818cf8 100%)",
+  },
 ];
+
+/* ─── pricing ────────────────────────────── */
+const PLANS = [
+  {
+    name: "Basic",
+    price: "฿12,000",
+    badge: null,
+    features: ["Landing Page 1 หน้า", "Responsive Design", "SEO พื้นฐาน", "ส่งงานใน 7 วัน"],
+    highlight: false,
+  },
+  {
+    name: "Pro",
+    price: "฿29,000",
+    badge: "แนะนำ",
+    features: ["Multi-page Website", "CMS จัดการเนื้อหา", "Analytics Dashboard", "ส่งงานใน 14 วัน"],
+    highlight: true,
+  },
+  {
+    name: "Custom",
+    price: "฿ตามตกลง",
+    badge: null,
+    features: ["Full Stack Application", "Custom API", "Database Design", "Timeline ตามตกลง"],
+    highlight: false,
+  },
+];
+
+/* ─── form validation ────────────────────── */
+interface FormErrors {
+  name?: string;
+  email?: string;
+  message?: string;
+}
+
+function validateEmail(e: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+}
 
 export default function CompanyProfileDemo() {
-  const [activeReview, setActiveReview] = useState(0);
-  const [formSent, setFormSent] = useState(false);
+  const [scrolled, setScrolled]     = useState(false);
+  const [formName, setFormName]     = useState("");
+  const [formEmail, setFormEmail]   = useState("");
+  const [formType, setFormType]     = useState("");
+  const [formMsg, setFormMsg]       = useState("");
+  const [errors, setErrors]         = useState<FormErrors>({});
+  const [formDone, setFormDone]     = useState(false);
+
+  /* sticky nav background after 40px scroll */
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const errs: FormErrors = {};
+    if (!formName.trim()) errs.name = "กรุณากรอกชื่อ";
+    if (!validateEmail(formEmail)) errs.email = "กรุณากรอกอีเมลที่ถูกต้อง";
+    if (!formMsg.trim()) errs.message = "กรุณากรอกข้อความ";
+    setErrors(errs);
+    if (Object.keys(errs).length === 0) setFormDone(true);
+  };
 
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: "sans-serif" }}>
+    <div style={{ background: BODY, color: CHAR, fontFamily: "sans-serif" }}>
 
-      {/* Demo bar */}
-      <div className="flex items-center justify-between px-5 h-[40px] bg-[#f8fafc]" style={{ borderBottom: "0.5px solid #e2e8f0" }}>
-        <Link href="/" className="flex items-center gap-1.5 text-[11px] text-[#94a3b8] hover:text-[#64748b] transition-colors">
-          <ArrowLeft size={12} /> กลับหน้าหลัก
-        </Link>
-        <span className="text-[11px] text-[#94a3b8]">Demo — Company Profile Website</span>
-        <div className="w-24" />
-      </div>
+      {/* ── back button (fixed top-left) ── */}
+      <Link
+        href="/"
+        className="fixed top-4 left-4 z-50 flex items-center gap-1.5 text-xs px-3 py-2 rounded-xl"
+        style={{ background: "rgba(0,0,0,0.55)", color: "#d1d5db", backdropFilter: "blur(6px)" }}
+      >
+        <ArrowLeft size={13} /> กลับ
+      </Link>
 
-      {/* Site nav */}
-      <nav className="bg-white sticky top-0 z-10" style={{ borderBottom: "0.5px solid #e2e8f0" }}>
-        <div className="max-w-[860px] mx-auto px-6 flex items-center justify-between h-[52px]">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-emerald-500 flex items-center justify-center">
-              <span className="text-white text-[13px] font-bold">G</span>
-            </div>
-            <span className="text-[14px] font-semibold text-[#0f172a]">GreenTech</span>
+      {/* ── sticky nav ── */}
+      <nav
+        className="fixed top-0 left-0 right-0 z-40 transition-all"
+        style={{
+          background: scrolled ? "rgba(255,255,255,0.96)" : "transparent",
+          backdropFilter: scrolled ? "blur(10px)" : "none",
+          borderBottom: scrolled ? `1px solid #e8e3da` : "none",
+        }}
+      >
+        <div className="max-w-[960px] mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-0.5">
+            <span className="text-[17px] font-black" style={{ color: scrolled ? CHAR : "#fff" }}>
+              Krit
+            </span>
+            <span className="text-[17px] font-black" style={{ color: AMBER }}>.Studio</span>
           </div>
-          <div className="hidden sm:flex gap-5 text-[13px] text-[#64748b]">
-            <a href="#services" className="hover:text-emerald-600 transition-colors cursor-pointer">บริการ</a>
-            <a href="#reviews" className="hover:text-emerald-600 transition-colors cursor-pointer">รีวิว</a>
-            <a href="#contact" className="hover:text-emerald-600 transition-colors cursor-pointer">ติดต่อ</a>
+          <div className="hidden md:flex items-center gap-7">
+            {NAV_LINKS.map((l) => (
+              <button
+                key={l.id}
+                onClick={() => scrollTo(l.id)}
+                className="text-[13px] font-medium transition-colors cursor-pointer"
+                style={{ color: scrolled ? MUTED : "rgba(255,255,255,0.75)" }}
+              >
+                {l.label}
+              </button>
+            ))}
           </div>
-          <button className="bg-emerald-500 text-white text-[13px] px-4 py-2 rounded-lg hover:bg-emerald-600 transition-colors cursor-pointer">
-            คุยกับเรา
+          <button
+            onClick={() => scrollTo("contact")}
+            className="text-[13px] font-bold px-4 py-2 rounded-xl cursor-pointer"
+            style={{ background: AMBER, color: "#fff" }}
+          >
+            จ้างงาน
           </button>
         </div>
       </nav>
 
-      {/* Hero */}
-      <div className="max-w-[860px] mx-auto px-6 py-14">
-        <div className="max-w-[560px]">
-          <p className="text-[12px] text-[#94a3b8] mb-4 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full inline-block" />
-            พร้อมดูแลโปรเจคของคุณ
+      {/* ══ HERO ══════════════════════════════════════════ */}
+      <section
+        className="min-h-screen flex flex-col justify-center px-6 pt-20 pb-16"
+        style={{ background: DARK }}
+      >
+        <div className="max-w-[960px] mx-auto w-full">
+          <p
+            className="text-[11px] font-semibold tracking-[0.2em] mb-8 flex items-center gap-2"
+            style={{ color: AMBER }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block" />
+            WEB DEVELOPMENT STUDIO
           </p>
-          <h1 className="text-[34px] font-bold text-[#0f172a] leading-[1.2] mb-4">
-            เทคโนโลยีที่ช่วยให้<br />
-            <span className="text-emerald-500">ธุรกิจเติบโต</span>
+
+          <h1
+            className="font-black leading-[1.05] mb-6"
+            style={{ fontSize: "clamp(2.4rem, 8vw, 5rem)", color: "#fff" }}
+          >
+            <span className="block">สร้างเว็บ</span>
+            <span className="block">ที่คน</span>
+            <span className="block" style={{ color: AMBER }}>จำได้</span>
           </h1>
-          <p className="text-[14px] text-[#64748b] leading-relaxed mb-7">
-            เราพัฒนาเว็บไซต์และระบบสำหรับธุรกิจ ตั้งแต่ Start-Up ถึงองค์กรขนาดใหญ่ ส่งมอบงานพร้อมใช้จริงทุกครั้ง
+
+          <p className="text-[15px] leading-relaxed mb-10 max-w-[480px]" style={{ color: "#9ca3af" }}>
+            พัฒนาเว็บไซต์และระบบสำหรับธุรกิจไทย<br />
+            ตั้งแต่ Start-up จนถึงองค์กร ส่งงานตรงเวลาทุกครั้ง
           </p>
-          <div className="flex flex-wrap gap-3 mb-8">
-            <button className="flex items-center gap-2 bg-emerald-500 text-white text-[13px] px-5 py-2.5 rounded-lg hover:bg-emerald-600 transition-colors cursor-pointer">
-              เริ่มต้นโปรเจค <ArrowRight size={15} />
+
+          <div className="flex flex-wrap gap-3 mb-14">
+            <button
+              onClick={() => scrollTo("portfolio")}
+              className="flex items-center gap-2 text-[14px] font-bold px-6 py-3.5 rounded-2xl cursor-pointer"
+              style={{ background: AMBER, color: "#fff" }}
+            >
+              ดูผลงาน <ArrowRight size={16} />
             </button>
-            <button className="text-[#0f172a] text-[13px] px-5 py-2.5 rounded-lg hover:bg-[#f8fafc] transition-colors cursor-pointer" style={{ border: "0.5px solid #e2e8f0" }}>
-              ดูผลงาน
+            <button
+              onClick={() => scrollTo("contact")}
+              className="text-[14px] font-medium px-6 py-3.5 rounded-2xl cursor-pointer"
+              style={{ background: "transparent", color: "#fff", border: "1.5px solid rgba(255,255,255,0.3)" }}
+            >
+              ปรึกษาฟรี
             </button>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="flex -space-x-2">
-              {["🧑", "👩", "👨", "🧑"].map((e, i) => (
-                <div key={i} className="w-8 h-8 rounded-full bg-[#f1f5f9] flex items-center justify-center text-sm" style={{ border: "2px solid white" }}>
-                  {e}
-                </div>
-              ))}
-            </div>
-            <div>
-              <div className="flex gap-0.5">
-                {[1,2,3,4,5].map((s) => <Star key={s} size={12} className="text-amber-400 fill-amber-400" />)}
+
+          {/* stats row */}
+          <div className="flex flex-wrap gap-8">
+            {[
+              ["50+", "โปรเจค"],
+              ["3 ปี", "ประสบการณ์"],
+              ["100%", "ส่งงานทุกกำหนด"],
+            ].map(([val, label]) => (
+              <div key={label}>
+                <p className="text-[26px] font-black leading-tight" style={{ color: "#fff" }}>{val}</p>
+                <p className="text-[12px]" style={{ color: "#6b7280" }}>{label}</p>
               </div>
-              <p className="text-[12px] text-[#94a3b8] mt-0.5">150+ ลูกค้าพึงพอใจ · ประสบการณ์ 3+ ปี · โปรเจค 180+</p>
-            </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Services */}
-      <div id="services" className="max-w-[860px] mx-auto px-6 py-12">
-        <h2 className="text-[22px] font-bold text-[#0f172a] mb-7">บริการของเรา</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {SERVICES.map((s) => (
-            <div key={s.title} className="rounded-xl p-4 hover:shadow-sm transition-all cursor-pointer group" style={{ border: "0.5px solid #e2e8f0" }}>
-              <span className="text-3xl block mb-3">{s.emoji}</span>
-              <p className="text-[13px] font-semibold text-[#0f172a] mb-1.5 group-hover:text-emerald-600 transition-colors">{s.title}</p>
-              <p className="text-[11px] text-[#64748b] leading-relaxed">{s.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* ══ SERVICES ═════════════════════════════════════ */}
+      <section id="services" className="py-20 px-6" style={{ background: BODY }}>
+        <div className="max-w-[960px] mx-auto">
+          <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: AMBER }}>
+            SERVICES
+          </p>
+          <h2 className="text-[2rem] font-black mb-12" style={{ color: CHAR }}>บริการ</h2>
 
-      {/* Reviews */}
-      <div id="reviews" style={{ background: "#f8fafc", borderTop: "0.5px solid #e2e8f0", borderBottom: "0.5px solid #e2e8f0" }}>
-        <div className="max-w-[860px] mx-auto px-6 py-10">
-          <h2 className="text-[20px] font-bold text-[#0f172a] mb-6">รีวิวจากลูกค้า</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {REVIEWS.map((r, i) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {SERVICES.map((s) => (
               <div
-                key={i}
-                onClick={() => setActiveReview(i)}
-                className="rounded-xl p-4 cursor-pointer transition-all"
+                key={s.num}
+                className="rounded-2xl p-6 group cursor-default transition-all"
                 style={{
-                  background: activeReview === i ? "#fff" : "#f8fafc",
-                  border: activeReview === i ? "1px solid #6ee7b7" : "0.5px solid #e2e8f0",
-                  boxShadow: activeReview === i ? "0 2px 12px #10b98120" : "none",
+                  background: "#fff",
+                  border: `1px solid #e8e3da`,
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderLeft = `3px solid ${AMBER}`;
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderLeft = `1px solid #e8e3da`;
                 }}
               >
-                <div className="flex gap-0.5 mb-2">
-                  {[1,2,3,4,5].map((s) => <Star key={s} size={11} className="text-amber-400 fill-amber-400" />)}
-                </div>
-                <p className="text-[12px] text-[#475569] leading-relaxed mb-3">&ldquo;{r.text}&rdquo;</p>
-                <div>
-                  <p className="text-[12px] font-medium text-[#0f172a]">{r.name}</p>
-                  <p className="text-[10px] text-[#94a3b8]">{r.role}</p>
+                <p className="text-[11px] font-black tracking-widest mb-3" style={{ color: AMBER }}>
+                  {s.num}
+                </p>
+                <p className="text-[16px] font-bold mb-2" style={{ color: CHAR }}>{s.title}</p>
+                <p className="text-[13px] leading-relaxed" style={{ color: MUTED }}>{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ PORTFOLIO ════════════════════════════════════ */}
+      <section id="portfolio" className="py-20 px-6" style={{ background: BODY }}>
+        <div className="max-w-[960px] mx-auto">
+          <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: AMBER }}>
+            WORK
+          </p>
+          <h2 className="text-[2rem] font-black mb-12" style={{ color: CHAR }}>ผลงาน</h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {PORTFOLIO.map((p) => (
+              <div key={p.title} className="rounded-2xl overflow-hidden" style={{ border: `1px solid #e8e3da` }}>
+                {/* colored gradient instead of image */}
+                <div
+                  className="w-full"
+                  style={{ aspectRatio: "4/3", background: p.gradient }}
+                />
+                <div className="p-4" style={{ background: "#fff" }}>
+                  <p className="text-[14px] font-bold mb-1" style={{ color: CHAR }}>{p.title}</p>
+                  <div className="flex items-center justify-between">
+                    <span
+                      className="text-[10px] px-2 py-0.5 rounded-full font-medium"
+                      style={{ background: "#fef3c7", color: "#92400e" }}
+                    >
+                      {p.cat}
+                    </span>
+                    <span className="text-[11px]" style={{ color: MUTED }}>{p.year}</span>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Why */}
-      <div className="max-w-[860px] mx-auto px-6 py-10">
-        <h2 className="text-[18px] font-bold text-[#0f172a] mb-5">ทุกโปรเจครวมถึง</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {["ส่งมอบตรงเวลา", "Source Code 100% ของคุณ", "Responsive ทุก Device", "SEO พื้นฐาน", "Deploy พร้อมใช้งาน", "ปรึกษาฟรีก่อนตกลง"].map((w) => (
-            <div key={w} className="flex items-center gap-2">
-              <CheckCircle size={14} className="text-emerald-500 shrink-0" />
-              <span className="text-[12px] text-[#475569]">{w}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* ══ PRICING ══════════════════════════════════════ */}
+      <section id="pricing" className="py-20 px-6" style={{ background: GRAY_BG }}>
+        <div className="max-w-[960px] mx-auto">
+          <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: AMBER }}>
+            PRICING
+          </p>
+          <h2 className="text-[2rem] font-black mb-12" style={{ color: CHAR }}>ราคา</h2>
 
-      {/* Contact */}
-      <div id="contact" style={{ background: "#f8fafc", borderTop: "0.5px solid #e2e8f0" }}>
-        <div className="max-w-[860px] mx-auto px-6 py-10">
-          <h2 className="text-[18px] font-bold text-[#0f172a] mb-6">เริ่มต้นโปรเจคของคุณ</h2>
-          {formSent ? (
-            <div className="rounded-xl p-6 text-center max-w-[360px]" style={{ background: "#f0fdf4", border: "0.5px solid #bbf7d0" }}>
-              <div className="text-3xl mb-2">✅</div>
-              <p className="text-[14px] font-semibold text-emerald-700">ส่งข้อมูลแล้ว!</p>
-              <p className="text-[12px] text-emerald-600 mt-1">เราจะติดต่อกลับภายใน 24 ชั่วโมง</p>
-            </div>
-          ) : (
-            <div className="rounded-xl p-5 max-w-[440px] bg-white" style={{ border: "0.5px solid #e2e8f0" }}>
-              <div className="space-y-3 mb-4">
-                <input className="w-full text-[13px] px-3 py-2.5 rounded-lg outline-none transition-colors" style={{ border: "0.5px solid #e2e8f0" }} placeholder="ชื่อของคุณ" onFocus={(e) => e.currentTarget.style.borderColor = "#6ee7b7"} onBlur={(e) => e.currentTarget.style.borderColor = "#e2e8f0"} />
-                <input className="w-full text-[13px] px-3 py-2.5 rounded-lg outline-none transition-colors" style={{ border: "0.5px solid #e2e8f0" }} placeholder="Line ID / เบอร์โทร" onFocus={(e) => e.currentTarget.style.borderColor = "#6ee7b7"} onBlur={(e) => e.currentTarget.style.borderColor = "#e2e8f0"} />
-                <textarea className="w-full text-[13px] px-3 py-2.5 rounded-lg outline-none resize-none transition-colors" rows={3} style={{ border: "0.5px solid #e2e8f0" }} placeholder="บอกเล่าโปรเจคของคุณ..." onFocus={(e) => e.currentTarget.style.borderColor = "#6ee7b7"} onBlur={(e) => e.currentTarget.style.borderColor = "#e2e8f0"} />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {PLANS.map((plan) => (
+              <div
+                key={plan.name}
+                className="rounded-2xl p-6 flex flex-col"
+                style={{
+                  background: "#fff",
+                  border: plan.highlight ? `2px solid ${AMBER}` : `1px solid #e8e3da`,
+                  position: "relative",
+                }}
+              >
+                {plan.badge && (
+                  <span
+                    className="absolute -top-3 left-1/2 -translate-x-1/2 text-[11px] font-bold px-3 py-1 rounded-full"
+                    style={{ background: AMBER, color: "#fff" }}
+                  >
+                    {plan.badge}
+                  </span>
+                )}
+
+                <p className="text-[13px] font-semibold mb-2" style={{ color: MUTED }}>{plan.name}</p>
+                <p className="text-[28px] font-black mb-5" style={{ color: CHAR }}>{plan.price}</p>
+
+                <div className="flex-1 space-y-2.5 mb-6">
+                  {plan.features.map((f) => (
+                    <div key={f} className="flex items-start gap-2">
+                      <span className="w-4 h-4 rounded-full flex items-center justify-center mt-0.5 shrink-0" style={{ background: "#fef3c7" }}>
+                        <ChevronRight size={10} color={AMBER} />
+                      </span>
+                      <span className="text-[13px]" style={{ color: MUTED }}>{f}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => scrollTo("contact")}
+                  className="w-full py-3 rounded-xl text-[13px] font-bold cursor-pointer transition-all"
+                  style={
+                    plan.highlight
+                      ? { background: AMBER, color: "#fff" }
+                      : { background: "#f9f7f4", color: CHAR, border: `1px solid #e8e3da` }
+                  }
+                >
+                  เริ่มต้น
+                </button>
               </div>
-              <button onClick={() => setFormSent(true)} className="w-full bg-emerald-500 text-white text-[13px] py-2.5 rounded-lg hover:bg-emerald-600 transition-colors cursor-pointer font-medium">
-                ส่งข้อมูล
-              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ CONTACT ══════════════════════════════════════ */}
+      <section id="contact" className="py-20 px-6" style={{ background: BODY }}>
+        <div className="max-w-[960px] mx-auto">
+          <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: AMBER }}>
+            CONTACT
+          </p>
+          <h2 className="text-[2rem] font-black mb-12" style={{ color: CHAR }}>เริ่มต้นโปรเจค</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-10">
+
+            {/* form */}
+            {formDone ? (
+              <div
+                className="rounded-2xl p-8 flex flex-col items-center justify-center text-center"
+                style={{ background: "#fff", border: `1px solid #e8e3da` }}
+              >
+                <div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4"
+                  style={{ background: "#fef3c7" }}
+                >
+                  <span className="text-2xl">✓</span>
+                </div>
+                <p className="text-[17px] font-bold mb-2" style={{ color: CHAR }}>ส่งข้อมูลแล้ว!</p>
+                <p className="text-[13px]" style={{ color: MUTED }}>
+                  จะติดต่อกลับภายใน 24 ชั่วโมง
+                </p>
+              </div>
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                className="rounded-2xl p-6 space-y-4"
+                style={{ background: "#fff", border: `1px solid #e8e3da` }}
+              >
+                {/* name */}
+                <div>
+                  <label className="block text-[12px] font-medium mb-1.5" style={{ color: CHAR }}>
+                    ชื่อ <span style={{ color: "#ef4444" }}>*</span>
+                  </label>
+                  <input
+                    value={formName}
+                    onChange={(e) => setFormName(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-xl text-[13px] outline-none transition-all"
+                    style={{
+                      border: errors.name ? "1px solid #ef4444" : "1px solid #e8e3da",
+                      background: BODY,
+                      color: CHAR,
+                    }}
+                    placeholder="ชื่อ-นามสกุล"
+                  />
+                  {errors.name && <p className="text-[11px] mt-1" style={{ color: "#ef4444" }}>{errors.name}</p>}
+                </div>
+
+                {/* email */}
+                <div>
+                  <label className="block text-[12px] font-medium mb-1.5" style={{ color: CHAR }}>
+                    อีเมล <span style={{ color: "#ef4444" }}>*</span>
+                  </label>
+                  <input
+                    type="email"
+                    value={formEmail}
+                    onChange={(e) => setFormEmail(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-xl text-[13px] outline-none transition-all"
+                    style={{
+                      border: errors.email ? "1px solid #ef4444" : "1px solid #e8e3da",
+                      background: BODY,
+                      color: CHAR,
+                    }}
+                    placeholder="your@email.com"
+                  />
+                  {errors.email && <p className="text-[11px] mt-1" style={{ color: "#ef4444" }}>{errors.email}</p>}
+                </div>
+
+                {/* project type */}
+                <div>
+                  <label className="block text-[12px] font-medium mb-1.5" style={{ color: CHAR }}>
+                    ประเภทโปรเจค
+                  </label>
+                  <select
+                    value={formType}
+                    onChange={(e) => setFormType(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-xl text-[13px] outline-none cursor-pointer"
+                    style={{ border: "1px solid #e8e3da", background: BODY, color: CHAR }}
+                  >
+                    <option value="">เลือกประเภท...</option>
+                    <option value="landing">Landing Page</option>
+                    <option value="webapp">Web Application</option>
+                    <option value="ecommerce">E-Commerce</option>
+                    <option value="other">อื่นๆ</option>
+                  </select>
+                </div>
+
+                {/* message */}
+                <div>
+                  <label className="block text-[12px] font-medium mb-1.5" style={{ color: CHAR }}>
+                    รายละเอียด <span style={{ color: "#ef4444" }}>*</span>
+                  </label>
+                  <textarea
+                    value={formMsg}
+                    onChange={(e) => setFormMsg(e.target.value)}
+                    rows={4}
+                    className="w-full px-4 py-2.5 rounded-xl text-[13px] outline-none resize-none transition-all"
+                    style={{
+                      border: errors.message ? "1px solid #ef4444" : "1px solid #e8e3da",
+                      background: BODY,
+                      color: CHAR,
+                    }}
+                    placeholder="บอกเล่าโปรเจคของคุณ..."
+                  />
+                  {errors.message && <p className="text-[11px] mt-1" style={{ color: "#ef4444" }}>{errors.message}</p>}
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full py-3.5 rounded-xl text-[14px] font-bold cursor-pointer"
+                  style={{ background: AMBER, color: "#fff" }}
+                >
+                  ส่งข้อมูล
+                </button>
+              </form>
+            )}
+
+            {/* contact info */}
+            <div className="space-y-6 pt-2">
+              <div>
+                <p className="text-[12px] font-semibold tracking-wide uppercase mb-2" style={{ color: "#94a3b8" }}>
+                  อีเมล
+                </p>
+                <p className="text-[14px] font-medium" style={{ color: CHAR }}>
+                  hello@krit.studio
+                </p>
+              </div>
+              <div>
+                <p className="text-[12px] font-semibold tracking-wide uppercase mb-2" style={{ color: "#94a3b8" }}>
+                  Line
+                </p>
+                <p className="text-[14px] font-medium" style={{ color: CHAR }}>
+                  @kritstudio
+                </p>
+              </div>
+              <div
+                className="rounded-2xl p-5"
+                style={{ background: DARK, color: "#fff" }}
+              >
+                <p className="text-[13px] font-semibold mb-1.5">ตอบกลับเร็ว</p>
+                <p className="text-[12px]" style={{ color: "#9ca3af" }}>
+                  ปกติตอบภายใน 2–4 ชั่วโมง ในวันทำการ
+                </p>
+              </div>
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* Footer */}
-      <div style={{ borderTop: "0.5px solid #e2e8f0" }}>
-        <div className="max-w-[860px] mx-auto px-6 py-4 flex justify-between items-center">
-          <span className="text-[12px] text-[#94a3b8]">© 2026 GreenTech</span>
-          <span className="text-[12px] text-[#94a3b8]">Built with Next.js</span>
+      {/* ══ FOOTER ═══════════════════════════════════════ */}
+      <footer className="py-8 px-6" style={{ background: DARK }}>
+        <div className="max-w-[960px] mx-auto flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-center gap-0.5">
+            <span className="text-[15px] font-black text-white">Krit</span>
+            <span className="text-[15px] font-black" style={{ color: AMBER }}>.Studio</span>
+          </div>
+          <p className="text-[12px]" style={{ color: "#4b5563" }}>
+            © 2567 Krit.Studio · สงวนลิขสิทธิ์
+          </p>
         </div>
-      </div>
-
+      </footer>
     </div>
   );
 }
