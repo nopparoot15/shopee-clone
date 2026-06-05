@@ -174,90 +174,135 @@ export default function DataManagementPage() {
   /* ── LOGIN VIEW ── */
   if (view === "login") {
     return (
-      <div
-        className="min-h-screen flex flex-col items-center justify-center px-4"
-        style={{ background: BG, fontFamily: "sans-serif" }}
-      >
+      <div className="min-h-screen flex" style={{ fontFamily: "sans-serif" }}>
+        <style>{`
+          @keyframes login-glow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.08); }
+          }
+          @keyframes login-fade {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes dot-blink {
+            0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+          }
+        `}</style>
+
+        {/* LEFT PANEL — brand / decoration */}
         <div
-          className="w-full max-w-[380px] rounded-2xl p-8"
-          style={{ background: WHITE, border: `1px solid ${BORDER}`, boxShadow: "0 4px 24px rgba(79,70,229,0.07)" }}
+          className="hidden lg:flex flex-col justify-between p-12 relative overflow-hidden"
+          style={{ flex: "0 0 45%", background: "#050810" }}
         >
-          {/* logo */}
-          <div className="flex items-center gap-2 justify-center mb-2">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: ACCENT }}>
-              <Database size={17} color="#fff" />
+          {/* glow */}
+          <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 70% at 40% 50%, rgba(79,70,229,0.18) 0%, transparent 70%)", animation: "login-glow 6s ease-in-out infinite" }} />
+          <div className="absolute inset-0 pointer-events-none opacity-10" style={{ backgroundImage: "linear-gradient(#1e2d45 1px, transparent 1px), linear-gradient(90deg, #1e2d45 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: ACCENT }}>
+                <Database size={18} color="#fff" />
+              </div>
+              <div>
+                <span className="text-[18px] font-black" style={{ color: "#fff" }}>Nexus</span>
+                <span className="text-[18px] font-black" style={{ color: "#818cf8" }}> Admin</span>
+              </div>
             </div>
-            <div>
-              <span className="text-[16px] font-bold" style={{ color: TEXT }}>Nexus</span>
-              <span className="text-[16px] font-bold" style={{ color: ACCENT }}> Admin</span>
+            <p className="text-[12px]" style={{ color: "#334155" }}>Enterprise Data Platform</p>
+          </div>
+
+          <div className="relative z-10 space-y-6">
+            {[
+              { icon: "📊", label: "Real-time Dashboard",     sub: "ข้อมูลอัปเดตทุก 30 วินาที" },
+              { icon: "👥", label: "Role-based Access",       sub: "จัดการสิทธิ์แบบ Granular" },
+              { icon: "📁", label: "Export ทุกรูปแบบ",       sub: "Excel, PDF, CSV พร้อมใช้" },
+              { icon: "🔒", label: "Enterprise Security",     sub: "2FA + Activity Logs" },
+            ].map((f) => (
+              <div key={f.label} className="flex items-center gap-3">
+                <span className="text-xl shrink-0">{f.icon}</span>
+                <div>
+                  <p className="text-[13px] font-semibold" style={{ color: "#e2e8f0" }}>{f.label}</p>
+                  <p className="text-[11px]" style={{ color: "#334155" }}>{f.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-[11px] relative z-10" style={{ color: "#1e2d45" }}>© 2026 Nexus Admin v2.4.1</p>
+        </div>
+
+        {/* RIGHT PANEL — form */}
+        <div className="flex-1 flex flex-col items-center justify-center px-6 py-12" style={{ background: BG }}>
+          <div className="w-full max-w-[380px]" style={{ animation: "login-fade 0.5s ease both" }}>
+            {/* mobile logo */}
+            <div className="flex items-center gap-2 justify-center mb-8 lg:hidden">
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: ACCENT }}>
+                <Database size={17} color="#fff" />
+              </div>
+              <span className="text-[16px] font-black" style={{ color: TEXT }}>Nexus<span style={{ color: ACCENT }}> Admin</span></span>
             </div>
-          </div>
-          <p className="text-center text-[12px] mb-7" style={{ color: MUTED }}>ระบบจัดการข้อมูลองค์กร</p>
 
-          {/* email */}
-          <div className="mb-3">
-            <label className="block text-[12px] font-medium mb-1.5" style={{ color: TEXT }}>อีเมล</label>
-            <input
-              type="email"
-              value={loginEmail}
-              onChange={(e) => { setLoginEmail(e.target.value); setLoginError(""); }}
-              className="w-full px-4 py-2.5 rounded-xl text-[13px] outline-none transition-all"
-              style={{ border: `1px solid ${BORDER}`, background: BG, color: TEXT }}
-              placeholder="email@nexus.co"
-            />
-          </div>
+            <h2 className="text-[24px] font-black mb-1" style={{ color: TEXT }}>ยินดีต้อนรับกลับ</h2>
+            <p className="text-[13px] mb-8" style={{ color: MUTED }}>เข้าสู่ระบบเพื่อจัดการข้อมูลองค์กร</p>
 
-          {/* password */}
-          <div className="mb-4">
-            <label className="block text-[12px] font-medium mb-1.5" style={{ color: TEXT }}>รหัสผ่าน</label>
-            <div className="relative">
-              <input
-                type={showPass ? "text" : "password"}
-                value={loginPass}
-                onChange={(e) => { setLoginPass(e.target.value); setLoginError(""); }}
-                onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-                className="w-full px-4 py-2.5 rounded-xl text-[13px] outline-none transition-all pr-10"
-                style={{ border: `1px solid ${BORDER}`, background: BG, color: TEXT }}
-                placeholder="รหัสผ่าน"
-              />
-              <button
-                onClick={() => setShowPass((v) => !v)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
-                style={{ color: "#94a3b8" }}
-              >
-                {showPass ? <EyeOff size={14} /> : <Eye size={14} />}
-              </button>
+            <div className="space-y-4 mb-4">
+              <div>
+                <label className="block text-[12px] font-semibold mb-1.5" style={{ color: TEXT }}>อีเมล</label>
+                <input
+                  type="email" value={loginEmail}
+                  onChange={(e) => { setLoginEmail(e.target.value); setLoginError(""); }}
+                  className="w-full px-4 py-3 rounded-xl text-[13px] outline-none transition-all"
+                  style={{ border: `1.5px solid ${BORDER}`, background: WHITE, color: TEXT }}
+                  placeholder="email@nexus.co"
+                />
+              </div>
+              <div>
+                <label className="block text-[12px] font-semibold mb-1.5" style={{ color: TEXT }}>รหัสผ่าน</label>
+                <div className="relative">
+                  <input
+                    type={showPass ? "text" : "password"} value={loginPass}
+                    onChange={(e) => { setLoginPass(e.target.value); setLoginError(""); }}
+                    onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+                    className="w-full px-4 py-3 rounded-xl text-[13px] outline-none transition-all pr-10"
+                    style={{ border: `1.5px solid ${BORDER}`, background: WHITE, color: TEXT }}
+                    placeholder="รหัสผ่าน"
+                  />
+                  <button onClick={() => setShowPass((v) => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer" style={{ color: "#94a3b8" }}>
+                    {showPass ? <EyeOff size={14} /> : <Eye size={14} />}
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
 
-          {loginError && (
-            <p className="text-[11px] mb-3 text-center" style={{ color: "#ef4444" }}>{loginError}</p>
-          )}
+            {loginError && <p className="text-[11px] mb-3 text-center" style={{ color: "#ef4444" }}>{loginError}</p>}
 
-          <button
-            onClick={handleLogin}
-            disabled={loginLoading}
-            className="w-full py-3 rounded-xl text-[13px] font-bold cursor-pointer mb-4 transition-all"
-            style={{ background: loginLoading ? "#a5b4fc" : ACCENT, color: "#fff" }}
-          >
-            {loginLoading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"}
-          </button>
+            <button
+              onClick={handleLogin} disabled={loginLoading}
+              className="w-full py-3.5 rounded-xl text-[13px] font-black cursor-pointer mb-4 transition-all"
+              style={{ background: loginLoading ? "#a5b4fc" : ACCENT, color: "#fff", boxShadow: loginLoading ? "none" : "0 8px 24px rgba(79,70,229,0.3)" }}
+            >
+              {loginLoading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ →"}
+            </button>
 
-          {/* demo credentials */}
-          <div
-            className="rounded-xl p-3 text-center cursor-pointer transition-all"
-            style={{ background: "#eef2ff", border: `1px solid #c7d2fe` }}
-            onClick={fillDemo}
-          >
-            <p className="text-[11px] font-semibold mb-0.5" style={{ color: ACCENT }}>Demo Credentials</p>
-            <p className="text-[11px]" style={{ color: MUTED }}>demo@nexus.co / demo1234</p>
-            <p className="text-[10px] mt-1" style={{ color: "#a5b4fc" }}>คลิกเพื่อกรอกอัตโนมัติ</p>
-          </div>
+            <div
+              className="rounded-xl p-4 text-center cursor-pointer transition-all"
+              style={{ background: "#eef2ff", border: `1.5px dashed #c7d2fe` }}
+              onClick={fillDemo}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = "#e0e7ff"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = "#eef2ff"; }}
+            >
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 inline-block" style={{ animation: "dot-blink 1.5s ease-in-out infinite" }} />
+                <p className="text-[11px] font-black" style={{ color: ACCENT }}>Demo Credentials — คลิกกรอกอัตโนมัติ</p>
+              </div>
+              <p className="text-[11px] font-mono" style={{ color: MUTED }}>demo@nexus.co / demo1234</p>
+            </div>
 
-          <div className="mt-5 text-center">
-            <Link href="/" className="text-[11px] flex items-center justify-center gap-1" style={{ color: "#94a3b8" }}>
-              <ArrowLeft size={11} /> กลับพอร์ตโฟลิโอ
-            </Link>
+            <div className="mt-6 text-center">
+              <Link href="/" className="text-[11px] flex items-center justify-center gap-1" style={{ color: "#94a3b8" }}>
+                <ArrowLeft size={11} /> กลับพอร์ตโฟลิโอ
+              </Link>
+            </div>
           </div>
         </div>
       </div>
