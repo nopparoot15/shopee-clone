@@ -227,6 +227,7 @@ export default function TopupPage() {
               เริ่มเติมเงิน <Zap size={15} fill="#fff" />
             </button>
             <button
+              onClick={() => document.getElementById("games")?.scrollIntoView({ behavior: "smooth" })}
               className="text-[14px] font-medium px-7 py-3.5 rounded-2xl cursor-pointer"
               style={{ border: `1.5px solid ${BORDER}`, color: "#94a3b8" }}
             >
@@ -262,7 +263,7 @@ export default function TopupPage() {
       </section>
 
       {/* ══ FEATURED GAMES ═══════════════════════════════════════ */}
-      <section className="py-20 px-5" style={{ background: "#07090e" }}>
+      <section id="games" className="py-20 px-5" style={{ background: "#07090e" }}>
         <div className="max-w-[1100px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: CYAN }}>
             GAMES
