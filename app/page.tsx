@@ -14,6 +14,7 @@ import {
   Mail,
   Clock,
   ArrowUpRight,
+  Wind,
 } from "lucide-react";
 
 type Tab = "projects" | "restaurant" | "topup" | "database" | "about" | "contact";
@@ -161,6 +162,16 @@ export default function PortfolioPage() {
                   desc="เว็บไซต์แนะนำบริษัท Responsive ทุกอุปกรณ์ SEO พื้นฐาน พร้อม Deploy"
                   techs={["Next.js", "Tailwind", "Vercel"]}
                   demoHref="/demo/company-profile"
+                />
+                <ProjectCard
+                  bg="#FFF8F0"
+                  icon={<Wind size={32} style={{ color: "#e07800" }} />}
+                  tag={{ label: "Static Website", bg: "#FFEDD5", color: "#9a3412" }}
+                  name="Thai Duct & HVAC Co."
+                  desc="เว็บบริษัทผลิตและติดตั้งท่อดักท์ HVAC ดีไซน์อุตสาหกรรม SEO ภาษาไทย พร้อมฟอร์มขอใบเสนอราคา"
+                  techs={["HTML", "CSS", "JavaScript", "Vercel"]}
+                  demoHref="https://pipe-company-demo.vercel.app/"
+                  external
                 />
               </div>
             </div>
@@ -335,7 +346,7 @@ export default function PortfolioPage() {
 /* ── Sub-components ── */
 
 function ProjectCard({
-  bg, icon, tag, name, desc, techs, demoHref, onClick,
+  bg, icon, tag, name, desc, techs, demoHref, external, onClick,
 }: {
   bg: string;
   icon: React.ReactNode;
@@ -344,6 +355,7 @@ function ProjectCard({
   desc: string;
   techs: string[];
   demoHref?: string;
+  external?: boolean;
   onClick?: () => void;
 }) {
   const inner = (
@@ -376,6 +388,9 @@ function ProjectCard({
     </div>
   );
 
+  if (demoHref && external) {
+    return <a href={demoHref} target="_blank" rel="noopener noreferrer" className="block">{inner}</a>;
+  }
   if (demoHref) {
     return <Link href={demoHref} className="block">{inner}</Link>;
   }
