@@ -263,8 +263,8 @@ export default function QROrderPage() {
       `}</style>
 
       {/* top bar */}
-      <div className="sticky top-0 z-10" style={{ background: "rgba(250,248,244,0.96)", backdropFilter: "blur(10px)", borderBottom: `1px solid ${BORDER}`, maxWidth: 440, margin: "0 auto", width: "100%" }}>
-        <div style={{ maxWidth: 440, margin: "0 auto" }} className="px-4 h-14 flex items-center justify-between">
+      <div className="sticky top-0 z-10" style={{ background: "rgba(250,248,244,0.96)", backdropFilter: "blur(10px)", borderBottom: `1px solid ${BORDER}`, maxWidth: 440, margin: "0 auto", width: "100%", overflow: "visible", paddingTop: 8 }}>
+        <div style={{ maxWidth: 440, margin: "0 auto" }} className="px-4 h-12 flex items-center justify-between">
           <button onClick={() => setView("landing")} className="flex items-center gap-1 text-xs cursor-pointer" style={{ color: "#a8a29e" }}>
             <ArrowLeft size={14} /> ร้านอาหาร
           </button>
