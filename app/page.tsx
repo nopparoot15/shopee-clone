@@ -6,16 +6,60 @@ import {
   QrCode, Zap, Database, Globe, Wind,
   Code2, Server, ArrowUpRight,
   MessageCircle, Mail, ChevronDown,
+  Sun, Moon,
 } from "lucide-react";
 
-/* ─── palette ─── */
-const BG     = "#060b14";
-const CARD   = "#0d1321";
-const ACCENT = "#2563eb";
-const CYAN   = "#06b6d4";
-const BORDER = "#1a2744";
-const TEXT   = "#e2e8f0";
-const MUTED  = "#475569";
+/* ─── themes ─── */
+const THEMES = {
+  dark: {
+    bg:          "#060b14",
+    card:        "#0d1321",
+    accent:      "#2563eb",
+    cyan:        "#06b6d4",
+    border:      "#1a2744",
+    text:        "#e2e8f0",
+    muted:       "#475569",
+    heading:     "#ffffff",
+    section1:    "#07090e",
+    section2:    "#0a0f1a",
+    footer:      "#02040a",
+    footerText:  "#1e2d45",
+    footerBrand: "#1a2744",
+    navBg:       "rgba(6,11,20,0.95)",
+    heroGlow:    "rgba(37,99,235,0.16) 0%, rgba(6,182,212,0.07) 50%, transparent 80%",
+    gridOp:      "0.07",
+    scrollHint:  "#1e2d45",
+    diffBg:      "rgba(37,99,235,0.05)",
+    diffBorder:  "rgba(37,99,235,0.12)",
+    diffText:    "#93c5fd",
+    toggleBg:    "#1a2744",
+    toggleColor: "#94a3b8",
+  },
+  light: {
+    bg:          "#f8faff",
+    card:        "#ffffff",
+    accent:      "#2563eb",
+    cyan:        "#0891b2",
+    border:      "#dde6f5",
+    text:        "#334155",
+    muted:       "#64748b",
+    heading:     "#0f172a",
+    section1:    "#eef2fb",
+    section2:    "#f0f5ff",
+    footer:      "#e2eaf8",
+    footerText:  "#94a3b8",
+    footerBrand: "#94a3b8",
+    navBg:       "rgba(248,250,255,0.95)",
+    heroGlow:    "rgba(37,99,235,0.09) 0%, rgba(8,145,178,0.04) 50%, transparent 80%",
+    gridOp:      "0.035",
+    scrollHint:  "#c0cfe8",
+    diffBg:      "rgba(37,99,235,0.04)",
+    diffBorder:  "rgba(37,99,235,0.12)",
+    diffText:    "#1d4ed8",
+    toggleBg:    "#e2eaf8",
+    toggleColor: "#64748b",
+  },
+};
 
 /* ─── data ─── */
 const PROJECTS = [
@@ -112,8 +156,11 @@ function useCounter(target: number, duration = 1800) {
 }
 
 export default function PortfolioPage() {
-  const [scrolled, setScrolled]       = useState(false);
-  const [hovered, setHovered]         = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [hovered, setHovered]   = useState<string | null>(null);
+  const [dark, setDark]         = useState(true);
+  const t = dark ? THEMES.dark : THEMES.light;
+
   const projects  = useCounter(50);
   const delivered = useCounter(100);
 
@@ -124,7 +171,7 @@ export default function PortfolioPage() {
   }, []);
 
   return (
-    <div style={{ background: BG, color: TEXT, fontFamily: "sans-serif" }}>
+    <div style={{ background: t.bg, color: t.text, fontFamily: "sans-serif", transition: "background 0.35s, color 0.35s" }}>
       <style>{`
         @keyframes hero-glow {
           0%, 100% { opacity: 0.5; transform: scale(1); }
@@ -142,44 +189,62 @@ export default function PortfolioPage() {
           0%, 100% { opacity: 1; }
           50%       { opacity: 0.3; }
         }
+        @keyframes theme-spin {
+          from { transform: rotate(0deg) scale(0.7); opacity: 0; }
+          to   { transform: rotate(360deg) scale(1); opacity: 1; }
+        }
       `}</style>
 
       {/* ── STICKY NAV ── */}
       <nav
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
-          background: scrolled ? "rgba(6,11,20,0.95)" : "transparent",
+          background: scrolled ? t.navBg : "transparent",
           backdropFilter: scrolled ? "blur(12px)" : "none",
-          borderBottom: scrolled ? `1px solid ${BORDER}` : "none",
+          borderBottom: scrolled ? `1px solid ${t.border}` : "none",
+          transition: "background 0.35s, border-color 0.35s",
         }}
       >
         <div className="max-w-[1080px] mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="text-[15px] font-black tracking-tight" style={{ color: "#fff" }}>
-            Ren<span style={{ color: ACCENT }}>Stack</span>
+          <span className="text-[15px] font-black tracking-tight" style={{ color: t.heading }}>
+            Ren<span style={{ color: t.accent }}>Stack</span>
           </span>
           <div className="hidden md:flex items-center gap-7">
             {[
-              { label: "ผลงาน",     id: "projects" },
-              { label: "ทักษะ",      id: "skills" },
-              { label: "ติดต่อ",    id: "contact" },
+              { label: "ผลงาน",  id: "projects" },
+              { label: "ทักษะ",   id: "skills" },
+              { label: "ติดต่อ", id: "contact" },
             ].map((l) => (
               <button
                 key={l.id}
                 onClick={() => document.getElementById(l.id)?.scrollIntoView({ behavior: "smooth" })}
                 className="text-[13px] cursor-pointer transition-colors"
-                style={{ color: MUTED }}
+                style={{ color: t.muted }}
               >
                 {l.label}
               </button>
             ))}
           </div>
-          <button
-            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="text-[12px] font-bold px-4 py-2 rounded-xl cursor-pointer"
-            style={{ background: ACCENT, color: "#fff" }}
-          >
-            จ้างงาน
-          </button>
+          <div className="flex items-center gap-3">
+            {/* dark/light toggle */}
+            <button
+              onClick={() => setDark(!dark)}
+              title={dark ? "สลับโหมดสว่าง" : "สลับโหมดมืด"}
+              className="w-9 h-9 rounded-xl flex items-center justify-center cursor-pointer transition-all"
+              style={{ background: t.toggleBg, color: t.toggleColor }}
+            >
+              <span key={String(dark)} style={{ display: "flex", animation: "theme-spin 0.35s ease both" }}>
+                {dark ? <Sun size={16} /> : <Moon size={16} />}
+              </span>
+            </button>
+            <button
+              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+              className="text-[12px] font-bold px-4 py-2 rounded-xl cursor-pointer"
+              style={{ background: t.accent, color: "#fff" }}
+            >
+              จ้างงาน
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -188,15 +253,18 @@ export default function PortfolioPage() {
         {/* animated glow */}
         <div className="absolute inset-0 pointer-events-none"
           style={{
-            background: "radial-gradient(ellipse 70% 60% at 50% 40%, rgba(37,99,235,0.16) 0%, rgba(6,182,212,0.07) 50%, transparent 80%)",
+            background: `radial-gradient(ellipse 70% 60% at 50% 40%, ${t.heroGlow})`,
             animation: "hero-glow 6s ease-in-out infinite",
+            transition: "background 0.35s",
           }}
         />
         {/* grid */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.07]"
+        <div className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: `linear-gradient(${BORDER} 1px, transparent 1px), linear-gradient(90deg, ${BORDER} 1px, transparent 1px)`,
+            opacity: Number(t.gridOp),
+            backgroundImage: `linear-gradient(${t.border} 1px, transparent 1px), linear-gradient(90deg, ${t.border} 1px, transparent 1px)`,
             backgroundSize: "60px 60px",
+            transition: "opacity 0.35s",
           }}
         />
 
@@ -208,7 +276,7 @@ export default function PortfolioPage() {
             <span
               className="flex items-center gap-2 text-[12px] font-semibold px-4 py-2 rounded-full"
               style={{
-                background: `${ACCENT}15`, border: `1px solid ${ACCENT}30`, color: CYAN,
+                background: `${t.accent}15`, border: `1px solid ${t.accent}30`, color: t.cyan,
                 animation: "badge-pulse 3s ease-in-out infinite",
               }}
             >
@@ -221,15 +289,15 @@ export default function PortfolioPage() {
 
           <h1
             className="font-black leading-[1.05] mb-6"
-            style={{ fontSize: "clamp(2.8rem, 9vw, 6rem)", color: "#fff", animation: "fade-up 0.7s 0.1s ease both", opacity: 0 }}
+            style={{ fontSize: "clamp(2.8rem, 9vw, 6rem)", color: t.heading, animation: "fade-up 0.7s 0.1s ease both", opacity: 0 }}
           >
             <span className="block">สร้างเว็บ</span>
             <span className="block">ที่ธุรกิจ</span>
-            <span className="block" style={{ color: CYAN }}>เติบโตจริง</span>
+            <span className="block" style={{ color: t.cyan }}>เติบโตจริง</span>
           </h1>
 
           <p className="text-[16px] leading-relaxed mb-8 max-w-[520px]"
-            style={{ color: MUTED, animation: "fade-up 0.7s 0.2s ease both", opacity: 0 }}
+            style={{ color: t.muted, animation: "fade-up 0.7s 0.2s ease both", opacity: 0 }}
           >
             Full Stack Developer รับพัฒนา Web Application ทุกประเภท<br />
             ออกแบบ → พัฒนา → Deploy พร้อมใช้งานจริง ครบในที่เดียว
@@ -241,14 +309,14 @@ export default function PortfolioPage() {
             <button
               onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
               className="flex items-center gap-2 text-[14px] font-bold px-7 py-3.5 rounded-2xl cursor-pointer transition-all"
-              style={{ background: `linear-gradient(90deg, #1d4ed8, ${ACCENT})`, color: "#fff" }}
+              style={{ background: `linear-gradient(90deg, #1d4ed8, ${t.accent})`, color: "#fff" }}
             >
               ดูผลงาน <ArrowUpRight size={16} />
             </button>
             <button
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
               className="text-[14px] font-medium px-7 py-3.5 rounded-2xl cursor-pointer"
-              style={{ border: `1.5px solid ${BORDER}`, color: "#94a3b8" }}
+              style={{ border: `1.5px solid ${t.border}`, color: t.muted }}
             >
               ติดต่อจ้างงาน
             </button>
@@ -264,8 +332,8 @@ export default function PortfolioPage() {
               { val: "3 ปี",          label: "ประสบการณ์" },
             ].map(({ val, label }) => (
               <div key={label}>
-                <p className="text-[2.2rem] font-black leading-tight" style={{ color: "#fff" }}>{val}</p>
-                <p className="text-[12px]" style={{ color: MUTED }}>{label}</p>
+                <p className="text-[2.2rem] font-black leading-tight" style={{ color: t.heading }}>{val}</p>
+                <p className="text-[12px]" style={{ color: t.muted }}>{label}</p>
               </div>
             ))}
           </div>
@@ -274,7 +342,7 @@ export default function PortfolioPage() {
         <button
           onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 cursor-pointer"
-          style={{ color: "#1e2d45", animation: "fade-up 1s 0.8s ease both", opacity: 0 }}
+          style={{ color: t.scrollHint, animation: "fade-up 1s 0.8s ease both", opacity: 0 }}
         >
           <span className="text-[11px]">เลื่อนดูผลงาน</span>
           <ChevronDown size={18} />
@@ -282,11 +350,11 @@ export default function PortfolioPage() {
       </section>
 
       {/* ══ PROJECTS ══════════════════════════════════════════════ */}
-      <section id="projects" className="py-24 px-6" style={{ background: "#07090e" }}>
+      <section id="projects" className="py-24 px-6" style={{ background: t.section1, transition: "background 0.35s" }}>
         <div className="max-w-[1080px] mx-auto">
-          <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: CYAN }}>PORTFOLIO</p>
-          <h2 className="text-[2.2rem] font-black mb-3 text-white">ผลงาน</h2>
-          <p className="text-[14px] mb-14" style={{ color: MUTED }}>โปรเจคที่พร้อม Demo ใช้งานได้จริง — กดที่การ์ดเพื่อเปิด Demo</p>
+          <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: t.cyan }}>PORTFOLIO</p>
+          <h2 className="text-[2.2rem] font-black mb-3" style={{ color: t.heading }}>ผลงาน</h2>
+          <p className="text-[14px] mb-14" style={{ color: t.muted }}>โปรเจคที่พร้อม Demo ใช้งานได้จริง — กดที่การ์ดเพื่อเปิด Demo</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {PROJECTS.map((p) => {
@@ -298,10 +366,11 @@ export default function PortfolioPage() {
                   onMouseLeave={() => setHovered(null)}
                   className="rounded-2xl overflow-hidden cursor-pointer transition-all"
                   style={{
-                    background: CARD,
-                    border: `1px solid ${isHov ? p.accent + "60" : BORDER}`,
+                    background: t.card,
+                    border: `1px solid ${isHov ? p.accent + "60" : t.border}`,
                     transform: isHov ? "translateY(-6px)" : "none",
-                    boxShadow: isHov ? `0 24px 48px rgba(0,0,0,0.4), 0 0 0 1px ${p.accent}30` : "none",
+                    boxShadow: isHov ? `0 24px 48px rgba(0,0,0,0.15), 0 0 0 1px ${p.accent}30` : "none",
+                    transition: "background 0.35s, border-color 0.2s, transform 0.2s, box-shadow 0.2s",
                   }}
                 >
                   {/* gradient preview */}
@@ -339,16 +408,16 @@ export default function PortfolioPage() {
 
                   {/* card body */}
                   <div className="p-4">
-                    <p className="text-[15px] font-bold text-white mb-1.5">{p.name}</p>
-                    <p className="text-[12px] leading-relaxed mb-3" style={{ color: MUTED }}>{p.desc}</p>
+                    <p className="text-[15px] font-bold mb-1.5" style={{ color: t.heading }}>{p.name}</p>
+                    <p className="text-[12px] leading-relaxed mb-3" style={{ color: t.muted }}>{p.desc}</p>
                     <div className="flex flex-wrap gap-1.5">
-                      {p.techs.map((t) => (
+                      {p.techs.map((tech) => (
                         <span
-                          key={t}
+                          key={tech}
                           className="text-[10px] px-2 py-0.5 rounded-lg font-medium"
                           style={{ background: `${p.accent}12`, color: p.accent, border: `1px solid ${p.accent}25` }}
                         >
-                          {t}
+                          {tech}
                         </span>
                       ))}
                     </div>
@@ -364,11 +433,11 @@ export default function PortfolioPage() {
       </section>
 
       {/* ══ SKILLS ════════════════════════════════════════════════ */}
-      <section id="skills" className="py-24 px-6" style={{ background: "#0a0f1a" }}>
+      <section id="skills" className="py-24 px-6" style={{ background: t.section2, transition: "background 0.35s" }}>
         <div className="max-w-[1080px] mx-auto">
-          <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: CYAN }}>STACK</p>
-          <h2 className="text-[2.2rem] font-black mb-4 text-white">ทักษะและเทคโนโลยี</h2>
-          <p className="text-[14px] mb-12" style={{ color: MUTED }}>
+          <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: t.cyan }}>STACK</p>
+          <h2 className="text-[2.2rem] font-black mb-4" style={{ color: t.heading }}>ทักษะและเทคโนโลยี</h2>
+          <p className="text-[14px] mb-12" style={{ color: t.muted }}>
             ครอบคลุมตั้งแต่ Frontend → Backend → Infrastructure Deploy จริง
           </p>
 
@@ -387,7 +456,7 @@ export default function PortfolioPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               {
-                icon: <Code2 size={20} color={CYAN} />,
+                icon: <Code2 size={20} color={t.cyan} />,
                 title: "Frontend",
                 items: ["React 18 + Next.js 14", "TypeScript ชำนาญ", "Tailwind CSS + Custom CSS", "Responsive ทุกขนาดหน้าจอ"],
               },
@@ -405,15 +474,15 @@ export default function PortfolioPage() {
               <div
                 key={col.title}
                 className="rounded-2xl p-6"
-                style={{ background: CARD, border: `1px solid ${BORDER}` }}
+                style={{ background: t.card, border: `1px solid ${t.border}`, transition: "background 0.35s, border-color 0.35s" }}
               >
                 <div className="flex items-center gap-2 mb-4">
                   {col.icon}
-                  <p className="font-bold text-white text-[14px]">{col.title}</p>
+                  <p className="font-bold text-[14px]" style={{ color: t.heading }}>{col.title}</p>
                 </div>
                 <ul className="space-y-2">
                   {col.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-[13px]" style={{ color: MUTED }}>
+                    <li key={item} className="flex items-start gap-2 text-[13px]" style={{ color: t.muted }}>
                       <span className="text-emerald-400 mt-0.5 shrink-0">✓</span>
                       {item}
                     </li>
@@ -425,10 +494,10 @@ export default function PortfolioPage() {
 
           <div
             className="mt-6 rounded-2xl p-6"
-            style={{ background: `${ACCENT}0d`, border: `1px solid ${ACCENT}20` }}
+            style={{ background: t.diffBg, border: `1px solid ${t.diffBorder}`, transition: "background 0.35s, border-color 0.35s" }}
           >
-            <p className="text-[13px] leading-relaxed" style={{ color: "#93c5fd" }}>
-              <span className="font-bold text-white">จุดต่างที่แท้จริง:</span>{" "}
+            <p className="text-[13px] leading-relaxed" style={{ color: t.diffText }}>
+              <span className="font-bold" style={{ color: t.heading }}>จุดต่างที่แท้จริง:</span>{" "}
               มีประสบการณ์ด้าน Infrastructure จริงจากโครงการระดับองค์กร ครอบคลุมทั้ง Azure Virtual Desktop, VMware vSphere และ Windows Server
               — สามารถส่งมอบ Production-ready ครบวงจรตั้งแต่พัฒนาจนถึง Deploy
             </p>
@@ -437,11 +506,11 @@ export default function PortfolioPage() {
       </section>
 
       {/* ══ CONTACT ═══════════════════════════════════════════════ */}
-      <section id="contact" className="py-24 px-6" style={{ background: BG }}>
+      <section id="contact" className="py-24 px-6" style={{ background: t.bg, transition: "background 0.35s" }}>
         <div className="max-w-[1080px] mx-auto">
-          <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: CYAN }}>CONTACT</p>
-          <h2 className="text-[2.2rem] font-black mb-3 text-white">เริ่มต้นโปรเจคด้วยกัน</h2>
-          <p className="text-[14px] mb-12" style={{ color: MUTED }}>ปรึกษาฟรี ไม่มีค่าใช้จ่าย ตอบกลับภายใน 24 ชั่วโมง</p>
+          <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: t.cyan }}>CONTACT</p>
+          <h2 className="text-[2.2rem] font-black mb-3" style={{ color: t.heading }}>เริ่มต้นโปรเจคด้วยกัน</h2>
+          <p className="text-[14px] mb-12" style={{ color: t.muted }}>ปรึกษาฟรี ไม่มีค่าใช้จ่าย ตอบกลับภายใน 24 ชั่วโมง</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-[640px]">
             {/* LINE */}
@@ -463,7 +532,7 @@ export default function PortfolioPage() {
                 </svg>
               </div>
               <div>
-                <p className="font-bold text-white text-[14px] mb-0.5">LINE Official</p>
+                <p className="font-bold text-[14px] mb-0.5" style={{ color: t.heading }}>LINE Official</p>
                 <p className="text-[12px]" style={{ color: "#06C755" }}>คุยเร็วที่สุด — ตอบทันที</p>
               </div>
             </a>
@@ -472,19 +541,19 @@ export default function PortfolioPage() {
             <a
               href="mailto:renrawin.work@gmail.com"
               className="flex items-center gap-4 p-5 rounded-2xl transition-all cursor-pointer"
-              style={{ background: `${ACCENT}14`, border: `1px solid ${ACCENT}30` }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = `${ACCENT}20`; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = `${ACCENT}14`; }}
+              style={{ background: `${t.accent}14`, border: `1px solid ${t.accent}30` }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = `${t.accent}20`; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = `${t.accent}14`; }}
             >
               <div
                 className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
-                style={{ background: ACCENT }}
+                style={{ background: t.accent }}
               >
                 <Mail size={20} color="#fff" />
               </div>
               <div>
-                <p className="font-bold text-white text-[14px] mb-0.5">อีเมล</p>
-                <p className="text-[12px]" style={{ color: "#93c5fd" }}>renrawin.work@gmail.com</p>
+                <p className="font-bold text-[14px] mb-0.5" style={{ color: t.heading }}>อีเมล</p>
+                <p className="text-[12px]" style={{ color: dark ? "#93c5fd" : "#1d4ed8" }}>renrawin.work@gmail.com</p>
               </div>
             </a>
 
@@ -503,25 +572,25 @@ export default function PortfolioPage() {
                 <MessageCircle size={20} color="#fff" />
               </div>
               <div>
-                <p className="font-bold text-white text-[14px] mb-0.5">โทรศัพท์</p>
-                <p className="text-[12px]" style={{ color: "#6ee7b7" }}>09-8992-6022</p>
+                <p className="font-bold text-[14px] mb-0.5" style={{ color: t.heading }}>โทรศัพท์</p>
+                <p className="text-[12px]" style={{ color: dark ? "#6ee7b7" : "#059669" }}>09-8992-6022</p>
               </div>
             </a>
 
             {/* Response time card */}
             <div
               className="flex items-center gap-4 p-5 rounded-2xl"
-              style={{ background: CARD, border: `1px solid ${BORDER}` }}
+              style={{ background: t.card, border: `1px solid ${t.border}`, transition: "background 0.35s, border-color 0.35s" }}
             >
               <div
                 className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
-                style={{ background: "#1a2744" }}
+                style={{ background: dark ? "#1a2744" : "#e2eaf8" }}
               >
                 <span className="text-xl">⚡</span>
               </div>
               <div>
-                <p className="font-bold text-white text-[14px] mb-0.5">ตอบกลับไว</p>
-                <p className="text-[12px]" style={{ color: MUTED }}>ภายใน 24 ชม. ทุกวัน</p>
+                <p className="font-bold text-[14px] mb-0.5" style={{ color: t.heading }}>ตอบกลับไว</p>
+                <p className="text-[12px]" style={{ color: t.muted }}>ภายใน 24 ชม. ทุกวัน</p>
               </div>
             </div>
           </div>
@@ -529,12 +598,12 @@ export default function PortfolioPage() {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="py-8 px-6" style={{ background: "#02040a", borderTop: `1px solid ${BORDER}` }}>
+      <footer className="py-8 px-6" style={{ background: t.footer, borderTop: `1px solid ${t.border}`, transition: "background 0.35s, border-color 0.35s" }}>
         <div className="max-w-[1080px] mx-auto flex items-center justify-between flex-wrap gap-3">
-          <span className="text-[13px] font-black" style={{ color: "#1a2744" }}>
-            Ren<span style={{ color: ACCENT }}>Stack</span>
+          <span className="text-[13px] font-black" style={{ color: t.footerBrand }}>
+            Ren<span style={{ color: t.accent }}>Stack</span>
           </span>
-          <p className="text-[12px]" style={{ color: "#1e2d45" }}>© 2026 Renrawin Nuanin · Full Stack Developer</p>
+          <p className="text-[12px]" style={{ color: t.footerText }}>© 2026 Renrawin Nuanin · Full Stack Developer</p>
         </div>
       </footer>
     </div>
