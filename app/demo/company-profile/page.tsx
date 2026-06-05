@@ -180,9 +180,8 @@ export default function CompanyProfilePage() {
           </div>
 
           <h1 className="font-black leading-[1.35] mb-8" style={{ fontSize: "clamp(2rem, 6vw, 3.8rem)", color: "#fff" }}>
-            <span className="block" style={{ animation: "hero-text-1 0.7s 0.1s ease both", opacity: 0 }}>สร้างเว็บ</span>
-            <span className="block" style={{ animation: "hero-text-2 0.7s 0.2s ease both", opacity: 0 }}>ที่คน</span>
-            <span className="block" style={{ color: AMBER, animation: "hero-text-3 0.7s 0.3s ease both", opacity: 0 }}>จำได้</span>
+            <span className="block" style={{ animation: "hero-text-1 0.7s 0.1s ease both", opacity: 0 }}>สร้างเว็บที่คน</span>
+            <span className="block" style={{ color: AMBER, animation: "hero-text-2 0.7s 0.2s ease both", opacity: 0 }}>จำได้</span>
           </h1>
 
           <p className="text-[16px] leading-relaxed mb-10 max-w-[480px]" style={{ color: "#9ca3af", animation: "fade-up 0.7s 0.4s ease both", opacity: 0 }}>

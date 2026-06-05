@@ -291,8 +291,7 @@ export default function PortfolioPage() {
             className="font-black leading-[1.35] mb-6"
             style={{ fontSize: "clamp(2rem, 5.5vw, 3.5rem)", color: t.heading, animation: "fade-up 0.7s 0.1s ease both", opacity: 0 }}
           >
-            <span className="block">สร้างเว็บ</span>
-            <span className="block">ที่ธุรกิจ</span>
+            <span className="block">สร้างเว็บที่ธุรกิจ</span>
             <span className="block" style={{ color: t.cyan }}>เติบโตจริง</span>
           </h1>
 
