@@ -59,6 +59,10 @@ export default function TopupPage() {
   const [txId, setTxId]             = useState("");
   const [scrolled, setScrolled]     = useState(false);
   const [hoveredGame, setHoveredGame] = useState<string | null>(null);
+  const [showLogin, setShowLogin]   = useState(false);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPass, setLoginPass]   = useState("");
+  const [loginDone, setLoginDone]   = useState(false);
   const topupRef = useRef<HTMLDivElement>(null);
 
   const game    = GAMES.find((g) => g.id === gameId)!;
@@ -141,14 +145,19 @@ export default function TopupPage() {
 
           {/* nav links */}
           <div className="hidden md:flex items-center gap-7">
-            {["หน้าหลัก", "เกม", "โปรโมชัน", "เติมเงิน"].map((l) => (
+            {[
+              { label: "หน้าหลัก",  action: () => window.scrollTo({ top: 0, behavior: "smooth" }) },
+              { label: "เกม",       action: () => document.getElementById("games")?.scrollIntoView({ behavior: "smooth" }) },
+              { label: "โปรโมชัน", action: () => document.getElementById("promotions")?.scrollIntoView({ behavior: "smooth" }) },
+              { label: "เติมเงิน", action: scrollToTopup },
+            ].map(({ label, action }) => (
               <button
-                key={l}
-                onClick={l === "เติมเงิน" ? scrollToTopup : undefined}
+                key={label}
+                onClick={action}
                 className="text-[13px] transition-colors cursor-pointer"
                 style={{ color: "#64748b" }}
               >
-                {l}
+                {label}
               </button>
             ))}
           </div>
@@ -156,6 +165,7 @@ export default function TopupPage() {
           {/* cta buttons */}
           <div className="flex items-center gap-2">
             <button
+              onClick={() => setShowLogin(true)}
               className="hidden sm:block text-[12px] px-4 py-2 rounded-xl transition-all cursor-pointer"
               style={{ border: `1px solid ${BORDER}`, color: "#94a3b8" }}
             >
@@ -274,6 +284,7 @@ export default function TopupPage() {
             {GAMES.map((g) => (
               <div
                 key={g.id}
+                onClick={() => { setGameId(g.id); scrollToTopup(); }}
                 className="rounded-2xl overflow-hidden cursor-pointer transition-all"
                 style={{
                   border: `1px solid ${BORDER}`,
@@ -354,7 +365,7 @@ export default function TopupPage() {
       </section>
 
       {/* ══ PROMOTIONS ════════════════════════════════════════════ */}
-      <section className="py-20 px-5" style={{ background: "#07090e" }}>
+      <section id="promotions" className="py-20 px-5" style={{ background: "#07090e" }}>
         <div className="max-w-[1100px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: CYAN }}>
             PROMOTIONS
@@ -369,6 +380,7 @@ export default function TopupPage() {
                 desc: "สมัครครั้งแรก รับโบนัสเหรียญเพิ่ม 10% ในการเติมเงินครั้งแรก",
                 gradient: "linear-gradient(135deg, #78350f 0%, #b45309 55%, #f59e0b 100%)",
                 badge: null,
+                packId: 2,
               },
               {
                 title: "โบนัส +15%",
@@ -376,6 +388,7 @@ export default function TopupPage() {
                 desc: "เติมเงินตั้งแต่ 200 บาท รับโบนัสเพิ่มทุกครั้ง ไม่จำกัดจำนวน",
                 gradient: "linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 55%, #3b82f6 100%)",
                 badge: null,
+                packId: 3,
               },
               {
                 title: "สูงสุด +40%",
@@ -383,11 +396,13 @@ export default function TopupPage() {
                 desc: "แพ็กใหญ่สุดคุ้ม รับเหรียญเพิ่ม 40% เฉพาะแพ็ก 2,000 บาทขึ้นไป",
                 gradient: "linear-gradient(135deg, #3b0764 0%, #7e22ce 55%, #a855f7 100%)",
                 badge: "HOT",
+                packId: 6,
               },
             ].map((promo) => (
               <div
                 key={promo.title}
-                className="rounded-2xl overflow-hidden relative"
+                onClick={() => { setPackId(promo.packId); scrollToTopup(); }}
+                className="rounded-2xl overflow-hidden relative cursor-pointer transition-all"
                 style={{ border: `1px solid ${BORDER}` }}
               >
                 {promo.badge && (
@@ -851,6 +866,121 @@ export default function TopupPage() {
           </div>
         </div>
       </section>
+
+      {/* ══ LOGIN MODAL ═══════════════════════════════════════════ */}
+      {showLogin && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(6px)" }}
+          onClick={(e) => { if (e.target === e.currentTarget) setShowLogin(false); }}
+        >
+          <div
+            className="w-full max-w-sm rounded-2xl overflow-hidden"
+            style={{ background: CARD, border: `1px solid ${BORDER}` }}
+          >
+            {/* header */}
+            <div
+              className="px-6 py-5 flex items-center justify-between"
+              style={{ borderBottom: `1px solid ${BORDER}` }}
+            >
+              <div className="flex items-center gap-2">
+                <div
+                  className="w-7 h-7 rounded-lg flex items-center justify-center"
+                  style={{ background: "linear-gradient(135deg, #1d4ed8, #2563eb)" }}
+                >
+                  <Zap size={13} color="#fff" fill="#fff" />
+                </div>
+                <span className="font-black tracking-widest text-sm" style={{ color: ACCENT }}>VOLT</span>
+              </div>
+              <button
+                onClick={() => setShowLogin(false)}
+                className="text-[20px] leading-none cursor-pointer"
+                style={{ color: "#475569" }}
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="p-6">
+              {loginDone ? (
+                <div className="text-center py-4">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3"
+                    style={{ background: "#10b98118" }}
+                  >
+                    <CheckCircle size={30} color="#10b981" />
+                  </div>
+                  <p className="text-white font-bold">เข้าสู่ระบบสำเร็จ!</p>
+                  <p className="text-[12px] mt-1" style={{ color: "#475569" }}>{loginEmail}</p>
+                  <button
+                    onClick={() => { setShowLogin(false); setLoginDone(false); setLoginEmail(""); setLoginPass(""); }}
+                    className="mt-5 w-full py-3 rounded-xl text-sm font-bold cursor-pointer"
+                    style={{ background: ACCENT, color: "#fff" }}
+                  >
+                    ดำเนินการต่อ
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <p className="text-white font-bold text-[15px] mb-1">เข้าสู่ระบบ</p>
+                  <p className="text-[12px] mb-5" style={{ color: "#475569" }}>ยินดีต้อนรับกลับสู่ VOLT Gaming</p>
+
+                  <div className="space-y-3">
+                    <div>
+                      <label className="text-[11px] tracking-widest uppercase block mb-1.5" style={{ color: "#475569" }}>
+                        อีเมล
+                      </label>
+                      <input
+                        type="email"
+                        value={loginEmail}
+                        onChange={(e) => setLoginEmail(e.target.value)}
+                        placeholder="กรอกอีเมล"
+                        className="w-full text-sm px-4 py-3 rounded-xl outline-none"
+                        style={{ background: BG, border: `1px solid ${BORDER}`, color: TEXT }}
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[11px] tracking-widest uppercase block mb-1.5" style={{ color: "#475569" }}>
+                        รหัสผ่าน
+                      </label>
+                      <input
+                        type="password"
+                        value={loginPass}
+                        onChange={(e) => setLoginPass(e.target.value)}
+                        placeholder="กรอกรหัสผ่าน"
+                        className="w-full text-sm px-4 py-3 rounded-xl outline-none"
+                        style={{ background: BG, border: `1px solid ${BORDER}`, color: TEXT }}
+                        onKeyDown={(e) => { if (e.key === "Enter" && loginEmail && loginPass) setLoginDone(true); }}
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => { if (loginEmail && loginPass) setLoginDone(true); }}
+                    className="mt-4 w-full py-3 rounded-xl text-sm font-bold cursor-pointer transition-all"
+                    style={{
+                      background: loginEmail && loginPass ? `linear-gradient(90deg, #1d4ed8, ${ACCENT})` : BORDER,
+                      color: loginEmail && loginPass ? "#fff" : "#475569",
+                    }}
+                  >
+                    เข้าสู่ระบบ
+                  </button>
+
+                  <div className="mt-3 text-center">
+                    <button
+                      onClick={() => { setLoginEmail("demo@volt.gg"); setLoginPass("demo1234"); }}
+                      className="text-[11px] cursor-pointer"
+                      style={{ color: CYAN }}
+                    >
+                      ใช้บัญชี Demo
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ══ FOOTER ════════════════════════════════════════════════ */}
       <footer className="py-10 px-5" style={{ background: "#02040a", borderTop: `1px solid ${BORDER}` }}>
