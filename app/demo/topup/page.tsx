@@ -240,7 +240,7 @@ export default function TopupPage() {
 
           <h1
             className="font-black leading-[1.0] mb-6"
-            style={{ fontSize: "clamp(2.8rem, 9vw, 6rem)", color: "#fff" }}
+            style={{ fontSize: "clamp(2rem, 5.5vw, 3.5rem)", color: "#fff" }}
           >
             <span className="block">เติมเกมทุกเกม</span>
             <span className="block" style={{ color: CYAN }}>ในที่เดียว</span>
@@ -282,7 +282,7 @@ export default function TopupPage() {
                 style={{ background: CARD, border: `1px solid ${BORDER}` }}
               >
                 <div className="flex items-center gap-2 mb-2">{icon}<span className="text-[11px]" style={{ color: "#334155" }}>{label}</span></div>
-                <p className="text-[1.6rem] font-black leading-tight" style={{ color: "#fff" }}>{val}</p>
+                <p className="text-[1.35rem] font-black leading-tight" style={{ color: "#fff" }}>{val}</p>
               </div>
             ))}
           </div>
@@ -302,7 +302,7 @@ export default function TopupPage() {
       <section id="games" className="py-20 px-5" style={{ background: "#07090e" }}>
         <div className="max-w-[1100px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: CYAN }}>GAMES</p>
-          <h2 className="text-[2rem] font-black mb-2 text-white">เกมยอดนิยม</h2>
+          <h2 className="text-[1.5rem] font-black mb-2 text-white">เกมยอดนิยม</h2>
           <p className="text-[13px] mb-10" style={{ color: "#334155" }}>กดที่การ์ดเพื่อเลือกเกมและเริ่มเติมเงิน</p>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -358,7 +358,7 @@ export default function TopupPage() {
       <section className="py-20 px-5" style={{ background: "#0a0f1a" }}>
         <div className="max-w-[1100px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: CYAN }}>HOW IT WORKS</p>
-          <h2 className="text-[2rem] font-black mb-14 text-white">วิธีเติมเงิน ง่ายใน 3 ขั้น</h2>
+          <h2 className="text-[1.5rem] font-black mb-14 text-white">วิธีเติมเงิน ง่ายใน 3 ขั้น</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -393,7 +393,7 @@ export default function TopupPage() {
       <section id="promotions" className="py-20 px-5" style={{ background: "#07090e" }}>
         <div className="max-w-[1100px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: CYAN }}>PROMOTIONS</p>
-          <h2 className="text-[2rem] font-black mb-2 text-white">โปรโมชันพิเศษ</h2>
+          <h2 className="text-[1.5rem] font-black mb-2 text-white">โปรโมชันพิเศษ</h2>
           <p className="text-[13px] mb-10" style={{ color: "#334155" }}>กดที่โปรโมชันเพื่อเลือกแพ็กเกจที่ตรงกันทันที</p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -453,7 +453,7 @@ export default function TopupPage() {
       <section id="topup" ref={topupRef} className="py-20 px-5" style={{ background: "#0a0f1a" }}>
         <div className="max-w-[1100px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: CYAN }}>TOP-UP</p>
-          <h2 className="text-[2rem] font-black mb-10 text-white">เติมเงินเลย</h2>
+          <h2 className="text-[1.5rem] font-black mb-10 text-white">เติมเงินเลย</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-5">
 
@@ -761,7 +761,7 @@ export default function TopupPage() {
       <section className="py-20 px-5" style={{ background: BG }}>
         <div className="max-w-[1100px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: CYAN }}>REVIEWS</p>
-          <h2 className="text-[2rem] font-black mb-12 text-white">ลูกค้าพูดถึงเรา</h2>
+          <h2 className="text-[1.5rem] font-black mb-12 text-white">ลูกค้าพูดถึงเรา</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               { name: "ต้นน้ำ K.", game: "ROV Player",      quote: "เติมเร็วมาก แค่ไม่กี่วิได้ Voucher เลย ไม่ต้องรอนานเหมือนที่อื่น", avatar: "T" },

@@ -179,7 +179,7 @@ export default function CompanyProfilePage() {
             <span className="text-[11px] font-semibold tracking-[0.2em]" style={{ color: AMBER }}>WEB DEVELOPMENT STUDIO · กรุงเทพฯ</span>
           </div>
 
-          <h1 className="font-black leading-[1.0] mb-8" style={{ fontSize: "clamp(3rem, 10vw, 6.5rem)", color: "#fff" }}>
+          <h1 className="font-black leading-[1.0] mb-8" style={{ fontSize: "clamp(2rem, 6vw, 3.8rem)", color: "#fff" }}>
             <span className="block" style={{ animation: "hero-text-1 0.7s 0.1s ease both", opacity: 0 }}>สร้างเว็บ</span>
             <span className="block" style={{ animation: "hero-text-2 0.7s 0.2s ease both", opacity: 0 }}>ที่คน</span>
             <span className="block" style={{ color: AMBER, animation: "hero-text-3 0.7s 0.3s ease both", opacity: 0 }}>จำได้</span>
@@ -207,7 +207,7 @@ export default function CompanyProfilePage() {
               { val: `${deliveryRate}%`, label: "ส่งงานทุกกำหนด" },
             ].map((s) => (
               <div key={s.label}>
-                <p className="text-[2.2rem] font-black leading-tight" style={{ color: "#fff" }}>{s.val}</p>
+                <p className="text-[1.7rem] font-black leading-tight" style={{ color: "#fff" }}>{s.val}</p>
                 <p className="text-[12px]" style={{ color: "#4b5563" }}>{s.label}</p>
               </div>
             ))}
@@ -240,7 +240,7 @@ export default function CompanyProfilePage() {
       <section id="services" className="py-24 px-6" style={{ background: BODY }}>
         <div className="max-w-[960px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: AMBER }}>SERVICES</p>
-          <h2 className="text-[2.2rem] font-black mb-14" style={{ color: CHAR }}>บริการ</h2>
+          <h2 className="text-[1.6rem] font-black mb-14" style={{ color: CHAR }}>บริการ</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {SERVICES.map((s) => (
               <div
@@ -277,7 +277,7 @@ export default function CompanyProfilePage() {
       <section id="portfolio" className="py-24 px-6" style={{ background: GRAY_BG }}>
         <div className="max-w-[960px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: AMBER }}>WORK</p>
-          <h2 className="text-[2.2rem] font-black mb-14" style={{ color: CHAR }}>ผลงานล่าสุด</h2>
+          <h2 className="text-[1.6rem] font-black mb-14" style={{ color: CHAR }}>ผลงานล่าสุด</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {PORTFOLIO.map((p, idx) => (
               <div
@@ -318,7 +318,7 @@ export default function CompanyProfilePage() {
       <section className="py-24 px-6" style={{ background: BODY }}>
         <div className="max-w-[960px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: AMBER }}>REVIEWS</p>
-          <h2 className="text-[2.2rem] font-black mb-14" style={{ color: CHAR }}>ลูกค้าพูดถึงเรา</h2>
+          <h2 className="text-[1.6rem] font-black mb-14" style={{ color: CHAR }}>ลูกค้าพูดถึงเรา</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {TESTIMONIALS.map((t) => (
               <div key={t.name} className="rounded-2xl p-6" style={{ background: CARD, border: `1px solid #e8e3da`, boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
@@ -343,7 +343,7 @@ export default function CompanyProfilePage() {
       <section id="pricing" className="py-24 px-6" style={{ background: GRAY_BG }}>
         <div className="max-w-[960px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: AMBER }}>PRICING</p>
-          <h2 className="text-[2.2rem] font-black mb-3" style={{ color: CHAR }}>ราคา</h2>
+          <h2 className="text-[1.6rem] font-black mb-3" style={{ color: CHAR }}>ราคา</h2>
           <p className="text-[14px] mb-14" style={{ color: MUTED }}>ราคาเริ่มต้น ปรับได้ตามขอบเขตงาน</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {PLANS.map((plan) => (
@@ -397,7 +397,7 @@ export default function CompanyProfilePage() {
       <section id="contact" className="py-24 px-6" style={{ background: BODY }}>
         <div className="max-w-[960px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: AMBER }}>CONTACT</p>
-          <h2 className="text-[2.2rem] font-black mb-14" style={{ color: CHAR }}>เริ่มต้นโปรเจค</h2>
+          <h2 className="text-[1.6rem] font-black mb-14" style={{ color: CHAR }}>เริ่มต้นโปรเจค</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-[1fr_260px] gap-8">
             {formDone ? (

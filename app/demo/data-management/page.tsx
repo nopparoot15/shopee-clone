@@ -242,7 +242,7 @@ export default function DataManagementPage() {
               <span className="text-[16px] font-black" style={{ color: TEXT }}>Nexus<span style={{ color: ACCENT }}> Admin</span></span>
             </div>
 
-            <h2 className="text-[24px] font-black mb-1" style={{ color: TEXT }}>ยินดีต้อนรับกลับ</h2>
+            <h2 className="text-[20px] font-black mb-1" style={{ color: TEXT }}>ยินดีต้อนรับกลับ</h2>
             <p className="text-[13px] mb-8" style={{ color: MUTED }}>เข้าสู่ระบบเพื่อจัดการข้อมูลองค์กร</p>
 
             <div className="space-y-4 mb-4">
@@ -422,7 +422,7 @@ export default function DataManagementPage() {
                     <p className="text-[11px]" style={{ color: "#94a3b8" }}>{s.label}</p>
                     <Sparkline data={s.data} color={s.color} />
                   </div>
-                  <p className="text-[22px] font-black leading-tight" style={{ color: TEXT }}>{s.val}</p>
+                  <p className="text-[18px] font-black leading-tight" style={{ color: TEXT }}>{s.val}</p>
                   <div className="flex items-center gap-1">
                     {s.up ? <TrendingUp size={11} color="#10b981" /> : <TrendingDown size={11} color="#ef4444" />}
                     <span className="text-[10px]" style={{ color: s.up ? "#10b981" : "#ef4444" }}>
@@ -647,7 +647,7 @@ export default function DataManagementPage() {
               ].map((s) => (
                 <div key={s.label} className="rounded-2xl px-4 py-3" style={{ background: WHITE, border: `1px solid ${BORDER}` }}>
                   <p className="text-[11px] mb-1" style={{ color: "#94a3b8" }}>{s.label}</p>
-                  <p className="text-[22px] font-black leading-tight" style={{ color: TEXT }}>{s.val}</p>
+                  <p className="text-[18px] font-black leading-tight" style={{ color: TEXT }}>{s.val}</p>
                   <p className="text-[10px] mt-0.5" style={{ color: s.up ? "#10b981" : "#ef4444" }}>{s.sub}</p>
                 </div>
               ))}

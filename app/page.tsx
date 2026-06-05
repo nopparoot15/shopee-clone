@@ -289,7 +289,7 @@ export default function PortfolioPage() {
 
           <h1
             className="font-black leading-[1.05] mb-6"
-            style={{ fontSize: "clamp(2.8rem, 9vw, 6rem)", color: t.heading, animation: "fade-up 0.7s 0.1s ease both", opacity: 0 }}
+            style={{ fontSize: "clamp(2rem, 5.5vw, 3.5rem)", color: t.heading, animation: "fade-up 0.7s 0.1s ease both", opacity: 0 }}
           >
             <span className="block">สร้างเว็บ</span>
             <span className="block">ที่ธุรกิจ</span>
@@ -332,7 +332,7 @@ export default function PortfolioPage() {
               { val: "3 ปี",          label: "ประสบการณ์" },
             ].map(({ val, label }) => (
               <div key={label}>
-                <p className="text-[2.2rem] font-black leading-tight" style={{ color: t.heading }}>{val}</p>
+                <p className="text-[1.7rem] font-black leading-tight" style={{ color: t.heading }}>{val}</p>
                 <p className="text-[12px]" style={{ color: t.muted }}>{label}</p>
               </div>
             ))}
@@ -353,7 +353,7 @@ export default function PortfolioPage() {
       <section id="projects" className="py-24 px-6" style={{ background: t.section1, transition: "background 0.35s" }}>
         <div className="max-w-[1080px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: t.cyan }}>PORTFOLIO</p>
-          <h2 className="text-[2.2rem] font-black mb-3" style={{ color: t.heading }}>ผลงาน</h2>
+          <h2 className="text-[1.6rem] font-black mb-3" style={{ color: t.heading }}>ผลงาน</h2>
           <p className="text-[14px] mb-14" style={{ color: t.muted }}>โปรเจคที่พร้อม Demo ใช้งานได้จริง — กดที่การ์ดเพื่อเปิด Demo</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -436,7 +436,7 @@ export default function PortfolioPage() {
       <section id="skills" className="py-24 px-6" style={{ background: t.section2, transition: "background 0.35s" }}>
         <div className="max-w-[1080px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: t.cyan }}>STACK</p>
-          <h2 className="text-[2.2rem] font-black mb-4" style={{ color: t.heading }}>ทักษะและเทคโนโลยี</h2>
+          <h2 className="text-[1.6rem] font-black mb-4" style={{ color: t.heading }}>ทักษะและเทคโนโลยี</h2>
           <p className="text-[14px] mb-12" style={{ color: t.muted }}>
             ครอบคลุมตั้งแต่ Frontend → Backend → Infrastructure Deploy จริง
           </p>
@@ -509,7 +509,7 @@ export default function PortfolioPage() {
       <section id="contact" className="py-24 px-6" style={{ background: t.bg, transition: "background 0.35s" }}>
         <div className="max-w-[1080px] mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.2em] mb-3" style={{ color: t.cyan }}>CONTACT</p>
-          <h2 className="text-[2.2rem] font-black mb-3" style={{ color: t.heading }}>เริ่มต้นโปรเจคด้วยกัน</h2>
+          <h2 className="text-[1.6rem] font-black mb-3" style={{ color: t.heading }}>เริ่มต้นโปรเจคด้วยกัน</h2>
           <p className="text-[14px] mb-12" style={{ color: t.muted }}>ปรึกษาฟรี ไม่มีค่าใช้จ่าย ตอบกลับภายใน 24 ชั่วโมง</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-[640px]">
