@@ -288,7 +288,7 @@ export default function PortfolioPage() {
           </div>
 
           <h1
-            className="font-black leading-[1.05] mb-6"
+            className="font-black leading-[1.35] mb-6"
             style={{ fontSize: "clamp(2rem, 5.5vw, 3.5rem)", color: t.heading, animation: "fade-up 0.7s 0.1s ease both", opacity: 0 }}
           >
             <span className="block">สร้างเว็บ</span>

@@ -239,7 +239,7 @@ export default function TopupPage() {
           </div>
 
           <h1
-            className="font-black leading-[1.0] mb-6"
+            className="font-black leading-[1.35] mb-6"
             style={{ fontSize: "clamp(2rem, 5.5vw, 3.5rem)", color: "#fff" }}
           >
             <span className="block">เติมเกมทุกเกม</span>
