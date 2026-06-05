@@ -158,7 +158,7 @@ function useCounter(target: number, duration = 1800) {
 export default function PortfolioPage() {
   const [scrolled, setScrolled] = useState(false);
   const [hovered, setHovered]   = useState<string | null>(null);
-  const [dark, setDark]         = useState(true);
+  const [dark, setDark]         = useState(false);
   const t = dark ? THEMES.dark : THEMES.light;
 
   const projects  = useCounter(50);
